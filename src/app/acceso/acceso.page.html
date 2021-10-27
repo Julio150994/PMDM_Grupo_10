@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Acceso a almagest</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-button *ngFor="let boton of botones" color="{{ boton.color }}"
+      routerLink="{{ boton.ruta }}">
+    <ion-icon name="{{ boton.icono }}"></ion-icon>
+    <ion-label>{{ boton.nombre }}</ion-label>
+  </ion-button>
+</ion-content>
+
+<ion-footer class="pie">
+  @Copyright 2021. Todos los derechos reservados
+</ion-footer>
