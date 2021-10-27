@@ -22,21 +22,11 @@
             <ion-label>{{ usuario.firstname }}</ion-label>
             <ion-label>{{ usuario.secondname }}</ion-label>
             <ion-label>{{ usuario.email }}</ion-label>
-            <ion-button color="success" (click)="onActivar()">
-              <ion-icon name="play-outline"></ion-icon>
-              Activar
-            </ion-button>
-            <ion-button color="warning" (click)="onDesactivar()">
-              <ion-icon name="pause-outline"></ion-icon>
-              Desactivar
-            </ion-button>
-            <ion-button color="tertiary" routerLink="/editar-usuario" (click)="onEditar()">
-              <ion-icon name="person-circle-outline"></ion-icon>
-              Editar
-            </ion-button>
-            <ion-button color="danger" (click)="onEliminar()">
-              <ion-icon name="trash-outline"></ion-icon>
-              Eliminar
+
+            <ion-button *ngFor="let funcion of botones" color="{{ funcion.color }}"
+              routerLink="{{ funcion.ruta }}">
+                <ion-icon name="{{ funcion.icono }}"></ion-icon>
+                <ion-label>{{ funcion.nombre }}</ion-label>
             </ion-button>
         </ion-item>
     </ion-item-sliding>

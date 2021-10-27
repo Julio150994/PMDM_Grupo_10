@@ -10,26 +10,57 @@ export class InicioPage implements OnInit {
   /** Para los usuarios normales */
   usuarios: ListaUsuarios[] = [
     {
+      id: 1,
       firstname: 'Raúl',
       secondname: 'Reyes',
       email: 'raulmailto@gmail.com'
     },
     {
+      id: 2,
       firstname: 'Félix',
       secondname: 'Reyes',
       email: 'felixmailto@gmail.com'
     },
     {
+      id: 3,
       firstname: 'Rafa',
       secondname: 'Muñoz',
       email: 'rafamailto@gmail.com'
     }
   ];
 
+  /** Para mostrar los botones correspondientes al enunciado del trabajo */
+  botones: Operaciones[] = [
+    {
+      nombre: 'Activar',
+      ruta: '/inicio',
+      color: 'success',
+      icono: 'play-outline'
+    },
+    {
+      nombre: 'Desactivar',
+      ruta: '/inicio',
+      color: 'warning',
+      icono: 'pause-outline'
+    },
+    {
+      nombre: 'Editar',
+      ruta: '/editar-usuario',
+      color: 'tertiary',
+      icono: 'person-circle-outline'
+    },
+    {
+      nombre: 'Eliminar',
+      ruta: '/inicio',
+      color: 'danger',
+      icono: 'trash-outline'
+    }
+  ];
+
   constructor(private usuariosService: UsuariosService) { }
 
   ngOnInit() {
-    console.log('Estás en la pestaña de inicio');
+    console.log('Estás en la pestaña del usuario administrador');
   }
 
   /** Eventos para la gestión de usuarios */
@@ -37,7 +68,7 @@ export class InicioPage implements OnInit {
     console.log('¡admin ha cerrado la sesión!');
   }
 
-  onActivar() {
+  /*onActivar() {
     console.log('¡Usuario activado correctamente!');
   }
 
@@ -51,7 +82,7 @@ export class InicioPage implements OnInit {
 
   onEliminar() {
     console.log('Has pulsado a eliminar');
-  }
+  }*/
 
   /** Para mostrar los usuarios, obtenidos en el servicio */
   listarUsuarios() {
@@ -64,7 +95,15 @@ export class InicioPage implements OnInit {
 }
 
 interface ListaUsuarios {
+  id: number;
   firstname: string;
   secondname: string;
   email: string;
+}
+
+interface Operaciones {
+  nombre: string;
+  ruta: string;
+  color: string;
+  icono: string;
 }

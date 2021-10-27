@@ -16,9 +16,6 @@
     <ion-list>
       <ion-list-header>Validación de usuario: {{ almagest.valid }}</ion-list-header>
       <ion-item id="dato_usuario">
-        <ion-label color="danger" *ngIf="usuario.controls.email.errors?.required">
-          * Tiene que introducir el email
-        </ion-label>
         <ion-label position="floating">Email:</ion-label>
         <ion-input type="email" name="email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
             [(ngModel)]="usuario.email">
@@ -26,9 +23,6 @@
       </ion-item>
 
       <ion-item id="dato_usuario">
-        <ion-label color="danger" *ngIf="usuario.controls.email.errors?.required">
-          * Tiene que introducir la contraseña
-        </ion-label>
         <ion-label position="floating">Password:</ion-label>
         <ion-input type="password" name="password" [(ngModel)]="usuario.password"></ion-input>
       </ion-item>
