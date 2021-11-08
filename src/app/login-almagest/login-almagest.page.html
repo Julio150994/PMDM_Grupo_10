@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title id="titulo">Login usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-item>
+       <ion-img src="/assets/images/login.png" class="imagen"></ion-img>
+    </ion-item>
+
+    <form [formGroup]="user" (ngSubmit)="loginUsuario()">
+      <ion-item id="dato_usuario">
+        <ion-label position="floating">Email:</ion-label>
+        <ion-input formControlName="email" type="email" name="email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+            [(ngModel)]="user.email">
+        </ion-input>
+      </ion-item>
+      <ion-label color="danger" *ngIf="user.controls.email.errors?.required && (user.touched || user.dirty)">
+        * Debe introducir su email.
+      </ion-label>
+      <ion-label color="danger" *ngIf="user.controls.email.errors?.email && (user.touched || user.dirty)">
+        * Su email no es válido.
+      </ion-label>
+
+      <ion-item id="dato_usuario">
+        <ion-label position="floating">Contraseña:</ion-label>
+        <ion-input formControlName="password" type="password" name="password" [(ngModel)]="user.password">
+        </ion-input>
+      </ion-item>
+      <ion-label color="danger" *ngIf="user.controls.password.errors?.required && (user.touched || user.dirty)">
+        * Debe introducir su contraseña.
+      </ion-label>
+      <ion-label color="danger" *ngIf="user.controls.password.errors?.minLength && (user.touched || user.dirty)">
+        * Su contraseña debe tener al menos 5 caracteres.
+      </ion-label>
+      
+      <ion-button color="success" expand="full" (click)="toRegister()" id="botonRegister">
+        <ion-icon name="person-add"></ion-icon>
+        Registrar usuario
+      </ion-button>
+
+      <!--<ion-item id="dato_usuario">
+        <ion-label position="floating">Confirmar email:</ion-label>
+        <ion-input formControlName="c_email" type="email" name="c_email" [(ngModel)]="user.c_email"></ion-input>
+      </ion-item>
+       <ion-label color="danger" *ngIf="user.controls.c_email.errors?.required && (user.touched || user.dirty)">
+        * Debe introducir el mismo email que anteriormente.
+      </ion-label>
+      <ion-label color="danger" *ngIf="user.controls.c_email.errors?.email && (user.touched || user.dirty)">
+        * El email introducido no es válido.
+      </ion-label>-->
+
+      <ion-button color="tertiary" expand="full" type="submit" [disabled]="!user.valid" id="botonLogin">
+        <ion-icon name="log-in"></ion-icon>
+        Sign In
+      </ion-button>
+  </form>
+</ion-content>

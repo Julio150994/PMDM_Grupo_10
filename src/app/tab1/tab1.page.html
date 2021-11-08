@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="onLogout()">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+          Logout
+      </ion-button>
+    </ion-buttons>
+    <ion-title id="titulo">Pestaña de administrador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-item>
+      <ion-label>Id</ion-label>
+      <ion-label>Nombre</ion-label>
+      <ion-label>Apellido</ion-label>
+      <ion-label>Email</ion-label>
+      <ion-label>Gestionar usuario</ion-label>
+    </ion-item>
+    <!-- Cuando no tengamos datos en la base de datos -->
+    <ion-label *ngIf="!users" class="text-danger">Debe iniciar sesión para mostrar los usuarios.</ion-label>
+
+    <ion-item-sliding *ngFor="let user of users | orderBy:'id'">
+        <!-- Mostramos los usuarios, excepto al administrador -->
+        <ion-item *ngIf="user.type === 'u'">
+            <ion-label>{{ user.id }}</ion-label>
+            <ion-label>{{ user.firstname }}</ion-label>
+            <ion-label>{{ user.secondname }}</ion-label>
+            <ion-label>{{ user.email }}</ion-label>
+            
+            <ion-button *ngFor="let function of buttons; let item = index;" color="{{ function.color }}"
+              routerLink="{{ function.ruta }}">
+                <ion-icon name="{{ function.icono }}"></ion-icon>
+                <ion-label *ngIf="item === 0" (click)="getUserActived()" id="actived">{{ function.nombre }}</ion-label>
+                <ion-label *ngIf="item === 1" (click)="onEditar()" id="update">{{ function.nombre }}</ion-label>
+                <ion-label *ngIf="item === 2" (click)="onEliminar()" id="delete">{{ function.nombre }}</ion-label>
+            </ion-button>
+        </ion-item>
+    </ion-item-sliding>
+</ion-content>

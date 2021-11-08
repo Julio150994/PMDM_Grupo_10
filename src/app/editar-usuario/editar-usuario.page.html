@@ -1,0 +1,91 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title id="titulo">Editar usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <!--<form [formGroup]="user" (ngSubmit)="editar()">
+      <ion-item id="dato_usuario">
+        <ion-label position="floating">Nombre:</ion-label>
+        <ion-input formControlName="firstname" type="text" [(ngModel)]="user.firstname"></ion-input>
+      </ion-item>
+    
+      <ion-label color="danger" *ngIf="user.controls.firstname.errors?.required && (user.touched || user.dirty)">
+        * Debe introducir un nombre.
+      </ion-label>
+      <ion-label color="danger" *ngIf="user.controls.firstname.errors?.minLength && (user.touched || user.dirty)">
+        * Su nombre debe tener al menos 3 caracteres.
+      </ion-label>
+    
+      <ion-item id="dato_usuario">
+        <ion-label position="floating">Apellido:</ion-label>
+        <ion-input formControlName="secondname" type="text" [(ngModel)]="user.secondname"></ion-input>
+      </ion-item>
+      <ion-label color="danger" *ngIf="user.controls.secondname.errors?.required && (user.touched || user.dirty)">
+        * Debe introducir un apellido.
+      </ion-label>
+      <ion-label color="danger" *ngIf="user.controls.secondname.errors?.minLength && (user.touched || user.dirty)">
+        * Su apellido debe tener al menos 3 caracteres.
+      </ion-label>
+
+      <ion-item id="dato_usuario">
+        <ion-label position="floating">Email:</ion-label>
+        <ion-input formControlName="email" type="email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+          [(ngModel)]="user.email">
+        </ion-input>
+      </ion-item>
+      <ion-label color="danger" *ngIf="user.controls.email.errors?.required && (user.touched || user.dirty)">
+        * Debe introducir un email.
+      </ion-label>
+      <ion-label color="danger" *ngIf="user.controls.email.errors?.email && (user.touched || user.dirty)">
+        * El email no es válido.
+      </ion-label>
+
+      <ion-item id="dato_usuario">
+        <ion-label position="floating">Contraseña:</ion-label>
+        <ion-input formControlName="password" type="password" [(ngModel)]="user.password"></ion-input>
+      </ion-item>
+      <ion-label color="danger" *ngIf="user.controls.password.errors?.required && (user.touched || user.dirty)">
+        * Debe introducir una contraseña.
+      </ion-label>
+      <ion-label color="danger" *ngIf="user.controls.password.errors?.minLength && (user.touched || user.dirty)">
+        * La contraseña debe tener al menos 5 caracteres.
+      </ion-label>
+
+      <ion-item id="dato_usuario">
+        <ion-label position="floating">Confirma su contraseña:</ion-label>
+        <ion-input formControlName="c_password" type="password" [(ngModel)]="user.c_password"></ion-input>
+      </ion-item>
+      <ion-label color="danger" *ngIf="user.controls.c_password.errors?.required && (user.touched || user.dirty)">
+        * Debe introducir la mísma contraseña.
+      </ion-label>
+      <ion-label color="danger" *ngIf="user.controls.c_password.errors?.minLength && (user.touched || user.dirty)">
+        * La contraseña debe tener al menos 5 caracteres.
+      </ion-label>
+
+      <ion-item id="dato_usuario">
+      <ion-label>Nombre de compañía:</ion-label>
+      <ion-select value="brown" okText="Okay" cancelText="Dismiss">
+        <ion-select-option *ngFor="let user of arrayUsers" [(ngModel)]="user.company_id"
+            value="{{ user.company_id }}">{{ user.company_id }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-label color="danger" *ngIf="user.controls.company_id.errors?.required && (user.touched || user.dirty)">
+      * Debe seleccionar una compañía.
+    </ion-label>
+
+      <ion-button routerLink="/tab1" color="danger">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        Cancel
+      </ion-button>
+      <ion-button type="submit" [disabled]="!user.valid" id="bottom" color="tertiary">
+        <ion-icon name="person"></ion-icon>
+        Editar
+      </ion-button>
+    </form>-->
+</ion-content>

@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login-almagest"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="titulo">Registrar usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="formularioRegistro" (ngSubmit)="registrarUsuario()" method="post">    
+    <ion-item class="dato_usuario">
+      <ion-label position="floating">Nombre:</ion-label>
+      <ion-input formControlName="firstname" type="text"></ion-input>
+    </ion-item>
+    <ion-label color="danger" *ngIf="formularioRegistro.controls.firstname.errors?.required && (formularioRegistro.touched || formularioRegistro.dirty)">
+      * Debe introducir un nombre.
+    </ion-label>
+    <ion-label color="danger" *ngIf="formularioRegistro.controls.firstname.errors?.minLength && (formularioRegistro.touched || formularioRegistro.dirty)">
+      * Su nombre debe tener al menos 3 caracteres.
+    </ion-label>
+    
+    
+    <ion-item class="dato_usuario">
+      <ion-label position="floating">Apellido:</ion-label>
+      <ion-input formControlName="secondname" type="text"></ion-input>
+    </ion-item>
+    <ion-label color="danger" *ngIf="formularioRegistro.controls.secondname.errors?.required && (formularioRegistro.touched || formularioRegistro.dirty)">
+      * Debe introducir un apellido.
+    </ion-label>
+    <ion-label color="danger" *ngIf="formularioRegistro.controls.secondname.errors?.minLength && (formularioRegistro.touched || formularioRegistro.dirty)">
+      * Su apellido debe tener al menos 3 caracteres.
+    </ion-label>
+
+    <ion-item class="dato_usuario">
+      <ion-label position="floating">Email:</ion-label>
+      <ion-input formControlName="email" type="email">
+      </ion-input>
+    </ion-item>
+     <ion-label color="danger" *ngIf="formularioRegistro.controls.email.errors?.required && (formularioRegistro.touched || formularioRegistro.dirty)">
+      * Debe introducir un email.
+    </ion-label>
+    <ion-label color="danger" *ngIf="formularioRegistro.controls.email.errors?.email && (formularioRegistro.touched || formularioRegistro.dirty)">
+      * El email no es válido.
+    </ion-label>
+
+    <ion-item class="dato_usuario">
+      <ion-label position="floating">Contraseña:</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+    </ion-item>
+    <ion-label color="danger" *ngIf="formularioRegistro.controls.password.errors?.required && (formularioRegistro.touched || formularioRegistro.dirty)">
+      * Debe introducir una contraseña.
+    </ion-label>
+    <ion-label color="danger" *ngIf="formularioRegistro.controls.password.errors?.minLength && (formularioRegistro.touched || formularioRegistro.dirty)">
+      * La contraseña debe tener al menos 5 caracteres.
+    </ion-label>
+
+    <ion-item class="dato_usuario">
+      <ion-label position="floating">Confirma su contraseña:</ion-label>
+      <ion-input formControlName="c_password" type="password"></ion-input>
+    </ion-item>
+    <ion-label color="danger" *ngIf="formularioRegistro.controls.c_password.errors?.required && (formularioRegistro.touched || formularioRegistro.dirty)">
+      * Debe introducir la contraseña.
+    </ion-label>
+    <ion-label color="danger" *ngIf="formularioRegistro.controls.c_password.errors?.minLength && (formularioRegistro.touched || formularioRegistro.dirty)">
+      * La contraseña debe tener al menos 5 caracteres.
+    </ion-label>
+
+    <ion-item class="dato_usuario">
+      <ion-label position="floating">Compañia:</ion-label>
+      <ion-input formControlName="compania" type="number"></ion-input>
+    </ion-item>
+    <ion-label color="danger" *ngIf="formularioRegistro.controls.compania.errors?.required && (formularioRegistro.touched || formularioRegistro.dirty)">
+      * Debe indicar la compañía.
+    </ion-label>
+
+    <ion-button expand="full" type="submit" [disabled]="!formularioRegistro.valid" id="botonRegister" color="tertiary">
+      <ion-icon name="person"></ion-icon>
+      Registrar
+    </ion-button>
+  </form>
+</ion-content>
+
