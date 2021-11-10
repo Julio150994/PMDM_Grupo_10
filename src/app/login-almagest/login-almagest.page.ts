@@ -15,7 +15,6 @@ export class LoginAlmagestPage implements OnInit {
   email: string;
   password: string;
   loadingDatas: any;
-  isLogin: boolean;// para comprobar si está logueado el usuario
   datos: any;
 
   user = new FormGroup({
@@ -39,8 +38,6 @@ export class LoginAlmagestPage implements OnInit {
   }
 
   loginUsuario() {
-    
-
     const datos = this.tok;
     this.token = datos;
     //this.email = this.user.controls.email.value;
@@ -85,7 +82,7 @@ export class LoginAlmagestPage implements OnInit {
             this.loadingDatas.dismiss();
           }, 1750);// tiempo de carga
           this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
-         
+
           this.usersService.obtenerUsuarios();
         });
     }
