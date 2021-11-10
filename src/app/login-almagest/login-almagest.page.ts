@@ -75,7 +75,6 @@ export class LoginAlmagestPage implements OnInit {
 
     /*if (this.user.valid) {
 
-<<<<<<< HEAD
         this.usersService.login(this.email,this.password)
         .then(data => {
           this.tok = data;
@@ -89,19 +88,11 @@ export class LoginAlmagestPage implements OnInit {
          
           this.usersService.obtenerUsuarios();
         });
-=======
->>>>>>> 554e47008dfb70522de324ed4b92cef84227941e
     }
     else {
       console.log('Error al mostrar los usuarios.');
     }*/
   }
 
-  async loginLoad(message: string) {
-    this.loadingDatas = await this.cargaCtrl.create({
-      message,
-    });
-
-    await this.loadingDatas.present();
-  }
+}
 }
