@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -24,8 +24,8 @@ export class LoginAlmagestPage implements OnInit {
     //c_email: new FormControl('email', [Validators.required, Validators.email])
   });
 
-  constructor(private navCtrl: NavController, private usersService: UsersService,
-    private cargaCtrl: LoadingController) { }
+  constructor(private alertUserCtrl: AlertController, private navCtrl: NavController,
+    private usersService: UsersService, private cargaCtrl: LoadingController) { }
 
   ngOnInit() {
     console.log('Login');
@@ -96,4 +96,31 @@ export class LoginAlmagestPage implements OnInit {
   }
 
 }
+
+/** Para mostrar mensaje de alerta de que no existe el usuario */
+  async userNotFound() {
+    const notValid = await this.alertUserCtrl.create({
+      header: 'Mensaje de alerta',
+      cssClass: 'loginCss',
+      message: '<strong>El usuario '+this.user.controls.email.value+' no existe</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (valid) => {
+          }
+        }
+      ]
+    });
+    await notValid.present();
+  }
+
+
+  async loginLoad(message: string) {
+    this.loadingDatas = await this.cargaCtrl.create({
+      message,
+    });
+    await this.loadingDatas.present();
+  }
 }
