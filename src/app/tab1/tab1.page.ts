@@ -46,10 +46,11 @@ export class Tab1Page implements OnInit{
 
   ngOnInit() {
     console.log('Estás en la pestaña del usuario administrador');
+    console.log(this.usersService.email);
   }
 
 
-  verUsuarios() {
+  /*verUsuarios() {
     this.usersService.obtenerUsuarios(this.tok.data.token)
     .then(data => {
       this.users = data;
@@ -58,7 +59,7 @@ export class Tab1Page implements OnInit{
     (error) => {
       console.log('Error obtenido: '+error);
     });
-  }
+  }*/
 
   usuarios() {
     const headers = new HttpHeaders({

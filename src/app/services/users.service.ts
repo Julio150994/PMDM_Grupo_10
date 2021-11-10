@@ -12,13 +12,14 @@ export class UsersService {
   email: string;
   password: string;
   signIn: boolean;
+  user: any;
 
   constructor(private httpUser: HttpClient) {
     this.signIn = false;
   }
 
   /** Para iniciar sesión con el admin */
-  adminLogin() {
+  /*adminLogin() {
     return new Promise(res => {
       this.httpUser.post<any>(this.url+'/login',{
         email: 'raul@raul.com',
@@ -30,7 +31,7 @@ export class UsersService {
         console.log('Error al loguearse con este usuario '+error);
       });
     });
-  }
+  }*/
 
   login(mail, contrasenia) {
     return new Promise(res => {
@@ -38,11 +39,11 @@ export class UsersService {
         email: mail,
         password: contrasenia
       }).subscribe(data => {
-        this.token = data;
+        this.user = data;
+        this.user=this.user.data;
         res(data);
-        
+        //console.log(this.user.token);
       }, error => {
-        console.log(this.token);
         console.log('Error al loguearse con este usuario '+error);
       });
     });
@@ -73,15 +74,16 @@ export class UsersService {
     });
   }*/
 
-  obtenerUsuarios(tok: any) {
-    //console.log('Token obtenido: '+tok);
+  obtenerUsuarios() {
+    //console.log('Token obtenido: '+this.user.token);
     return new Promise(res => {
       this.httpUser.get(this.url+'/users', {
-        headers: new HttpHeaders().set('Authorization','Bearer '+tok)
+        headers: new HttpHeaders().set('Authorization','Bearer '+this.user.token)
       }).subscribe(data => {
-        this.token = data;
+        this.users = data;
+        this.users=this.users.data
         res(data);
-        console.log(data);
+        console.log(this.users);
       }, err => {
         console.log('Error al mostrar los usuarios '+err);
       });
