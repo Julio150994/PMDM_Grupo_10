@@ -38,32 +38,13 @@ export class Tab1Page implements OnInit{
   ];
 
   constructor(private alertController: AlertController,private http: HttpClient, private navCtrl: NavController, private usersService: UsersService) {
-    //this.usersService.adminLogin().then(datoUsuario => {
-     // this.tok = datoUsuario;
-     // this.verUsuarios();
-    //});
   };
 
   ngOnInit() {
     console.log('Estás en la pestaña del usuario administrador');
-    //console.log(localStorage.getItem('token'));
     this.obtenerUsuarios();
   }
-
-
-  /*verUsuarios() {
-    this.usersService.obtenerUsuarios(this.tok.data.token)
-    .then(data => {
-      this.users = data;
-      this.users = this.users.data;
-    },
-    (error) => {
-      console.log('Error obtenido: '+error);
-    });
-  }*/
-
   obtenerUsuarios() {
-    //console.log('Token obtenidoooooooo: '+token);
     return new Promise(res => {
       this.http.get(this.api+'/users', {
         headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
@@ -179,4 +160,3 @@ interface Operations {
   color: string;
   icono: string;
 }
-

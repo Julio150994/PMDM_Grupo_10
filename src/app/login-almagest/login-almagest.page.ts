@@ -14,14 +14,11 @@ export class LoginAlmagestPage implements OnInit {
   users: any;
   email: string;
   password: string;
-  //loadingDatas: any;
   datos: any;
 
   user = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    //c_email: new FormControl('email', [Validators.required, Validators.email])
   });
   usuario: any;
 
@@ -30,7 +27,6 @@ export class LoginAlmagestPage implements OnInit {
 
   ngOnInit() {
     console.log('Login');
-    //console.log(this.user);
   }
 
   toRegister() {
@@ -46,13 +42,10 @@ export class LoginAlmagestPage implements OnInit {
       this.usersService.login(this.email,this.password)
         .then(data => {
         this.tok = data;
-        console.log(this.tok);
         this.usuario=this.tok.data;
-        console.log(this.usuario);
         this.token = this.usuario.token;
         localStorage.setItem('token',this.token);
-    this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
-        //this.usersService.obtenerUsuarios();
+        this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
       });
     }
     else {
@@ -60,30 +53,4 @@ export class LoginAlmagestPage implements OnInit {
     }
 }
 
-/** Para mostrar mensaje de alerta de que no existe el usuario */
-  /*async userNotFound() {
-    const notValid = await this.alertUserCtrl.create({
-      header: 'Mensaje de alerta',
-      cssClass: 'loginCss',
-      message: '<strong>El usuario '+this.user.controls.email.value+' no existe</strong>',
-      buttons: [
-        {
-          text: 'Aceptar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (valid) => {
-          }
-        }
-      ]
-    });
-    await notValid.present();
-  }*/
-
-
-  /*async loginLoad(message: string) {
-    this.loadingDatas = await this.cargaCtrl.create({
-      message,
-    });
-    await this.loadingDatas.present();
-  }*/
 }
