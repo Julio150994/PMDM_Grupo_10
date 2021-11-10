@@ -20,7 +20,7 @@
     </ion-item>
     <ion-item-sliding *ngFor="let user of users | orderBy:'id'">
         <!-- Mostramos los usuarios, excepto al administrador -->
-        <ion-item *ngIf="user.email_confirmed===1 && user.deleted===0">
+        <ion-item *ngIf="user.type==='u' && user.email_confirmed===1 && user.deleted===0">
             <ion-label>{{ user.id }}</ion-label>
             <ion-label>{{ user.firstname }}</ion-label>
             <ion-label>{{ user.secondname }}</ion-label>
