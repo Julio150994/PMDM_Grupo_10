@@ -43,6 +43,10 @@ export class LoginAlmagestPage implements OnInit {
     //this.email = this.user.controls.email.value;
     //this.password = this.user.controls.password.value;
 
+    setTimeout(() => {
+      this.loadingDatas.dismiss();
+    }, 1750);// tiempo de carga
+
     if (this.user.valid) {
       this.datos = this.user.value;
       this.email=this.datos.email;
