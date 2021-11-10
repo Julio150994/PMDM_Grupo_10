@@ -38,6 +38,7 @@ export class LoginAlmagestPage implements OnInit {
   }
 
   loginUsuario() {
+    this.loginLoad('Cargando la aplicación...');
     const datos = this.tok;
     this.token = datos;
     //this.email = this.user.controls.email.value;
@@ -45,6 +46,7 @@ export class LoginAlmagestPage implements OnInit {
 
     setTimeout(() => {
       this.loadingDatas.dismiss();
+      this.userNotFound();
     }, 1750);// tiempo de carga
 
     if (this.user.valid) {
