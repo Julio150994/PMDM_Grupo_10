@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController,AlertController } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
 
 @Component({
@@ -37,7 +37,7 @@ export class Tab1Page implements OnInit{
     }
   ];
 
-  constructor(private http: HttpClient, private navCtrl: NavController, private usersService: UsersService) {
+  constructor(private alertController: AlertController,private http: HttpClient, private navCtrl: NavController, private usersService: UsersService) {
     this.usersService.adminLogin().then(datoUsuario => {
       this.tok = datoUsuario;
       this.verUsuarios();
@@ -121,6 +121,30 @@ export class Tab1Page implements OnInit{
     });
 
     console.log('Formulario de editar usuario');
+  }
+
+  async eliminar() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'ELIMINAR',
+      message: '<strong>¿Estás seguro que deseas eliminar?</strong>',
+      buttons: [
+        {
+          text: 'NO',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'SI',
+          handler: () => {
+            this.onEliminar();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   onEliminar() {
