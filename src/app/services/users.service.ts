@@ -40,7 +40,9 @@ export class UsersService {
       }).subscribe(data => {
         this.token = data;
         res(data);
+        
       }, error => {
+        console.log(this.token);
         console.log('Error al loguearse con este usuario '+error);
       });
     });

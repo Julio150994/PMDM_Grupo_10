@@ -16,18 +16,21 @@ export class LoginAlmagestPage implements OnInit {
   password: string;
   loadingDatas: any;
   isLogin: boolean;// para comprobar si está logueado el usuario
-
+  datos: any;
   user = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
     // eslint-disable-next-line @typescript-eslint/naming-convention
     //c_email: new FormControl('email', [Validators.required, Validators.email])
   });
+  
 
   constructor(private navCtrl: NavController, private usersService: UsersService,
     private cargaCtrl: LoadingController) { }
 
   ngOnInit() {
+    console.log('Login');
+    console.log(this.user);
   }
 
   toRegister() {
@@ -44,22 +47,28 @@ export class LoginAlmagestPage implements OnInit {
 
     const datos = this.tok;
     this.token = datos;
-    this.email = this.user.controls.email.value;
-    this.password = this.user.controls.password.value;
+    //this.email = this.user.controls.email.value;
+    //this.password = this.user.controls.password.value;
 
     if (this.user.valid) {
-      this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
-        console.log('User login successfully');
+      this.datos = this.user.value;
+      this.email=this.datos.email;
+      this.password=this.datos.password;
+      console.log(this.datos.email);
+      console.log(this.datos.password);
+        //console.log('User login successfully');
 
-        console.log('Email: '+this.email);
-        console.log('Password: '+this.password);
+        //console.log('Email: '+this.email);
+        //console.log('Password: '+this.password);
 
         this.usersService.login(this.email,this.password)
         .then(data => {
           this.tok = data;
           this.tok = this.tok.data.token;
-          console.log('Token: '+this.tok);
-          this.usersService.obtenerUsuarios(this.tok);
+          //console.log('Token: '+this.tok);
+          //console.log('Datos: '+data);
+          //this.usersService.obtenerUsuarios(this.tok);
+          this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
         });
     }
     else {

@@ -38,14 +38,13 @@ export class Tab1Page implements OnInit{
   ];
 
   constructor(private alertController: AlertController,private http: HttpClient, private navCtrl: NavController, private usersService: UsersService) {
-    this.usersService.adminLogin().then(datoUsuario => {
-      this.tok = datoUsuario;
-      this.verUsuarios();
-    });
-  }
+    //this.usersService.adminLogin().then(datoUsuario => {
+     // this.tok = datoUsuario;
+     // this.verUsuarios();
+    //});
+  };
 
   ngOnInit() {
-    console.log(this.token);
     console.log('Estás en la pestaña del usuario administrador');
   }
 
