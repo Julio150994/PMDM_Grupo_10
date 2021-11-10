@@ -30,7 +30,7 @@ export class LoginAlmagestPage implements OnInit {
 
   ngOnInit() {
     console.log('Login');
-    console.log(this.user);
+    //console.log(this.user);
   }
 
   toRegister() {
@@ -39,17 +39,20 @@ export class LoginAlmagestPage implements OnInit {
   }
 
   loginUsuario() {
-    this.loginLoad('Cargando aplicación...');// mensaje de carga
-
-    setTimeout(() => {
-      this.loadingDatas.dismiss();
-    }, 1750);// tiempo de carga
+    
 
     const datos = this.tok;
     this.token = datos;
     //this.email = this.user.controls.email.value;
     //this.password = this.user.controls.password.value;
 
+    if (this.user.valid) {
+      this.datos = this.user.value;
+      this.email=this.datos.email;
+      this.password=this.datos.password;
+     // console.log(this.datos.email);
+      //console.log(this.datos.password);
+        //console.log('User login successfully');
     this.datos = this.user.value;
     this.email=this.datos.email;
     this.password=this.datos.password;
@@ -72,17 +75,24 @@ export class LoginAlmagestPage implements OnInit {
 
     /*if (this.user.valid) {
 
+        this.usersService.login(this.email,this.password)
+        .then(data => {
+          this.tok = data;
+          this.tok = this.tok.data.token;
+         // console.log('Token: '+this.tok);
+          this.loginLoad('Cargando aplicación...');// mensaje de carga
+          setTimeout(() => {
+            this.loadingDatas.dismiss();
+          }, 1750);// tiempo de carga
+          this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
+         
+          this.usersService.obtenerUsuarios();
+        });
     }
     else {
       console.log('Error al mostrar los usuarios.');
     }*/
   }
 
-  async loginLoad(message: string) {
-    this.loadingDatas = await this.cargaCtrl.create({
-      message,
-    });
-
-    await this.loadingDatas.present();
-  }
+}
 }

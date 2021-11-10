@@ -18,12 +18,9 @@
       <ion-label>Email</ion-label>
       <ion-label>Gestionar usuario</ion-label>
     </ion-item>
-    <!-- Cuando no tengamos datos en la base de datos -->
-    <ion-label *ngIf="!users" class="text-danger">Debe iniciar sesión para mostrar los usuarios.</ion-label>
-
     <ion-item-sliding *ngFor="let user of users | orderBy:'id'">
         <!-- Mostramos los usuarios, excepto al administrador -->
-        <ion-item *ngIf="user.type === 'u' && user.email_confirmed===1 && user.deleted===0">
+        <ion-item *ngIf="user.email_confirmed===1 && user.deleted===0">
             <ion-label>{{ user.id }}</ion-label>
             <ion-label>{{ user.firstname }}</ion-label>
             <ion-label>{{ user.secondname }}</ion-label>
