@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, LoadingController } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login-almagest',
@@ -12,17 +11,12 @@ export class LoginAlmagestPage implements OnInit {
   tok: any;
   token: any;
   users: any;
+  user: any;
   email: string;
   password: string;
   loadingDatas: any;
   isLogin: boolean;// para comprobar si está logueado el usuario
   datos: any;
-  user = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    //c_email: new FormControl('email', [Validators.required, Validators.email])
-  });
 
 
   constructor(private navCtrl: NavController, private usersService: UsersService,
