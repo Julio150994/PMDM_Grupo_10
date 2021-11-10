@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, LoadingController, AlertController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -14,7 +14,7 @@ export class LoginAlmagestPage implements OnInit {
   users: any;
   email: string;
   password: string;
-  loadingDatas: any;
+  //loadingDatas: any;
   datos: any;
 
   user = new FormGroup({
@@ -23,9 +23,10 @@ export class LoginAlmagestPage implements OnInit {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     //c_email: new FormControl('email', [Validators.required, Validators.email])
   });
+  usuario: any;
 
-  constructor(private alertUserCtrl: AlertController, private navCtrl: NavController,
-    private usersService: UsersService, private cargaCtrl: LoadingController) { }
+  constructor(private navCtrl: NavController,
+    private usersService: UsersService) { }
 
   ngOnInit() {
     console.log('Login');
@@ -37,42 +38,21 @@ export class LoginAlmagestPage implements OnInit {
     this.navCtrl.navigateForward('/register-almagest');
   }
 
-  loginUsuario() {
-    this.loginLoad('Cargando aplicación...');// mensaje de carga
-    const datos = this.tok;
-    this.token = datos;
-    //this.email = this.user.controls.email.value;
-    //this.password = this.user.controls.password.value;
-
-    setTimeout(() => {
-      this.loadingDatas.dismiss();
-      this.userNotFound();
-    }, 1750);// tiempo de carga
-
+  async loginUsuario() {
     if (this.user.valid) {
       this.datos = this.user.value;
       this.email=this.datos.email;
       this.password=this.datos.password;
-     // console.log(this.datos.email);
-      //console.log(this.datos.password);
-        //console.log('User login successfully');
-    this.datos = this.user.value;
-    this.email=this.datos.email;
-    this.password=this.datos.password;
-    console.log(this.datos.email);
-    console.log(this.datos.password);
-    //console.log('User login successfully');
-
-    //console.log('Email: '+this.email);
-    //console.log('Password: '+this.password);
-
-    this.usersService.login(this.email,this.password)
-      .then(data => {
+      this.usersService.login(this.email,this.password)
+        .then(data => {
         this.tok = data;
-        this.tok = this.tok.data.token;
-        // console.log('Token: '+this.tok);
-        this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
-        this.usersService.obtenerUsuarios();
+        console.log(this.tok);
+        this.usuario=this.tok.data;
+        console.log(this.usuario);
+        this.token = this.usuario.token;
+        localStorage.setItem('token',this.token);
+    this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
+        //this.usersService.obtenerUsuarios();
       });
     }
     else {
@@ -81,7 +61,7 @@ export class LoginAlmagestPage implements OnInit {
 }
 
 /** Para mostrar mensaje de alerta de que no existe el usuario */
-  async userNotFound() {
+  /*async userNotFound() {
     const notValid = await this.alertUserCtrl.create({
       header: 'Mensaje de alerta',
       cssClass: 'loginCss',
@@ -97,13 +77,13 @@ export class LoginAlmagestPage implements OnInit {
       ]
     });
     await notValid.present();
-  }
+  }*/
 
 
-  async loginLoad(message: string) {
+  /*async loginLoad(message: string) {
     this.loadingDatas = await this.cargaCtrl.create({
       message,
     });
     await this.loadingDatas.present();
-  }
+  }*/
 }

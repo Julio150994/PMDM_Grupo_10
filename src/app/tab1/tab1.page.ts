@@ -46,7 +46,8 @@ export class Tab1Page implements OnInit{
 
   ngOnInit() {
     console.log('Estás en la pestaña del usuario administrador');
-    console.log(this.usersService.email);
+    //console.log(localStorage.getItem('token'));
+    this.obtenerUsuarios();
   }
 
 
@@ -61,15 +62,20 @@ export class Tab1Page implements OnInit{
     });
   }*/
 
-  usuarios() {
-    const headers = new HttpHeaders({
-      'Accept': 'application/json',
-      'Authorization': `Bearer `+this.tok.data.token
-    })
-    const path = `${this.api}/users`;
-    return this.http.get<UsersService[]>(path,{headers:headers});
+  obtenerUsuarios() {
+    //console.log('Token obtenidoooooooo: '+token);
+    return new Promise(res => {
+      this.http.get(this.api+'/users', {
+        headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
+      }).subscribe(data => {
+        this.users = data;
+        this.users=this.users.data;
+        res(this.users);
+      }, err => {
+        console.log('Error al mostrar los usuarios '+err);
+      });
+    });
   }
-
   onLogout() {
     this.navCtrl.navigateForward('/tabs/tab3');// hacia la página de login
     console.log('El administrador ha cerrado la sesión');
@@ -173,3 +179,4 @@ interface Operations {
   color: string;
   icono: string;
 }
+

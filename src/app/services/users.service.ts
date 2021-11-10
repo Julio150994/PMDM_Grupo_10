@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
-
+import { AlertController} from '@ionic/angular';
+import { Usuario } from '../interfaces/usuarios';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,8 +15,9 @@ export class UsersService {
   password: string;
   signIn: boolean;
   user: any;
+  loadingDatas: any;
 
-  constructor(private httpUser: HttpClient) {
+  constructor(private alertUserCtrl: AlertController,private httpUser: HttpClient) {
     this.signIn = false;
   }
 
@@ -41,9 +44,11 @@ export class UsersService {
       }).subscribe(data => {
         this.user = data;
         this.user=this.user.data;
+        localStorage.setItem('token',this.user);
         res(data);
         //console.log(this.user.token);
       }, error => {
+        this.userNotFound();
         console.log('Error al loguearse con este usuario '+error);
       });
     });
@@ -74,21 +79,39 @@ export class UsersService {
     });
   }*/
 
-  obtenerUsuarios() {
-    //console.log('Token obtenido: '+this.user.token);
+  /** Para mostrar mensaje de alerta de que no existe el usuario */
+  async userNotFound() {
+    const notValid = await this.alertUserCtrl.create({
+      header: 'LOGIN',
+      cssClass: 'loginCss',
+      message: '<strong>El usuario no existe</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (valid) => {
+          }
+        }
+      ]
+    });
+    await notValid.present();
+  }
+
+  /*obtenerUsuarios() {
+    //console.log('Token obtenidoooooooo: '+token);
     return new Promise(res => {
       this.httpUser.get(this.url+'/users', {
-        headers: new HttpHeaders().set('Authorization','Bearer '+this.user.token)
+        headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
       }).subscribe(data => {
         this.users = data;
-        this.users=this.users.data
-        res(data);
-        console.log(this.users);
+        this.users=this.users.data;
+        res(this.users);
       }, err => {
         console.log('Error al mostrar los usuarios '+err);
       });
     });
-  }
+  }*/
   obtenerIdUsuario(tok: any, id: number) {
     return new Promise(res => {
       this.httpUser.get(this.url+'/user/{'+id+'}',{
