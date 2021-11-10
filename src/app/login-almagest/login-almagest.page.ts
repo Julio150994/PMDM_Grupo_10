@@ -38,7 +38,7 @@ export class LoginAlmagestPage implements OnInit {
   }
 
   loginUsuario() {
-    this.loginLoad('Cargando la aplicación...');
+    this.loginLoad('Cargando aplicación...');// mensaje de carga
     const datos = this.tok;
     this.token = datos;
     //this.email = this.user.controls.email.value;
@@ -67,36 +67,17 @@ export class LoginAlmagestPage implements OnInit {
     //console.log('Password: '+this.password);
 
     this.usersService.login(this.email,this.password)
-    .then(data => {
-      this.tok = data;
-      this.tok = this.tok.data.token;
-      //console.log('Token: '+this.tok);
-      //console.log('Datos: '+data);
-      //this.usersService.obtenerUsuarios(this.tok);
-      this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
-    });
-
-    /*if (this.user.valid) {
-
-        this.usersService.login(this.email,this.password)
-        .then(data => {
-          this.tok = data;
-          this.tok = this.tok.data.token;
-         // console.log('Token: '+this.tok);
-          this.loginLoad('Cargando aplicación...');// mensaje de carga
-          setTimeout(() => {
-            this.loadingDatas.dismiss();
-          }, 1750);// tiempo de carga
-          this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
-
-          this.usersService.obtenerUsuarios();
-        });
+      .then(data => {
+        this.tok = data;
+        this.tok = this.tok.data.token;
+        // console.log('Token: '+this.tok);
+        this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
+        this.usersService.obtenerUsuarios();
+      });
     }
     else {
       console.log('Error al mostrar los usuarios.');
-    }*/
-  }
-
+    }
 }
 
 /** Para mostrar mensaje de alerta de que no existe el usuario */
