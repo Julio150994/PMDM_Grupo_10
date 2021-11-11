@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
+import { IonicModule, IonicRouteStrategy  } from '@ionic/angular';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,7 +18,9 @@ import { PipesModule } from './pipes/pipes.module';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    PipesModule
+    PipesModule,
+    ReactiveFormsModule,
+    
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

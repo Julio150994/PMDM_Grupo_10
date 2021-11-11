@@ -95,7 +95,7 @@ export class UsersService {
 
   editar(tok, id) {
     return new Promise(res => {
-      this.httpUser.post<any>(this.url+'/users/updated/{'+id+'}',{
+      this.httpUser.post<any>(this.url+'/users/updated/'+id,{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
       }).subscribe(data => {
         this.token = data;

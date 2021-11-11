@@ -26,12 +26,12 @@
             <ion-label>{{ user.secondname }}</ion-label>
             <ion-label>{{ user.email }}</ion-label>
             
-            <ion-button *ngFor="let function of buttons; let item = index;" color="{{ function.color }}"
-              routerLink="{{ function.ruta }}">
-                <ion-icon name="{{ function.icono }}"></ion-icon>
-                <ion-label *ngIf="item === 0" (click)="getUserActived()" id="actived">{{ function.nombre }}</ion-label>
-                <ion-label *ngIf="item === 1" (click)="onEditar()" id="update">{{ function.nombre }}</ion-label>
-                <ion-label *ngIf="item === 2" (click)="eliminar()" id="delete">{{ function.nombre }}</ion-label>
+            <ion-button *ngFor="let funciones of buttons; let item = index;" color="{{ funciones.color }}"
+              routerLink="{{ funciones.ruta }}">
+                <ion-icon name="{{ funciones.icono }}"></ion-icon>
+                <ion-label *ngIf="item === 0" (click)="getUserActived()" id={{user.id}}>{{ funciones.nombre }}</ion-label>
+                <ion-label *ngIf="item === 1" (click)="onEditar(user.id)" id={{user.id}}>{{ funciones.nombre }}</ion-label>
+                <ion-label *ngIf="item === 2" (click)="eliminar()" id="{{user.id}}">{{ funciones.nombre }}</ion-label>
             </ion-button>
         </ion-item>
     </ion-item-sliding>

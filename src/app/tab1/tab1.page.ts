@@ -1,4 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { getAttrsForDirectiveMatching } from '@angular/compiler/src/render3/view/util';
 import { Component, OnInit } from '@angular/core';
 import { NavController,AlertController } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
@@ -11,6 +12,7 @@ import { UsersService } from '../services/users.service';
 export class Tab1Page implements OnInit{
   api = 'http://semillero.allsites.es/public/api';
   users: any;
+  user: any;
   tok: any;
   token: any;
   id: number;
@@ -36,6 +38,7 @@ export class Tab1Page implements OnInit{
       icono: 'trash-outline'
     }
   ];
+ 
 
   constructor(private alertController: AlertController,private http: HttpClient, private navCtrl: NavController, private usersService: UsersService) {
   };
@@ -95,16 +98,14 @@ export class Tab1Page implements OnInit{
     }
   }
 
-  onEditar() {
+  onEditar(id) {
     this.navCtrl.navigateForward('/editar-usuario');
-    const datos = this.tok.data;
-    this.token = datos.token;
-    this.id = datos.id;
+    this.id=id;
 
-    this.usersService.obtenerIdUsuario(this.token, this.id)
+    this.usersService.obtenerIdUsuario(localStorage.getItem('token'), this.id)
     .then(data => {
-      this.users = data;
-      this.users = this.users.data;
+      this.user = data;
+      this.user = this.users.data;
     });
 
     console.log('Formulario de editar usuario');

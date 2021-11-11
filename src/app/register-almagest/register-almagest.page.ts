@@ -24,7 +24,6 @@ export class RegisterAlmagestPage implements OnInit {
     secondname: new FormControl('', [Validators.required, Validators.minLength(3)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     c_password: new FormControl('',[Validators.required, Validators.minLength(5)]),
     compania: new FormControl('', [Validators.required]),
   });

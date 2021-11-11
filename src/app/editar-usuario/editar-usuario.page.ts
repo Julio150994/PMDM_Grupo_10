@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { NavController } from '@ionic/angular';
 
 @Component({
@@ -13,8 +13,7 @@ export class EditarUsuarioPage implements OnInit {
     secondname: new FormControl('', [Validators.required, Validators.minLength(1)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    c_password: new FormControl('password', [Validators.required, Validators.minLength(5)])
+    company_id: new FormControl('', [Validators.required]),
   });
 
   constructor(private navCtrl: NavController) { }
