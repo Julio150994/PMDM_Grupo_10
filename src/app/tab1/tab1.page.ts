@@ -77,21 +77,21 @@ export class Tab1Page implements OnInit{
     this.id = datos.id;
 
     if (boton.innerHTML === txtDesactivar) {
-      this.usersService.desactivar(this.token)
+      /*this.usersService.desactivar(this.token)
       .then(data => {
         this.users = data;
         this.users = this.users.data;
-      });
+      });*/
 
       boton.innerHTML = txtActivar;
       console.log('Usuario desactivado correctamente');
     }
     else {
-      this.usersService.activar(this.token)
+      /*this.usersService.activar(this.token)
       .then(data => {
         this.users = data;
         this.users = this.users.data;
-      });
+      });*/
 
       boton.innerHTML = txtDesactivar;
       console.log('Usuario activado correctamente');

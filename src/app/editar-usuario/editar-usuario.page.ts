@@ -22,7 +22,7 @@ export class EditarUsuarioPage implements OnInit {
   }
 
   editar() {
-    this.navCtrl.navigateForward('/tab1');
+    this.navCtrl.navigateForward('/tabs/tab1');
     console.log(this.user);
   }
 

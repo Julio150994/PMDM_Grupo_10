@@ -1,9 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/login-almagest"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
     </ion-buttons>
-    <ion-title class="titulo">Registrar usuario</ion-title>
+    <ion-title class="titulo">Editar usuario</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,60 +13,60 @@
       <ion-label position="floating">Nombre:</ion-label>
       <ion-input formControlName="firstname" type="text"></ion-input>
     </ion-item>
-    <!--<ion-label color="danger" *ngIf="user.controls.firstname.errors?.required && (user.touched || user.dirty)">
+    <ion-label color="danger" *ngIf="user.controls.firstname.errors?.required && (user.touched || user.dirty)">
       * Debe introducir un nombre.
     </ion-label>
     <ion-label color="danger" *ngIf="user.controls.firstname.errors?.minLength && (user.touched || user.dirty)">
       * Su nombre debe tener al menos 3 caracteres.
-    </ion-label>-->
+    </ion-label>
     
     
     <ion-item class="dato_usuario">
       <ion-label position="floating">Apellido:</ion-label>
       <ion-input formControlName="secondname" type="text"></ion-input>
     </ion-item>
-    <!--<ion-label color="danger" *ngIf="user.controls.secondname.errors?.required && (user.touched || user.dirty)">
+    <ion-label color="danger" *ngIf="user.controls.secondname.errors?.required && (user.touched || user.dirty)">
       * Debe introducir un apellido.
     </ion-label>
     <ion-label color="danger" *ngIf="user.controls.secondname.errors?.minLength && (user.touched || user.dirty)">
       * Su apellido debe tener al menos 3 caracteres.
-    </ion-label>-->
+    </ion-label>
 
     <ion-item class="dato_usuario">
       <ion-label position="floating">Email:</ion-label>
       <ion-input formControlName="email" type="email">
       </ion-input>
     </ion-item>
-    <!-- <ion-label color="danger" *ngIf="user.controls.email.errors?.required && (user.touched || user.dirty)">
+    <ion-label color="danger" *ngIf="user.controls.email.errors?.required && (user.touched || user.dirty)">
       * Debe introducir un email.
     </ion-label>
     <ion-label color="danger" *ngIf="user.controls.email.errors?.email && (user.touched || user.dirty)">
       * El email no es válido.
-    </ion-label>-->
+    </ion-label>
 
     <ion-item class="dato_usuario">
       <ion-label position="floating">Contraseña:</ion-label>
       <ion-input formControlName="password" type="password"></ion-input>
     </ion-item>
-    <!--<ion-label color="danger" *ngIf="user.controls.password.errors?.required && (user.touched || user.dirty)">
+    <ion-label color="danger" *ngIf="user.controls.password.errors?.required && (user.touched || user.dirty)">
       * Debe introducir una contraseña.
     </ion-label>
     <ion-label color="danger" *ngIf="user.controls.password.errors?.minLength && (user.touched || user.dirty)">
       * La contraseña debe tener al menos 5 caracteres.
-    </ion-label>-->
+    </ion-label>
 
-    <ion-item class="dato_usuario">
+    <!--<ion-item class="dato_usuario">
       <ion-label position="floating">Compañia:</ion-label>
       <ion-input formControlName="company_id" type="number"></ion-input>
     </ion-item>
-    <!--<ion-label color="danger" *ngIf="user.controls.c_password.errors?.required && (user.touched || user.dirty)">
+    <ion-label color="danger" *ngIf="user.controls.c_password.errors?.required && (user.touched || user.dirty)">
       * Debe introducir la compañia.
     </ion-label>
     <ion-label color="danger" *ngIf="user.controls.c_password.errors?.minLength && (user.touched || user.dirty)">
       * La compañia debe ser un número.
     </ion-label>-->
 
-    <ion-button expand="full" type="submit" [disabled]="!user.valid" id="botonRegister" color="tertiary">
+    <ion-button expand="full" type="submit" [disabled]="!user.valid" id="botonRegister" color="tertiary" id="botonEditar">
       <ion-icon name="person"></ion-icon>
       Editar
     </ion-button>
