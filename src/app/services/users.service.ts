@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { AlertController} from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,8 +12,10 @@ export class UsersService {
   email: string;
   password: string;
   user: any;
+  actived: any;
   loadingDatas: any;
-  constructor(private alertUserCtrl: AlertController,private httpUser: HttpClient) {
+  constructor(private alertUserCtrl: AlertController,private httpUser: HttpClient,
+    private loadingUserCtrl: LoadingController) {
 
   }
 
@@ -72,27 +74,62 @@ export class UsersService {
       'Authorization': 'Bearer '+localStorage.getItem('token')
     })
     return new Promise(res => {
-      this.httpUser.post<any>(this.url+'/activate?user_id='+id,{ headers },{        
-      }).subscribe(data => {
-        this.token = data;
-        res(data);
-      }, error => {
-        console.log('No se ha podido activar este usuario '+error);
-      });
-    });
-  }
+      this.loadUsers('Activando usuario...');
 
-  desactivar(id) {
-    return new Promise(res => {
-      this.httpUser.post<any>(this.url+'/deactivate?user_id='+id,{
+      setTimeout(() => {
+        this.actived.dismiss();
+
+        this.httpUser.post<any>(this.url+'/activate?user_id='+id,{
+          headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token')),
+        }).subscribe(data => {
+          this.token = data;
+          res(data);
+        }, error => {
+          console.log('No se ha podido activar este usuario '+error);
+        });
+      }, 1750);
+
+      /*this.httpUser.post<any>(this.url+'/activate?user_id='+id,{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token')),
       }).subscribe(data => {
         this.token = data;
         res(data);
       }, error => {
-        console.log('No se ha podido desactivar este usuario '+error);
-      });
+        console.log('No se ha podido activar este usuario '+error);
+      });*/
     });
+  }
+
+  desactivar(id) {
+    /*var id = id;
+    var headers = new HttpHeaders({
+      "Accept": "application/json",
+      'Authorization': 'Bearer '+localStorage.getItem('token')
+    })*/
+    return new Promise(res => {
+      this.loadUsers('Desactivando usuario...');
+
+      setTimeout(() => {
+        this.actived.dismiss();
+
+        this.httpUser.post<any>(this.url+'/deactivate?user_id='+id,{
+          headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token')),
+        }).subscribe(data => {
+          this.token = data;
+          res(data);
+        }, error => {
+          console.log('No se ha podido desactivar este usuario '+error);
+        });
+      }, 1750);
+    });
+  }
+
+  async loadUsers(message: string) {
+    this.actived = await this.loadingUserCtrl.create({
+      message,
+    });
+
+    await this.actived.present();
   }
 
   editar(tok, id) {
