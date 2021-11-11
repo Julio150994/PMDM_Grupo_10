@@ -65,15 +65,15 @@ export class UsersService {
     });
   }
 
-  activar(id) {
-    var id=id;
+  async activar(id) {
     var headers = new HttpHeaders({
       "Accept": "application/json",
       'Authorization': 'Bearer '+localStorage.getItem('token')
     })
-    return new Promise(res => {
-      this.httpUser.post<any>(this.url+'/activate?user_id='+id,{ headers },{        
-      }).subscribe(data => {
+    return new Promise(async res => {
+      console.log(headers);
+      await this.httpUser.post<any>(this.url+'/activate?user_id='+id,{ headers },{        
+      }).subscribe(async data => {
         this.token = data;
         res(data);
       }, error => {
@@ -82,7 +82,7 @@ export class UsersService {
     });
   }
 
-  desactivar(id) {
+  async desactivar(id) {
     return new Promise(res => {
       this.httpUser.post<any>(this.url+'/deactivate?user_id='+id,{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token')),
@@ -107,10 +107,10 @@ export class UsersService {
       });
     });
   }
-  eliminar(token, id) {
+  eliminar(id) {
     return new Promise(res => {
-      this.httpUser.post<any>(this.url+'/users/deleted/{'+id+'}',{
-        headers: new HttpHeaders().set('Authorization', 'Bearer '+token)
+      this.httpUser.post<any>(this.url+'/user/deleted/?user_id='+id,{
+        headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
       }).subscribe(data => {
         this.token = data;
         res(data);

@@ -31,7 +31,7 @@
                 <ion-icon name="{{ funciones.icono }}"></ion-icon>
                 <ion-label *ngIf="item === 0" (click)="getUserActived(user.id)" id={{user.id}}>{{ funciones.nombre }}</ion-label>
                 <ion-label *ngIf="item === 1" (click)="onEditar(user.id)" id={{user.id}}>{{ funciones.nombre }}</ion-label>
-                <ion-label *ngIf="item === 2" (click)="eliminar()" id="{{user.id}}">{{ funciones.nombre }}</ion-label>
+                <ion-label *ngIf="item === 2" (click)="eliminar(user.id)" id="{{user.id}}">{{ funciones.nombre }}</ion-label>
             </ion-button>
         </ion-item>
     </ion-item-sliding>

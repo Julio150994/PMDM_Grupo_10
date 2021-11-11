@@ -71,7 +71,7 @@ export class Tab1Page implements OnInit{
     const txtActivar = 'Activar';
     const txtDesactivar = 'Desactivar';
     if (this.buttons[0].nombre === txtDesactivar) {
-      this.usersService.desactivar(id)
+      await this.usersService.desactivar(id)
       .then(data => {
         this.users = data;
         this.users = this.users.data;
@@ -105,7 +105,7 @@ export class Tab1Page implements OnInit{
     console.log('Formulario de editar usuario');
   }
 
-  async eliminar() {
+  async eliminar(id) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'ELIMINAR',
@@ -120,7 +120,7 @@ export class Tab1Page implements OnInit{
         }, {
           text: 'SI',
           handler: () => {
-            this.onEliminar();
+            this.onEliminar(id);
           }
         }
       ]
@@ -129,15 +129,10 @@ export class Tab1Page implements OnInit{
     await alert.present();
   }
 
-  onEliminar() {
+  onEliminar(id) {
     this.navCtrl.navigateForward('/tabs/tab1');
     console.log('Eliminar usuario');
-    const datos = this.tok.data;
-    this.token = datos.token;
-    console.log(this.token);
-    this.id = datos.id;
-    console.log(this.id);
-    this.usersService.eliminar(this.token, this.id)
+    this.usersService.eliminar(id)
     .then(data => {
       this.users = data;
       this.users = this.users.data;
