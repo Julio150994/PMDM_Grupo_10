@@ -66,18 +66,12 @@ export class Tab1Page implements OnInit{
   }
 
   /** Métodos para gestionar usuarios */
-  getUserActived() {
+  async getUserActived(id) {
     const boton = document.getElementById('actived');
     const txtActivar = 'Activar';
     const txtDesactivar = 'Desactivar';
-
-    // Recogemos los datos
-    const datos = this.tok.data;
-    this.token = datos.token;
-    this.id = datos.id;
-
-    if (boton.innerHTML === txtDesactivar) {
-      this.usersService.desactivar(this.token)
+    if (this.buttons[0].nombre === txtDesactivar) {
+      this.usersService.desactivar(id)
       .then(data => {
         this.users = data;
         this.users = this.users.data;
@@ -87,13 +81,13 @@ export class Tab1Page implements OnInit{
       console.log('Usuario desactivado correctamente');
     }
     else {
-      this.usersService.activar(this.token)
+      await this.usersService.activar(id)
       .then(data => {
         this.users = data;
         this.users = this.users.data;
       });
 
-      boton.innerHTML = txtDesactivar;
+      this.buttons[0].nombre = txtDesactivar;
       console.log('Usuario activado correctamente');
     }
   }

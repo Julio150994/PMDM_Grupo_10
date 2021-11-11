@@ -65,11 +65,14 @@ export class UsersService {
     });
   }
 
-  activar(tok: any) {
+  activar(id) {
+    var id=id;
+    var headers = new HttpHeaders({
+      "Accept": "application/json",
+      'Authorization': 'Bearer '+localStorage.getItem('token')
+    })
     return new Promise(res => {
-      this.httpUser.post<any>(this.url+'/activate',{
-        headers: new HttpHeaders().set('Authorization', 'Bearer '+tok),
-        actived: 1
+      this.httpUser.post<any>(this.url+'/activate?user_id='+id,{ headers },{        
       }).subscribe(data => {
         this.token = data;
         res(data);
@@ -79,11 +82,10 @@ export class UsersService {
     });
   }
 
-  desactivar(tok: any) {
+  desactivar(id) {
     return new Promise(res => {
-      this.httpUser.post<any>(this.url+'/deactivate',{
-        headers: new HttpHeaders().set('Authorization', 'Bearer '+tok),
-        actived: 0
+      this.httpUser.post<any>(this.url+'/deactivate?user_id='+id,{
+        headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token')),
       }).subscribe(data => {
         this.token = data;
         res(data);
