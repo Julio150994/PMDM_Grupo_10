@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { AlertController} from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,8 +12,10 @@ export class UsersService {
   email: string;
   password: string;
   user: any;
+  actived: any;
   loadingDatas: any;
-  constructor(private alertUserCtrl: AlertController,private httpUser: HttpClient) {
+  constructor(private alertUserCtrl: AlertController,private httpUser: HttpClient,
+    private loadingUserCtrl: LoadingController) {
 
   }
 
@@ -84,15 +86,29 @@ export class UsersService {
 
   async desactivar(id) {
     return new Promise(res => {
-      this.httpUser.post<any>(this.url+'/deactivate?user_id='+id,{
-        headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token')),
-      }).subscribe(data => {
-        this.token = data;
-        res(data);
-      }, error => {
-        console.log('No se ha podido desactivar este usuario '+error);
-      });
+      this.loadUsers('Desactivando usuario...');
+
+      setTimeout(() => {
+        this.actived.dismiss();
+
+        this.httpUser.post<any>(this.url+'/deactivate?user_id='+id,{
+          headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token')),
+        }).subscribe(data => {
+          this.token = data;
+          res(data);
+        }, error => {
+          console.log('No se ha podido desactivar este usuario '+error);
+        });
+      }, 1750);
     });
+  }
+
+  async loadUsers(message: string) {
+    this.actived = await this.loadingUserCtrl.create({
+      message,
+    });
+
+    await this.actived.present();
   }
 
   editar(tok, id) {

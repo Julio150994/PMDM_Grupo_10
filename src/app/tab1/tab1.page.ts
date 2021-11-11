@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { getAttrsForDirectiveMatching } from '@angular/compiler/src/render3/view/util';
 import { Component, OnInit } from '@angular/core';
-import { NavController,AlertController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
 
 @Component({
@@ -18,6 +17,7 @@ export class Tab1Page implements OnInit{
   id: number;
   email: string;
   password: string;
+  actived: any; //carga del usuario activo
   buttons: Operations[] = [
     {
       nombre: 'Activar',
@@ -40,7 +40,8 @@ export class Tab1Page implements OnInit{
   ];
  
 
-  constructor(private alertController: AlertController,private http: HttpClient, private navCtrl: NavController, private usersService: UsersService) {
+  constructor(private alertCtrl: AlertController,private http: HttpClient, private navCtrl: NavController, private usersService: UsersService,
+    private loadingCtrl: LoadingController) {
   };
 
   ngOnInit() {
@@ -106,7 +107,7 @@ export class Tab1Page implements OnInit{
   }
 
   async eliminar(id) {
-    const alert = await this.alertController.create({
+    const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'ELIMINAR',
       message: '<strong>¿Estás seguro que deseas eliminar?</strong>',
