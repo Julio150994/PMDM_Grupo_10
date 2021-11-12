@@ -167,7 +167,7 @@ export class UsersService {
           for (let usuario = 0; usuario < this.users.length; usuario++) {
             valido=false;
             if(mail===this.users[usuario].email){
-              if(this.users[usuario].actived===1||this.users[usuario].email.confirmed===1||this.users[usuario].type==='a'){
+              if((this.users[usuario].actived===1&&this.users[usuario].email.confirmed===1)||(this.users[usuario].type==='a')){
                 valido=true;
                 break;
               }

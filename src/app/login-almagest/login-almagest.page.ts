@@ -40,7 +40,7 @@ export class LoginAlmagestPage implements OnInit {
       this.email=this.datos.email;
       this.password=this.datos.password;
       if(await this.usersService.activo(this.email)){
-        await this.usersService.login(this.email,this.password)
+        this.usersService.login(this.email,this.password)
         .then(data => {
           this.tok = data;
           this.usuario=this.tok.data;
