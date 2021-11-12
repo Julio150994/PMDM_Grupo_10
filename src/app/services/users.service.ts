@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { NgForOf } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +20,8 @@ export class UsersService {
   }
 
   login(mail, contrasenia) {
+    console.log(mail);
+    console.log(contrasenia);
     return new Promise(res => {
       this.httpUser.post<any>(this.url+'/login',{
         email: mail,
@@ -31,18 +32,18 @@ export class UsersService {
         localStorage.setItem('token',this.user);
         res(data);
       }, error => {
-        this.userNotFound();
-        console.log('Error al loguearse con este usuario '+error);
+        this.userNoRegistrado();
+        console.log('Error este usuario no está registrado'+error);
       });
     });
   }
 
   /** Para mostrar mensaje de alerta de que no existe el usuario */
-  async userNotFound() {
+  async userNoRegistrado() {
     const notValid = await this.alertUserCtrl.create({
       header: 'LOGIN',
       cssClass: 'loginCss',
-      message: '<strong>El usuario no existe</strong>',
+      message: '<strong>El correo electrónico no existe o la contraseña es errónea.</strong>',
       buttons: [
         {
           text: 'Aceptar',
@@ -55,9 +56,24 @@ export class UsersService {
     });
     await notValid.present();
   }
+
+  obtenerUsuarios(tok: any) {
+    return new Promise(res => {
+      this.httpUser.get(this.url+'/users',{
+        headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
+      }).subscribe(data => {
+        this.token = data;
+        this.token=this.token.data;
+        res(data);
+      }, error => {
+        console.log('No se ha podido obtener el id del usuario '+error);
+      });
+    });
+  }
+
   obtenerIdUsuario(tok: any, id: number) {
     return new Promise(res => {
-      this.httpUser.get(this.url+'/user/{'+id+'}',{
+      this.httpUser.get(this.url+'/user/'+id,{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
       }).subscribe(data => {
         this.token = data;
@@ -156,7 +172,7 @@ export class UsersService {
       });
     });
   }
-  activo(mail:string){
+  existe(mail:string){
     let valido=false;
       return new Promise(res => {
         this.httpUser.get(this.url+'/users', {
@@ -167,12 +183,11 @@ export class UsersService {
           for (let usuario = 0; usuario < this.users.length; usuario++) {
             valido=false;
             if(mail===this.users[usuario].email){
-              if((this.users[usuario].actived===1&&this.users[usuario].email.confirmed===1)||(this.users[usuario].type==='a')){
-                valido=true;
-                break;
-              }
+              valido=true;
+              break;
             }
           }
+          console.log(valido);
           res(valido); 
         }, err => {
           console.log('Error al obtener los usuarios '+err);

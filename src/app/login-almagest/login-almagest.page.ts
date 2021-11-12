@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-login-almagest',
   templateUrl: './login-almagest.page.html',
@@ -21,8 +21,10 @@ export class LoginAlmagestPage implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
   });
   usuario: any;
+  id: any;
+  deleted: any;
 
-  constructor(private navCtrl: NavController,
+  constructor(private alertUserCtrl: AlertController,private navCtrl: NavController,
     private usersService: UsersService) { }
 
   ngOnInit() {
@@ -34,23 +36,64 @@ export class LoginAlmagestPage implements OnInit {
     this.navCtrl.navigateForward('/register-almagest');
   }
 
+  async userBaneado() {
+    const notValid = await this.alertUserCtrl.create({
+      header: 'LOGIN',
+      cssClass: 'loginCss',
+      message: '<strong>Usuario baneado por el administrador.Póngase en contacto en raul@raul.com.</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (valid) => {
+          }
+        }
+      ]
+    });
+    await notValid.present();
+  }
+
   async loginUsuario() {
     if (this.user.valid) {
       this.datos = this.user.value;
       this.email=this.datos.email;
       this.password=this.datos.password;
-      if(await this.usersService.activo(this.email)){
-        this.usersService.login(this.email,this.password)
-        .then(data => {
+      if(this.usersService.existe(this.email)){
+        await this.usersService.login(this.email,this.password)
+        .then(async data => {
           this.tok = data;
           this.usuario=this.tok.data;
           this.token = this.usuario.token;
+          console.log(this.token);
           localStorage.setItem('token',this.token);
+          console.log(this.usuario);
           if(this.usuario.type==='a'){
             this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
           }
           else{
-            this.navCtrl.navigateForward('/tabs/tab2');// ruta hacia el usuario
+            let usuario:any;
+            usuario=await this.usersService.obtenerUsuarios(this.usuario.token);
+            usuario=usuario.data;
+            for (let i = 0; i < usuario.length; i++) {
+              console.log(this.email);
+              console.log(usuario[i].email);
+              if(usuario[i].email===this.email){
+                this.id=usuario[i].id;
+                break;
+              }
+            }
+            usuario=await this.usersService.obtenerIdUsuario(this.usuario.token,this.usuario.id);
+            usuario=usuario.data;
+            this.deleted=usuario.deleted;
+            console.log(usuario);
+            if(this.usuario.actived===1&&this.usuario.deleted===0){
+              this.navCtrl.navigateForward('/tabs/tab2');// ruta hacia el usuario
+            }
+            else{
+              this.userBaneado();
+            }
+            
           }
         });
       }
