@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { NgForOf } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +17,7 @@ export class UsersService {
   loadingDatas: any;
   constructor(private alertUserCtrl: AlertController,private httpUser: HttpClient,
     private loadingUserCtrl: LoadingController) {
-
+ 
   }
 
   login(mail, contrasenia) {
@@ -67,36 +68,33 @@ export class UsersService {
     });
   }
 
-  async activar(id) {
-    var headers = new HttpHeaders({
-      "Accept": "application/json",
-      'Authorization': 'Bearer '+localStorage.getItem('token')
-    })
+  activar(id:string) {
     return new Promise(async res => {
-      console.log(headers);
-      await this.httpUser.post<any>(this.url+'/activate?user_id='+id,{ headers },{        
+      this.loadUsers('Activando usuario...');
+      this.httpUser.post<any>(this.url+'/activate?user_id='+id,{     
+        headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
       }).subscribe(async data => {
         this.token = data;
         res(data);
       }, error => {
+        this.loadingUserCtrl.dismiss();
         console.log('No se ha podido activar este usuario '+error);
       });
     });
   }
 
-  async desactivar(id) {
+  desactivar(id:string) {
     return new Promise(res => {
       this.loadUsers('Desactivando usuario...');
-
       setTimeout(() => {
         this.actived.dismiss();
-
         this.httpUser.post<any>(this.url+'/deactivate?user_id='+id,{
-          headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token')),
+          headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
         }).subscribe(data => {
           this.token = data;
           res(data);
         }, error => {
+          this.loadingUserCtrl.dismiss();
           console.log('No se ha podido desactivar este usuario '+error);
         });
       }, 1750);
@@ -113,7 +111,7 @@ export class UsersService {
 
   editar(tok, id) {
     return new Promise(res => {
-      this.httpUser.post<any>(this.url+'/users/updated/'+id,{
+      this.httpUser.post<any>(this.url+'/user/updated/'+id,{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
       }).subscribe(data => {
         this.token = data;
@@ -123,15 +121,28 @@ export class UsersService {
       });
     });
   }
-  eliminar(id) {
+
+  getElim(id:string) {
+    return new Promise((resolve, reject) => {
+          this.httpUser.post(this.url+'/user/deleted/'+id, {
+            headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
+          }).subscribe(res => {
+            resolve(res);
+            console.log('ok');
+          }, (err) => {
+            reject(err);
+          });
+    });
+  }
+  eliminar(id: string) {
     return new Promise(res => {
-      this.httpUser.post<any>(this.url+'/user/deleted/?user_id='+id,{
+      this.httpUser.post(this.url + '/user/deleted/' + id, {
         headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
-      }).subscribe(data => {
+      }).subscribe((data) => {
         this.token = data;
         res(data);
-      }, err => {
-        console.log('Error al eliminar usuario '+err);
+      }, error => {
+        console.log('Error al eliminar usuario ' + this.token);
       });
     });
   }
@@ -144,5 +155,29 @@ export class UsersService {
         console.log('Error al mostrar las compañías '+error);
       });
     });
+  }
+  activo(mail:string){
+    let valido=false;
+      return new Promise(res => {
+        this.httpUser.get(this.url+'/users', {
+          headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
+        }).subscribe(data => {
+          this.users = data;
+          this.users=this.users.data;
+          for (let usuario = 0; usuario < this.users.length; usuario++) {
+            valido=false;
+            if(mail===this.users[usuario].email){
+              if(this.users[usuario].actived===1||this.users[usuario].email.confirmed===1||this.users[usuario].type==='a'){
+                valido=true;
+                break;
+              }
+            }
+          }
+          res(valido); 
+        }, err => {
+          console.log('Error al obtener los usuarios '+err);
+        });
+        
+      });
   }
 }

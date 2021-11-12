@@ -39,14 +39,24 @@ export class LoginAlmagestPage implements OnInit {
       this.datos = this.user.value;
       this.email=this.datos.email;
       this.password=this.datos.password;
-      this.usersService.login(this.email,this.password)
+      if(await this.usersService.activo(this.email)){
+        await this.usersService.login(this.email,this.password)
         .then(data => {
-        this.tok = data;
-        this.usuario=this.tok.data;
-        this.token = this.usuario.token;
-        localStorage.setItem('token',this.token);
-        this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
-      });
+          this.tok = data;
+          this.usuario=this.tok.data;
+          this.token = this.usuario.token;
+          localStorage.setItem('token',this.token);
+          if(this.usuario.type==='a'){
+            this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
+          }
+          else{
+            this.navCtrl.navigateForward('/tabs/tab2');// ruta hacia el usuario
+          }
+        });
+      }
+      else{
+        console.log('usuario no activo')
+      }
     }
     else {
       console.log('Error al mostrar los usuarios.');

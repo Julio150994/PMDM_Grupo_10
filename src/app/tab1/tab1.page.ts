@@ -67,25 +67,34 @@ export class Tab1Page implements OnInit{
   }
 
   /** Métodos para gestionar usuarios */
-  async getUserActived(id) {
+  async getUserActived(id:string) {
     const boton = document.getElementById('actived');
     const txtActivar = 'Activar';
     const txtDesactivar = 'Desactivar';
     if (this.buttons[0].nombre === txtDesactivar) {
-      await this.usersService.desactivar(id)
+      await this.usersService.activar(id)
       .then(data => {
+        this.loadingCtrl.dismiss();
         this.users = data;
         this.users = this.users.data;
+      },
+      (error) => {
+        this.loadingCtrl.dismiss();
+        console.log('Error al intentar desactivar: '+error);
       });
 
       boton.innerHTML = txtActivar;
-      console.log('Usuario desactivado correctamente');
     }
     else {
-      await this.usersService.activar(id)
+      await this.usersService.desactivar(id)
       .then(data => {
+        this.loadingCtrl.dismiss();
         this.users = data;
         this.users = this.users.data;
+      },
+      (error) => {
+        this.loadingCtrl.dismiss();
+        console.log('Error al intentar activar: '+error);
       });
 
       this.buttons[0].nombre = txtDesactivar;
@@ -106,7 +115,7 @@ export class Tab1Page implements OnInit{
     console.log('Formulario de editar usuario');
   }
 
-  async eliminar(id) {
+  async eliminar(id:string) {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'ELIMINAR',
@@ -121,26 +130,13 @@ export class Tab1Page implements OnInit{
         }, {
           text: 'SI',
           handler: () => {
-            this.onEliminar(id);
+            this.usersService.getElim(id);
           }
         }
       ]
     });
 
     await alert.present();
-  }
-
-  onEliminar(id) {
-    this.navCtrl.navigateForward('/tabs/tab1');
-    console.log('Eliminar usuario');
-    this.usersService.eliminar(id)
-    .then(data => {
-      this.users = data;
-      this.users = this.users.data;
-    },
-    (error) => {
-      console.log('Error al intentar eliminar: '+error);
-    });
   }
 
 }
