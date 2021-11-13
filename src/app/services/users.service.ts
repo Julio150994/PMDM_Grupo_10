@@ -45,22 +45,6 @@ export class UsersService {
     });
   }
 
-  logout(tok: any) {
-    return new Promise(res => {
-      this.httpUser.post<any>(this.url+'/logout',{
-        headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
-      }).subscribe(data => {
-        console.log(data);
-        this.user = data;
-        this.user=this.user.data;
-        localStorage.removeItem(tok);// para eliminar el token de usuario y cerrar sesión
-        res(data);
-      }, error => {
-        console.log('Error al cerrar sesión '+error);
-      });
-    });
-  }
-
   /** Para mostrar mensaje de alerta de que no existe el usuario */
   async userNoRegistrado() {
     const notValid = await this.alertUserCtrl.create({
@@ -89,7 +73,7 @@ export class UsersService {
         this.token=this.token.data;
         res(data);
       }, error => {
-        console.log('No se ha podido obtener el id del usuario '+error);
+        console.log('Error al mostrar los usuarios '+error);
       });
     });
   }
@@ -170,6 +154,7 @@ export class UsersService {
         this.httpUser.post<any>(this.url+'/deactivate?user_id='+id,{
           headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
         }).subscribe(data => {
+          console.log(data);
           this.token = data;
           res(data);
         }, error => {

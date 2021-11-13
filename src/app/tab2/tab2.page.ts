@@ -28,13 +28,6 @@ export class Tab2Page implements OnInit{
   }
 
   onLogout() {
-    this.token = localStorage.getItem('token');
-
-    this.eliminarToken = this.usersService.logout(this.token).then(data => {
-      this.users = data;
-      this.users=this.users.data;
-    });
-
     this.navCtrl.navigateForward('/login-almagest');
     console.log('El administrador ha cerrado la sesión');
   }

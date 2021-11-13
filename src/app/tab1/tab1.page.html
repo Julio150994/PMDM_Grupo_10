@@ -29,7 +29,7 @@
             <ion-button *ngFor="let funciones of buttons | async; let item = index;" color="{{ funciones.color }}"
               routerLink="{{ funciones.ruta }}">
                 <ion-icon name="{{ funciones.icono }}"></ion-icon>
-                <ion-label *ngIf="item === 0" (click)="getUserActived(user.id)" id="{{user.id}}">{{ funciones.nombre }}</ion-label>
+                <ion-label *ngIf="item === 0 && (user.actived === 0 || user.actived === 1)" (click)="getUserActived(user.id)" id="{{user.id}}">{{ funciones.nombre }}</ion-label>
                  <!--<ion-label *ngIf="item === 1" (click)="getUserActived(user.id)" id={{user.id}}>{{ funciones.nombre }}</ion-label>-->
                 <ion-label *ngIf="item === 1" (click)="onEditar(user.id)" id={{user.id}}>{{ funciones.nombre }}</ion-label>
                 <ion-label *ngIf="item === 2" (click)="eliminar(user.id)" id="{{user.id}}">{{ funciones.nombre }}</ion-label>

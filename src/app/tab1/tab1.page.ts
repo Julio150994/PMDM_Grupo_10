@@ -30,113 +30,81 @@ export class Tab1Page implements OnInit{
   };
 
   ngOnInit() {
-    console.log('Estás en la pestaña del usuario administrador');
-    this.buttons = this.usersService.mostrarBotonesUsuario();
-    this.obtenerUsuarios();
-  }
-  obtenerUsuarios() {
-    return new Promise(res => {
-      this.http.get(this.api+'/users', {
-        headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
-      }).subscribe(data => {
-        console.log(data);
-        this.users = data;
-        this.users=this.users.data;
-        res(this.users);
-      }, err => {
-        console.log('Error al mostrar los usuarios '+err);
-      });
-    });
-  }
-  onLogout() {
     this.token = localStorage.getItem('token');
 
-    this.eliminarToken = this.usersService.logout(this.token).then(data => {
+    console.log('Estás en la pestaña del usuario administrador');
+    this.buttons = this.usersService.mostrarBotonesUsuario();
+
+    this.usersService.obtenerUsuarios(this.token).then(data => {
+      console.log(data);
       this.users = data;
       this.users=this.users.data;
     });
+  }
 
+  onLogout() {
     this.navCtrl.navigateForward('/login-almagest');
     console.log('El administrador ha cerrado la sesión');
   }
 
-  /** Métodos para gestionar usuarios */
-  getUserActived(id:string) {
+  async getUserActived(id:string) {
     const boton = document.getElementById(id);
     const txtActivar = 'Activar';
     const txtDesactivar = 'Desactivar';
+    this.token = localStorage.getItem('token');
 
     if (boton.innerHTML === txtActivar) {
-      this.usersService.activar(id)
-      .then(data => {
+      await this.presentLoading();
+      this.usersService.activar(id);
+      /*.then(data => {
         this.users = data;
         this.users = this.users.data;
       },
       (error) => {
-        console.log('Error al intentar desactivar: '+error);
-      });
+        console.log('Error al intentar activar: '+error);
+      });*/
 
       boton.innerHTML = txtDesactivar;
-      console.log('Usuario desactivado correctamente');
+      console.log('Usuario activado correctamente');
+      this.obtenerUsuarios(this.token);
     }
-    else if(boton.innerHTML === txtDesactivar) {
-      this.usersService.desactivar(id)
-      .then(data => {
+    else {
+      await this.presentLoading();
+      this.usersService.desactivar(id);
+      /*.then(data => {
         this.users = data;
         this.users = this.users.data;
       },
       (error => {
         console.log('Error al intentar activar: '+error);
-      }));
+      }));*/
 
       boton.innerHTML = txtActivar;
-      console.log('Usuario activado correctamente');
+      console.log('Usuario desactivado correctamente');
+      this.obtenerUsuarios(this.token);
     }
-
-    /*if (this.buttons[0].nombre === txtDesactivar) {
-      this.usersService.activar(id)
-      .then(data => {
-        this.users = data;
-        this.users = this.users.data;
-      },
-
-      (error) => {
-        console.log('Error al intentar desactivar: '+error);
-      });
-    }
-    else if(this.buttons[0].nombre === txtActivar) {
-      this.usersService.desactivar(id)
-      .then(data => {
-        this.users = data;
-        this.users = this.users.data;
-      },
-      (error => {
-        console.log('Error al intentar activar: '+error);
-      }));
-    }*/
-
-    /*else {
-      await this.usersService.desactivar(id)
-      .then(data => {
-        this.loadingCtrl.dismiss();
-        this.users = data;
-        this.users = this.users.data;
-      },
-      (error) => {
-        this.loadingCtrl.dismiss();
-        console.log('Error al intentar activar: '+error);
-      });
-
-      this.buttons[0].nombre = txtDesactivar;
-      console.log('Usuario activado correctamente');
-    }*/
   }
+
   async presentLoading() {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando...',
       duration: 400
     });
     await loading.present();
+  }
+
+  obtenerUsuarios(tok: any) {
+    return new Promise(res => {
+      this.http.get(this.api+'/users',{
+        headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
+      }).subscribe(data => {
+        this.token = data;
+        this.token=this.token.data;
+        res(data);
+      }, error => {
+        console.log('Error al mostrar los usuarios '+error);
+      });
+    });
   }
 
   onEditar(id) {
