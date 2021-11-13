@@ -55,6 +55,17 @@
     </ion-label>
 
     <ion-item class="dato_usuario">
+      <ion-label position="floating">Confirma su contraseña:</ion-label>
+      <ion-input formControlName="c_password" type="password"></ion-input>
+    </ion-item>
+    <ion-label color="danger" *ngIf="formularioEditar.controls.c_password.errors?.required && (formularioEditar.touched || formularioEditar.dirty)">
+      * Debe introducir la contraseña.
+    </ion-label>
+    <ion-label color="danger" *ngIf="formularioEditar.controls.c_password.errors?.minLength && (formularioEditar.touched || formularioEditar.dirty)">
+      * La contraseña debe tener al menos 5 caracteres.
+    </ion-label>
+
+    <ion-item class="dato_usuario">
       <ion-label position="floating">Compañia:</ion-label>
       <ion-input formControlName="compania" type="number"></ion-input>
     </ion-item>
