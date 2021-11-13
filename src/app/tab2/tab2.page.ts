@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment.prod';
   styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page implements OnInit{
-
+  token: any;
 
 
   constructor(private navCtrl: NavController) { }
@@ -20,7 +20,10 @@ export class Tab2Page implements OnInit{
   }
 
   onLogout() {
-    this.navCtrl.navigateForward('/tabs/tab3');// hacia la página de login
+    this.token = localStorage.removeItem('token');
+    console.log('Token eliminado: '+this.token);
+
+    this.navCtrl.navigateForward('/login-almagest');
     console.log('El administrador ha cerrado la sesión');
   }
 }

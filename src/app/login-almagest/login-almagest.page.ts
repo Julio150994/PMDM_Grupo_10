@@ -121,9 +121,7 @@ export class LoginAlmagestPage implements OnInit {
           this.tok = data;
           this.usuario=this.tok.data;
           this.token = this.usuario.token;
-          console.log(this.token);
           localStorage.setItem('token',this.token);
-          console.log(this.usuario);
           if(this.usuario.type==='a'){
             this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
           }

@@ -32,14 +32,13 @@ export class Tab1Page implements OnInit{
     console.log('Estás en la pestaña del usuario administrador');
     this.buttons = this.usersService.mostrarBotonesUsuario();
     this.obtenerUsuarios();
-
-    
   }
   obtenerUsuarios() {
     return new Promise(res => {
       this.http.get(this.api+'/users', {
         headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
       }).subscribe(data => {
+        console.log(data);
         this.users = data;
         this.users=this.users.data;
         res(this.users);
@@ -49,7 +48,9 @@ export class Tab1Page implements OnInit{
     });
   }
   onLogout() {
-    this.navCtrl.navigateForward('/tabs/tab3');// hacia la página de login
+    console.log('Token eliminado: '+localStorage.removeItem('token'));
+
+    this.navCtrl.navigateForward('/login-almagest');
     console.log('El administrador ha cerrado la sesión');
   }
 
@@ -58,17 +59,16 @@ export class Tab1Page implements OnInit{
     const boton = document.getElementById('actived');
     const txtActivar = 'Activar';
     const txtDesactivar = 'Desactivar';
-   // if (this.buttons[0].nombre === txtDesactivar) {
+    if (this.buttons[0].nombre === txtDesactivar) {
       this.usersService.activar(id)
       .then(data => {
         this.users = data;
         this.users = this.users.data;
       },
+
       (error) => {
         console.log('Error al intentar desactivar: '+error);
       });
-
-     // boton.innerHTML = txtActivar;
     }
     /*else {
       await this.usersService.desactivar(id)
@@ -84,8 +84,8 @@ export class Tab1Page implements OnInit{
 
       this.buttons[0].nombre = txtDesactivar;
       console.log('Usuario activado correctamente');
-    }
-  }*/
+    }*/
+  }
   async presentLoading() {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando...',
@@ -93,10 +93,10 @@ export class Tab1Page implements OnInit{
     });
     await loading.present();
   }
-  
+
   onEditar(id) {
     this.usersService.obtenerIdUsuario(localStorage.getItem('token'),id)
-    .then(async data => {
+    .then(data => {
       this.usuario = data;
       this.usuario = this.usuario.data;
     });
@@ -114,11 +114,13 @@ export class Tab1Page implements OnInit{
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
+            console.log('No has eliminado a este usuario');
           }
         }, {
           text: 'SI',
           handler: () => {
             this.usersService.getElim(id);
+            console.log('Usuario eliminado éxitosamente');
           }
         }
       ]

@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Operations } from '../interfaces/operaciones';
-import { PreloadAllModules } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -29,13 +28,12 @@ export class UsersService {
   }
 
   login(mail, contrasenia) {
-    console.log(mail);
-    console.log(contrasenia);
     return new Promise(res => {
       this.httpUser.post<any>(this.url+'/login',{
         email: mail,
         password: contrasenia
       }).subscribe(data => {
+        console.log(data);
         this.user = data;
         this.user=this.user.data;
         localStorage.setItem('token',this.user);
@@ -71,7 +69,6 @@ export class UsersService {
       this.httpUser.get(this.url+'/users',{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
       }).subscribe(data => {
-        console.log(data);
         this.token = data;
         this.token=this.token.data;
         res(data);
@@ -84,6 +81,7 @@ export class UsersService {
   async presentLoading() {
     const loading = await this.loadingUserCtrl.create({
       message: 'Cargando...',
+      duration: 1500
     });
   }
 
@@ -92,10 +90,26 @@ export class UsersService {
     return new Promise(res => {
       this.httpUser.get(this.url+'/user/'+id,{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
-      }).subscribe(async data => {
+      }).subscribe(data => {
+        console.log(data);
         this.usuario = data;
-        this.usuario=this.usuario.data;
-        res(data);
+        this.usuario = this.usuario.data;
+
+        console.log(this.usuario);
+
+        console.log('Id: '+this.usuario.id);
+        console.log('Firstname: '+this.usuario.firstname);
+        console.log('Secondname: '+this.usuario.secondname);
+        console.log('Email: '+this.usuario.email);
+        console.log('Compañía: '+this.usuario.company_id);
+
+        this.usuario = this.usuario.id;
+        this.usuario = this.usuario.firstname;
+        this.usuario = this.usuario.secondname;
+        this.usuario = this.usuario.email;
+        this.usuario = this.usuario.company_id;
+
+        res(this.usuario);
         this.loadingUserCtrl.dismiss();
       }, error => {
         this.loadingUserCtrl.dismiss();
@@ -104,11 +118,22 @@ export class UsersService {
     });
   }
 
+  /*async loadEditar(message: string) {
+    const alert = await this.loadingUserCtrl.create({
+      message,
+      duration: 1000
+    });
+
+    await alert.present();
+
+  }*/
+
   activar(id:string) {
     return new Promise(async res => {
       this.httpUser.post<any>(this.url+'/activate?user_id='+id,{     
         headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
       }).subscribe(async data => {
+        console.log(data);
         this.token = data;
         res(data);
       }, error => {
@@ -167,24 +192,7 @@ export class UsersService {
           });
     });
   }
-  /*getElim(id) {
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer '+localStorage.getItem('token'),
-    });
-    return new Promise(resolve => {
-      this.httpUser.post(this.url+'/user/deleted/'+id, {
-          headers
-        })
-        .subscribe(resp => {
-          console.log(resp);
-          if (resp['ok']) {
-            resolve(true);
-          } else {
-            resolve(false);
-          }
-        });
-    });
-  }*/
+
   existe(mail:string){
     let valido=false;
       return new Promise(res => {
@@ -200,7 +208,6 @@ export class UsersService {
               break;
             }
           }
-          console.log(valido);
           res(valido); 
         }, err => {
           console.log('Error al obtener los usuarios '+err);

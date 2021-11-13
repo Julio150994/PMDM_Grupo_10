@@ -51,16 +51,15 @@ export class EditarUsuarioPage implements OnInit {
       duration: 500
     });
   }
-  usuarios() {
+  
+  /*usuarios() {
     const headers = new HttpHeaders({
       'Accept': 'application/json',
       'Authorization': `Bearer `+this.tok.data.token
     })
     const path = `${this.url}/users`;
     return this.httpUser.get<UsersService[]>(path,{headers:headers});
-  }
-
-  
+  }*/
 
   async editarUsuario() {
     this.navCtrl.navigateForward('/tabs/tab1');
