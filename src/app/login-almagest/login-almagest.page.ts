@@ -23,6 +23,8 @@ export class LoginAlmagestPage implements OnInit {
   usuario: any;
   id: any;
   deleted: any;
+  email_confirmed: any;
+  actived: any;
 
   constructor(private alertUserCtrl: AlertController,private navCtrl: NavController,
     private usersService: UsersService) { }
@@ -41,6 +43,60 @@ export class LoginAlmagestPage implements OnInit {
       header: 'LOGIN',
       cssClass: 'loginCss',
       message: '<strong>Usuario baneado por el administrador.Póngase en contacto en raul@raul.com.</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (valid) => {
+          }
+        }
+      ]
+    });
+    await notValid.present();
+  }
+
+  async problemaCuenta() {
+    const notValid = await this.alertUserCtrl.create({
+      header: 'LOGIN',
+      cssClass: 'loginCss',
+      message: '<strong>Hay un problema con su cuenta. Escriba a raul@raul.com</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (valid) => {
+          }
+        }
+      ]
+    });
+    await notValid.present();
+  }
+
+  async userSinActivar() {
+    const notValid = await this.alertUserCtrl.create({
+      header: 'LOGIN',
+      cssClass: 'loginCss',
+      message: '<strong>Tienes que esperar que el administrador active tu cuenta.</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (valid) => {
+          }
+        }
+      ]
+    });
+    await notValid.present();
+  }
+
+  async userSinConfirmar() {
+    const notValid = await this.alertUserCtrl.create({
+      header: 'LOGIN',
+      cssClass: 'loginCss',
+      message: '<strong>Tienes que confirmar tu cuenta entrando en el enlace que te hemos proporcionado en tu correo electrónico.</strong>',
       buttons: [
         {
           text: 'Aceptar',
@@ -76,8 +132,6 @@ export class LoginAlmagestPage implements OnInit {
             usuario=await this.usersService.obtenerUsuarios(this.usuario.token);
             usuario=usuario.data;
             for (let i = 0; i < usuario.length; i++) {
-              console.log(this.email);
-              console.log(usuario[i].email);
               if(usuario[i].email===this.email){
                 this.id=usuario[i].id;
                 break;
@@ -85,13 +139,28 @@ export class LoginAlmagestPage implements OnInit {
             }
             usuario=await this.usersService.obtenerIdUsuario(this.usuario.token,this.usuario.id);
             usuario=usuario.data;
-            this.deleted=usuario.deleted;
             console.log(usuario);
-            if(this.usuario.actived===1&&this.usuario.deleted===0){
+            this.deleted=usuario.deleted;
+            console.log('Borrado: '+this.deleted);
+            this.actived=usuario.actived;
+            console.log('Activado: '+this.actived);
+            this.email_confirmed=usuario.email_confirmed;
+            console.log('Emailconfirmed: '+this.email_confirmed);
+            
+            if(this.email_confirmed===0){
+              this.userSinActivar();
+            }
+            else if(this.email_confirmed===1&&this.actived===0){
+              this.userSinActivar();
+            }
+            else if(this.email_confirmed===1&&this.actived===1&&this.deleted===0){
               this.navCtrl.navigateForward('/tabs/tab2');// ruta hacia el usuario
             }
-            else{
+            else if(this.email_confirmed===1&&this.actived===1&&this.deleted===1){
               this.userBaneado();
+            }
+            else{
+              this.problemaCuenta();
             }
             
           }
