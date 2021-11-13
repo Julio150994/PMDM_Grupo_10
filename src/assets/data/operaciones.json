@@ -5,12 +5,6 @@
         "icono": "power-outline"
     },
     {
-        "nombre": "Desactivar",
-        "ruta": "/tabs/tab1",
-        "color": "dark",
-        "icono": "power-outline"
-    },
-    {
         "nombre": "Editar",
         "ruta": "/editar-usuario",
         "color": "tertiary",

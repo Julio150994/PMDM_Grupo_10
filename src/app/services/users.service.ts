@@ -45,6 +45,22 @@ export class UsersService {
     });
   }
 
+  logout(tok: any) {
+    return new Promise(res => {
+      this.httpUser.post<any>(this.url+'/logout',{
+        headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
+      }).subscribe(data => {
+        console.log(data);
+        this.user = data;
+        this.user=this.user.data;
+        localStorage.removeItem(tok);// para eliminar el token de usuario y cerrar sesión
+        res(data);
+      }, error => {
+        console.log('Error al cerrar sesión '+error);
+      });
+    });
+  }
+
   /** Para mostrar mensaje de alerta de que no existe el usuario */
   async userNoRegistrado() {
     const notValid = await this.alertUserCtrl.create({
@@ -95,7 +111,7 @@ export class UsersService {
         this.usuario = data;
         this.usuario = this.usuario.data;
 
-        console.log(this.usuario);
+        /*console.log(this.usuario);
 
         console.log('Id: '+this.usuario.id);
         console.log('Firstname: '+this.usuario.firstname);
@@ -107,9 +123,9 @@ export class UsersService {
         this.usuario = this.usuario.firstname;
         this.usuario = this.usuario.secondname;
         this.usuario = this.usuario.email;
-        this.usuario = this.usuario.company_id;
+        this.usuario = this.usuario.company_id;*/
 
-        res(this.usuario);
+        res(data);
         this.loadingUserCtrl.dismiss();
       }, error => {
         this.loadingUserCtrl.dismiss();

@@ -11,17 +11,29 @@ import { environment } from '../../environments/environment.prod';
   styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page implements OnInit{
+  api = 'http://semillero.allsites.es/public/api';
+  users: any;
+  user: any;
+  tok: any;
   token: any;
+  id: number;
+  email: string;
+  password: string;
+  usuario: any;
+  eliminarToken: any;
 
-
-  constructor(private navCtrl: NavController) { }
+  constructor(private navCtrl: NavController, private usersService: UsersService) { }
 
   ngOnInit() {
   }
 
   onLogout() {
-    this.token = localStorage.removeItem('token');
-    console.log('Token eliminado: '+this.token);
+    this.token = localStorage.getItem('token');
+
+    this.eliminarToken = this.usersService.logout(this.token).then(data => {
+      this.users = data;
+      this.users=this.users.data;
+    });
 
     this.navCtrl.navigateForward('/login-almagest');
     console.log('El administrador ha cerrado la sesión');

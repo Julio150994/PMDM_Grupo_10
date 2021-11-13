@@ -22,6 +22,7 @@ export class Tab1Page implements OnInit{
   actived: any; //carga del usuario activo
   buttons: Observable<Operations[]>;
   usuario: any;
+  eliminarToken: any;
  
 
   constructor(private alertCtrl: AlertController,private http: HttpClient, private navCtrl: NavController, private usersService: UsersService,
@@ -48,7 +49,12 @@ export class Tab1Page implements OnInit{
     });
   }
   onLogout() {
-    console.log('Token eliminado: '+localStorage.removeItem('token'));
+    this.token = localStorage.getItem('token');
+
+    this.eliminarToken = this.usersService.logout(this.token).then(data => {
+      this.users = data;
+      this.users=this.users.data;
+    });
 
     this.navCtrl.navigateForward('/login-almagest');
     console.log('El administrador ha cerrado la sesión');
@@ -56,10 +62,39 @@ export class Tab1Page implements OnInit{
 
   /** Métodos para gestionar usuarios */
   getUserActived(id:string) {
-    const boton = document.getElementById('actived');
+    const boton = document.getElementById(id);
     const txtActivar = 'Activar';
     const txtDesactivar = 'Desactivar';
-    if (this.buttons[0].nombre === txtDesactivar) {
+    // this.buttons[0].nombre
+
+    if (boton.innerHTML === txtActivar) {
+      this.usersService.activar(id)
+      .then(data => {
+        this.users = data;
+        this.users = this.users.data;
+      },
+      (error) => {
+        console.log('Error al intentar desactivar: '+error);
+      });
+
+      boton.innerHTML = txtDesactivar;
+      console.log('Usuario desactivado correctamente');
+    }
+    else if(boton.innerHTML === txtDesactivar) {
+      this.usersService.desactivar(id)
+      .then(data => {
+        this.users = data;
+        this.users = this.users.data;
+      },
+      (error => {
+        console.log('Error al intentar activar: '+error);
+      }));
+
+      boton.innerHTML = txtActivar;
+      console.log('Usuario activado correctamente');
+    }
+
+    /*if (this.buttons[0].nombre === txtDesactivar) {
       this.usersService.activar(id)
       .then(data => {
         this.users = data;
@@ -70,6 +105,17 @@ export class Tab1Page implements OnInit{
         console.log('Error al intentar desactivar: '+error);
       });
     }
+    else if(this.buttons[0].nombre === txtActivar) {
+      this.usersService.desactivar(id)
+      .then(data => {
+        this.users = data;
+        this.users = this.users.data;
+      },
+      (error => {
+        console.log('Error al intentar activar: '+error);
+      }));
+    }*/
+
     /*else {
       await this.usersService.desactivar(id)
       .then(data => {
