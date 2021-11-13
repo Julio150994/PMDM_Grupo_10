@@ -6,9 +6,9 @@ import { IonicModule, IonicRouteStrategy  } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { PipesModule } from './pipes/pipes.module';
-
+import { AuthInterceptorService } from './auth-interceptor.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +22,20 @@ import { PipesModule } from './pipes/pipes.module';
     ReactiveFormsModule,
     
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { 
+      provide: RouteReuseStrategy, 
+      useClass: IonicRouteStrategy,
+      
+    },
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

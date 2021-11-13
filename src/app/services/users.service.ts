@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Operations } from '../interfaces/operaciones';
+import { PreloadAllModules } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +17,8 @@ export class UsersService {
   user: any;
   actived: any;
   loadingDatas: any;
+  id: number;
+  usuario: any;
   constructor(private alertUserCtrl: AlertController,private httpUser: HttpClient,
     private loadingUserCtrl: LoadingController) {
  
@@ -77,14 +81,24 @@ export class UsersService {
     });
   }
 
-  obtenerIdUsuario(tok: any, id: number) {
+  async presentLoading() {
+    const loading = await this.loadingUserCtrl.create({
+      message: 'Cargando...',
+    });
+  }
+
+  obtenerIdUsuario(tok: string, id: number) {
+    this.presentLoading();
     return new Promise(res => {
       this.httpUser.get(this.url+'/user/'+id,{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
-      }).subscribe(data => {
-        this.token = data;
+      }).subscribe(async data => {
+        this.usuario = data;
+        this.usuario=this.usuario.data;
         res(data);
+        this.loadingUserCtrl.dismiss();
       }, error => {
+        this.loadingUserCtrl.dismiss();
         console.log('No se ha podido obtener el id del usuario '+error);
       });
     });
@@ -92,14 +106,12 @@ export class UsersService {
 
   activar(id:string) {
     return new Promise(async res => {
-      this.loadUsers('Activando usuario...');
       this.httpUser.post<any>(this.url+'/activate?user_id='+id,{     
         headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
       }).subscribe(async data => {
         this.token = data;
         res(data);
       }, error => {
-        this.loadingUserCtrl.dismiss();
         console.log('No se ha podido activar este usuario '+error);
       });
     });
@@ -107,7 +119,6 @@ export class UsersService {
 
   desactivar(id:string) {
     return new Promise(res => {
-      this.loadUsers('Desactivando usuario...');
       setTimeout(() => {
         this.actived.dismiss();
         this.httpUser.post<any>(this.url+'/deactivate?user_id='+id,{
@@ -116,7 +127,6 @@ export class UsersService {
           this.token = data;
           res(data);
         }, error => {
-          this.loadingUserCtrl.dismiss();
           console.log('No se ha podido desactivar este usuario '+error);
         });
       }, 1750);
@@ -144,10 +154,11 @@ export class UsersService {
     });
   }
 
-  getElim(id:string) {
+  getElim(id) {
     return new Promise((resolve, reject) => {
+      console.log(localStorage.getItem('token'));
           this.httpUser.post(this.url+'/user/deleted/'+id, {
-            headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
+            headers: new HttpHeaders().set('Authorization', 'Bearer '+(localStorage.getItem('token')))
           }).subscribe(res => {
             resolve(res);
             console.log('ok');
@@ -156,28 +167,24 @@ export class UsersService {
           });
     });
   }
-  eliminar(id: string) {
-    return new Promise(res => {
-      this.httpUser.post(this.url + '/user/deleted/' + id, {
-        headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
-      }).subscribe((data) => {
-        this.token = data;
-        res(data);
-      }, error => {
-        console.log('Error al eliminar usuario ' + this.token);
-      });
+  /*getElim(id) {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer '+localStorage.getItem('token'),
     });
-  }
-  mostrarCompanias() {
-    return new Promise(res => {
-      this.httpUser.get(this.url+'/companies')
-      .subscribe(companias => {
-        res(companias);
-      }, error => {
-        console.log('Error al mostrar las compañías '+error);
-      });
+    return new Promise(resolve => {
+      this.httpUser.post(this.url+'/user/deleted/'+id, {
+          headers
+        })
+        .subscribe(resp => {
+          console.log(resp);
+          if (resp['ok']) {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        });
     });
-  }
+  }*/
   existe(mail:string){
     let valido=false;
       return new Promise(res => {

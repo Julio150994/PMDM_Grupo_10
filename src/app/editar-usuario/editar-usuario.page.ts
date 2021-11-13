@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import { environment } from '../../environments/environment.prod';
 import { UsersService } from '../services/users.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-editar-usuario',
@@ -27,20 +28,28 @@ export class EditarUsuarioPage implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
     compania: new FormControl('', [Validators.required]),
   });
+  usuario: any;
 
-  constructor(private httpUser: HttpClient, private navCtrl: NavController, private usersService: UsersService) { }
-
-  ngOnInit() {
-    console.log(this.datos);
-
-    /*console.log(this.formularioEditar.controls.id.setValue(100));
-    console.log(this.formularioEditar.controls.firstname.setValue('Ignacio'));
-    console.log(this.formularioEditar.controls.secondname.setValue('López García'));
-    console.log(this.formularioEditar.controls.email.setValue('ignaloge@gmail.com'));
-    console.log(this.formularioEditar.controls.password.setValue('secret'));
-    console.log(this.formularioEditar.controls.compania.setValue(2));*/
+  constructor(private loadingUserCtrl: LoadingController,private httpUser: HttpClient, private navCtrl: NavController, private usersService: UsersService) { 
+  
   }
 
+  async ngOnInit() {
+    this.presentLoading();
+    this.usuario=this.usersService.usuario;
+    this.formularioEditar.controls.firstname.setValue(this.usuario.firstname);
+    this.formularioEditar.controls.secondname.setValue(this.usuario.secondname);
+    this.formularioEditar.controls.email.setValue(this.usuario.email);
+    this.formularioEditar.controls.compania.setValue(this.usuario.company_id);
+    this.loadingUserCtrl.dismiss();
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingUserCtrl.create({
+      message: 'Cargando...',
+      duration: 500
+    });
+  }
   usuarios() {
     const headers = new HttpHeaders({
       'Accept': 'application/json',
@@ -49,6 +58,8 @@ export class EditarUsuarioPage implements OnInit {
     const path = `${this.url}/users`;
     return this.httpUser.get<UsersService[]>(path,{headers:headers});
   }
+
+  
 
   async editarUsuario() {
     this.navCtrl.navigateForward('/tabs/tab1');

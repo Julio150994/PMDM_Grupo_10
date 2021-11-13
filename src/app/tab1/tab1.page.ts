@@ -21,6 +21,7 @@ export class Tab1Page implements OnInit{
   password: string;
   actived: any; //carga del usuario activo
   buttons: Observable<Operations[]>;
+  usuario: any;
  
 
   constructor(private alertCtrl: AlertController,private http: HttpClient, private navCtrl: NavController, private usersService: UsersService,
@@ -29,9 +30,10 @@ export class Tab1Page implements OnInit{
 
   ngOnInit() {
     console.log('Estás en la pestaña del usuario administrador');
+    this.buttons = this.usersService.mostrarBotonesUsuario();
     this.obtenerUsuarios();
 
-    this.buttons = this.usersService.mostrarBotonesUsuario();
+    
   }
   obtenerUsuarios() {
     return new Promise(res => {
@@ -52,25 +54,23 @@ export class Tab1Page implements OnInit{
   }
 
   /** Métodos para gestionar usuarios */
-  async getUserActived(id:string) {
+  getUserActived(id:string) {
     const boton = document.getElementById('actived');
     const txtActivar = 'Activar';
     const txtDesactivar = 'Desactivar';
-    if (this.buttons[0].nombre === txtDesactivar) {
-      await this.usersService.activar(id)
+   // if (this.buttons[0].nombre === txtDesactivar) {
+      this.usersService.activar(id)
       .then(data => {
-        this.loadingCtrl.dismiss();
         this.users = data;
         this.users = this.users.data;
       },
       (error) => {
-        this.loadingCtrl.dismiss();
         console.log('Error al intentar desactivar: '+error);
       });
 
-      boton.innerHTML = txtActivar;
+     // boton.innerHTML = txtActivar;
     }
-    else {
+    /*else {
       await this.usersService.desactivar(id)
       .then(data => {
         this.loadingCtrl.dismiss();
@@ -85,20 +85,22 @@ export class Tab1Page implements OnInit{
       this.buttons[0].nombre = txtDesactivar;
       console.log('Usuario activado correctamente');
     }
-  }
-
-  onEditar(id) {
-    this.navCtrl.navigateForward('/editar-usuario');
-    this.id=id;
-
-    this.usersService.obtenerIdUsuario(localStorage.getItem('token'), this.id)
-    .then(data => {
-      console.log(data);
-      this.user = data;
-      this.user = this.users.data;
+  }*/
+  async presentLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando...',
+      duration: 400
     });
-
-    console.log('Formulario de editar usuario');
+    await loading.present();
+  }
+  
+  onEditar(id) {
+    this.usersService.obtenerIdUsuario(localStorage.getItem('token'),id)
+    .then(async data => {
+      this.usuario = data;
+      this.usuario = this.usuario.data;
+    });
+    this.navCtrl.navigateForward('/editar-usuario');
   }
 
   async eliminar(id:string) {
