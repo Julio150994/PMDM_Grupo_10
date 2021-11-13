@@ -87,7 +87,7 @@ export class Tab1Page implements OnInit{
     }
   }
 
-  onEditar(id) {
+  onEditar(id: number) {
     this.navCtrl.navigateForward('/editar-usuario');
     this.id=id;
 

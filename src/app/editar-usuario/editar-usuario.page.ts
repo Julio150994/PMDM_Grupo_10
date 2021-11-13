@@ -31,14 +31,7 @@ export class EditarUsuarioPage implements OnInit {
   constructor(private httpUser: HttpClient, private navCtrl: NavController, private usersService: UsersService) { }
 
   ngOnInit() {
-    console.log(this.datos);
-
-    /*console.log(this.formularioEditar.controls.id.setValue(100));
-    console.log(this.formularioEditar.controls.firstname.setValue('Ignacio'));
-    console.log(this.formularioEditar.controls.secondname.setValue('López García'));
-    console.log(this.formularioEditar.controls.email.setValue('ignaloge@gmail.com'));
-    console.log(this.formularioEditar.controls.password.setValue('secret'));
-    console.log(this.formularioEditar.controls.compania.setValue(2));*/
+    
   }
 
   usuarios() {
