@@ -146,20 +146,25 @@ export class UsersService {
 
   activar(id:string) {
     return new Promise(async res => {
-      this.httpUser.post<any>(this.url+'/activate?user_id='+id,{     
-        headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
-      }).subscribe(async data => {
-        console.log(data);
-        this.token = data;
-        res(data);
-      }, error => {
-        console.log('No se ha podido activar este usuario '+error);
-      });
+      this.loadUsers('Activando usuario...');
+      setTimeout(() => {
+        this.actived.dismiss();
+        this.httpUser.post<any>(this.url+'/activate?user_id='+id,{
+          headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
+        }).subscribe(async data => {
+          console.log(data);
+          this.token = data;
+          res(data);
+        }, error => {
+          console.log('No se ha podido activar este usuario '+error);
+        });
+      }, 1750);
     });
   }
 
   desactivar(id:string) {
-    return new Promise(res => {
+    return new Promise(async res => {
+      this.loadUsers('Desactivando usuario...');
       setTimeout(() => {
         this.actived.dismiss();
         this.httpUser.post<any>(this.url+'/deactivate?user_id='+id,{

@@ -65,7 +65,6 @@ export class Tab1Page implements OnInit{
     const boton = document.getElementById(id);
     const txtActivar = 'Activar';
     const txtDesactivar = 'Desactivar';
-    // this.buttons[0].nombre
 
     if (boton.innerHTML === txtActivar) {
       this.usersService.activar(id)
