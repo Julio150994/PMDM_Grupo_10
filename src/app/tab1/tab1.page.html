@@ -26,7 +26,7 @@
             <ion-label>{{ user.secondname }}</ion-label>
             <ion-label>{{ user.email }}</ion-label>
             
-            <ion-button *ngFor="let funciones of buttons; let item = index;" color="{{ funciones.color }}"
+            <ion-button *ngFor="let funciones of buttons | async; let item = index;" color="{{ funciones.color }}"
               routerLink="{{ funciones.ruta }}">
                 <ion-icon name="{{ funciones.icono }}"></ion-icon>
                 <ion-label *ngIf="item === 0" (click)="getUserActived(user.id)" id={{user.id}}>{{ funciones.nombre }}</ion-label>

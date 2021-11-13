@@ -8,15 +8,15 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form [formGroup]="user" (ngSubmit)="editar()" method="post">    
+  <form [formGroup]="formularioEditar" (ngSubmit)="editarUsuario()" method="post">
     <ion-item class="dato_usuario">
       <ion-label position="floating">Nombre:</ion-label>
       <ion-input formControlName="firstname" type="text"></ion-input>
     </ion-item>
-    <ion-label color="danger" *ngIf="user.controls.firstname.errors?.required && (user.touched || user.dirty)">
+    <ion-label color="danger" *ngIf="formularioEditar.controls.firstname.errors?.required && (formularioEditar.touched || formularioEditar.dirty)">
       * Debe introducir un nombre.
     </ion-label>
-    <ion-label color="danger" *ngIf="user.controls.firstname.errors?.minLength && (user.touched || user.dirty)">
+    <ion-label color="danger" *ngIf="formularioEditar.controls.firstname.errors?.minLength && (formularioEditar.touched || formularioEditar.dirty)">
       * Su nombre debe tener al menos 3 caracteres.
     </ion-label>
     
@@ -25,22 +25,21 @@
       <ion-label position="floating">Apellido:</ion-label>
       <ion-input formControlName="secondname" type="text"></ion-input>
     </ion-item>
-    <ion-label color="danger" *ngIf="user.controls.secondname.errors?.required && (user.touched || user.dirty)">
+    <ion-label color="danger" *ngIf="formularioEditar.controls.secondname.errors?.required && (formularioEditar.touched || formularioEditar.dirty)">
       * Debe introducir un apellido.
     </ion-label>
-    <ion-label color="danger" *ngIf="user.controls.secondname.errors?.minLength && (user.touched || user.dirty)">
+    <ion-label color="danger" *ngIf="formularioEditar.controls.secondname.errors?.minLength && (formularioEditar.touched || formularioEditar.dirty)">
       * Su apellido debe tener al menos 3 caracteres.
     </ion-label>
 
     <ion-item class="dato_usuario">
       <ion-label position="floating">Email:</ion-label>
-      <ion-input formControlName="email" type="email">
-      </ion-input>
+      <ion-input formControlName="email" type="email"></ion-input>
     </ion-item>
-    <ion-label color="danger" *ngIf="user.controls.email.errors?.required && (user.touched || user.dirty)">
+    <ion-label color="danger" *ngIf="formularioEditar.controls.email.errors?.required && (formularioEditar.touched || formularioEditar.dirty)">
       * Debe introducir un email.
     </ion-label>
-    <ion-label color="danger" *ngIf="user.controls.email.errors?.email && (user.touched || user.dirty)">
+    <ion-label color="danger" *ngIf="formularioEditar.controls.email.errors?.email && (formularioEditar.touched || formularioEditar.dirty)">
       * El email no es válido.
     </ion-label>
 
@@ -48,25 +47,25 @@
       <ion-label position="floating">Contraseña:</ion-label>
       <ion-input formControlName="password" type="password"></ion-input>
     </ion-item>
-    <ion-label color="danger" *ngIf="user.controls.password.errors?.required && (user.touched || user.dirty)">
+    <ion-label color="danger" *ngIf="formularioEditar.controls.password.errors?.required && (formularioEditar.touched || formularioEditar.dirty)">
       * Debe introducir una contraseña.
     </ion-label>
-    <ion-label color="danger" *ngIf="user.controls.password.errors?.minLength && (user.touched || user.dirty)">
+    <ion-label color="danger" *ngIf="formularioEditar.controls.password.errors?.minLength && (formularioEditar.touched || formularioEditar.dirty)">
       * La contraseña debe tener al menos 5 caracteres.
     </ion-label>
 
-    <!--<ion-item class="dato_usuario">
+    <ion-item class="dato_usuario">
       <ion-label position="floating">Compañia:</ion-label>
-      <ion-input formControlName="company_id" type="number"></ion-input>
+      <ion-input formControlName="compania" type="number"></ion-input>
     </ion-item>
-    <ion-label color="danger" *ngIf="user.controls.c_password.errors?.required && (user.touched || user.dirty)">
-      * Debe introducir la compañia.
+    <ion-label color="danger" *ngIf="formularioEditar.controls.compania.errors?.required && (formularioEditar.touched || formularioEditar.dirty)">
+      * Debe indicar la compañía.
     </ion-label>
-    <ion-label color="danger" *ngIf="user.controls.c_password.errors?.minLength && (user.touched || user.dirty)">
+    <ion-label color="danger" *ngIf="formularioEditar.controls.compania.errors?.maxLength && (formularioEditar.touched || formularioEditar.dirty)">
       * La compañia debe ser un número.
-    </ion-label>-->
+    </ion-label>
 
-    <ion-button expand="full" type="submit" [disabled]="!user.valid" id="botonRegister" color="tertiary" id="botonEditar">
+    <ion-button expand="full" type="submit" [disabled]="!formularioEditar.valid" id="botonRegister" color="tertiary" id="botonEditar">
       <ion-icon name="person"></ion-icon>
       Editar
     </ion-button>

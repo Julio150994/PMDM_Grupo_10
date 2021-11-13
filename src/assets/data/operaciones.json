@@ -1,0 +1,19 @@
+[{
+        "nombre": "Activar",
+        "ruta": "/tabs/tab1",
+        "color": "success",
+        "icono": "power-outline"
+    },
+    {
+        "nombre": "Editar",
+        "ruta": "/editar-usuario",
+        "color": "tertiary",
+        "icono": "person-circle-outline"
+    },
+    {
+        "nombre": "Eliminar",
+        "ruta": "/tabs/tab1",
+        "color": "danger",
+        "icono": "trash-outline"
+    }
+]

@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController, LoadingController } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
+import { Operations } from '../interfaces/operaciones';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tab1',
@@ -18,26 +20,7 @@ export class Tab1Page implements OnInit{
   email: string;
   password: string;
   actived: any; //carga del usuario activo
-  buttons: Operations[] = [
-    {
-      nombre: 'Activar',
-      ruta: '/tabs/tab1',
-      color: 'success',
-      icono: 'power-outline'
-    },
-    {
-      nombre: 'Editar',
-      ruta: '/editar-usuario',
-      color: 'tertiary',
-      icono: 'person-circle-outline'
-    },
-    {
-      nombre: 'Eliminar',
-      ruta: '/tabs/tab1',
-      color: 'danger',
-      icono: 'trash-outline'
-    }
-  ];
+  buttons: Observable<Operations[]>;
  
 
   constructor(private alertCtrl: AlertController,private http: HttpClient, private navCtrl: NavController, private usersService: UsersService,
@@ -47,6 +30,8 @@ export class Tab1Page implements OnInit{
   ngOnInit() {
     console.log('Estás en la pestaña del usuario administrador');
     this.obtenerUsuarios();
+
+    this.buttons = this.usersService.mostrarBotonesUsuario();
   }
   obtenerUsuarios() {
     return new Promise(res => {
@@ -108,6 +93,7 @@ export class Tab1Page implements OnInit{
 
     this.usersService.obtenerIdUsuario(localStorage.getItem('token'), this.id)
     .then(data => {
+      console.log(data);
       this.user = data;
       this.user = this.users.data;
     });
@@ -139,11 +125,4 @@ export class Tab1Page implements OnInit{
     await alert.present();
   }
 
-}
-
-interface Operations {
-  nombre: string;
-  ruta: string;
-  color: string;
-  icono: string;
 }

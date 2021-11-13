@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { Operations } from '../interfaces/operaciones';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +18,10 @@ export class UsersService {
   constructor(private alertUserCtrl: AlertController,private httpUser: HttpClient,
     private loadingUserCtrl: LoadingController) {
  
+  }
+
+  mostrarBotonesUsuario() {
+    return this.httpUser.get<Operations[]>('/assets/data/operaciones.json');
   }
 
   login(mail, contrasenia) {
@@ -62,6 +67,7 @@ export class UsersService {
       this.httpUser.get(this.url+'/users',{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
       }).subscribe(data => {
+        console.log(data);
         this.token = data;
         this.token=this.token.data;
         res(data);
