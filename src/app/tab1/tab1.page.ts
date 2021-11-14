@@ -2,9 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, AlertController, LoadingController, IonList } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
-import { Operations } from '../interfaces/operaciones';
-import { Observable } from 'rxjs';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tab1',

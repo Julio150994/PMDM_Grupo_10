@@ -23,10 +23,6 @@ export class UsersService {
  
   }
 
-  /*mostrarBotonesUsuario() {
-    return this.httpUser.get<Operations[]>('/assets/data/operaciones.json');
-  }*/
-
   login(mail, contrasenia) {
     return new Promise(res => {
       this.httpUser.post<any>(this.url+'/login',{
