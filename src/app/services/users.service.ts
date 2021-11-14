@@ -110,9 +110,7 @@ export class UsersService {
         this.actived.dismiss();
         this.httpUser.post<any>(this.url+'/activate?user_id='+id,{
           headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token')),
-          actived: 1
         }).subscribe(async data => {
-          console.log(this.obtenerUsuarios(localStorage.getItem('token')));
           console.log(data);
           this.token = data;
           res(data);
@@ -130,9 +128,7 @@ export class UsersService {
         this.actived.dismiss();
         this.httpUser.post<any>(this.url+'/deactivate?user_id='+id,{
           headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token')),
-          actived: 0
         }).subscribe(async data => {
-          console.log(this.obtenerUsuarios(localStorage.getItem('token')));
           console.log(data);
           this.token = data;
           res(data);

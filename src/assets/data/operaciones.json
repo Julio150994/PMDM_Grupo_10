@@ -1,9 +1,13 @@
-[
-
-    {
+[{
         "nombre": "Activar",
         "ruta": "/tabs/tab1",
         "color": "success",
+        "icono": "power-outline"
+    },
+    {
+        "nombre": "Desactivar",
+        "ruta": "/tabs/tab1",
+        "color": "warning",
         "icono": "power-outline"
     },
     {

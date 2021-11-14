@@ -23,7 +23,8 @@ export class Tab1Page implements OnInit{
   buttons: Observable<Operations[]>;
   usuario: any;
   eliminarToken: any;
- 
+  botonActivar: any;
+  botonDesactivar: any;
 
   constructor(private alertCtrl: AlertController,private http: HttpClient,
     private navCtrl: NavController, private usersService: UsersService, private loadingCtrl: LoadingController) {
@@ -47,29 +48,20 @@ export class Tab1Page implements OnInit{
     console.log('El administrador ha cerrado la sesión');
   }
 
-  async getUserActived(id: string) {
-    const boton = document.getElementById(id);
-    const txtActivar = 'Activar';
-    const txtDesactivar = 'Desactivar';
+  async activar(id:string) {
     this.token = localStorage.getItem('token');
-
-    if (boton.innerHTML === txtActivar) {
-      await this.presentLoading();
-      this.usersService.activar(id);
-
-      boton.innerHTML = txtDesactivar;
-      console.log('Usuario activado correctamente');
-      this.navCtrl.navigateForward('/tabs/tab1');
-      this.obtenerUsuarios(this.token);
-    }
-    else {
-      await this.presentLoading();
-      this.usersService.desactivar(id);
-      boton.innerHTML = txtActivar;
-      console.log('Usuario desactivado correctamente');
-      this.navCtrl.navigateForward('/tabs/tab1');
-      this.obtenerUsuarios(this.token);
-    }
+    await this.usersService.activar(id);
+    await this.presentLoading();
+    window.location.reload();
+    console.log('Usuario activado correctamente');
+  }
+  
+  async desactivar(id:string) {
+    this.token = localStorage.getItem('token');
+    await this.usersService.desactivar(id);
+    await this.presentLoading();
+    window.location.reload();
+    console.log('Usuario activado correctamente');
   }
 
   async presentLoading() {
