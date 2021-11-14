@@ -149,7 +149,7 @@ export class LoginAlmagestPage implements OnInit {
               this.userSinActivar();
             }
             else if(this.email_confirmed===1&&this.actived===0){
-              this.userSinActivar();
+              this.navCtrl.navigateForward('/usuarios');
             }
             else if(this.email_confirmed===1&&this.actived===1&&this.deleted===0){
               this.navCtrl.navigateForward('/tabs/tab2');// ruta hacia el usuario

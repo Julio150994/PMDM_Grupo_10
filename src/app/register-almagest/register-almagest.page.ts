@@ -62,6 +62,8 @@ export class RegisterAlmagestPage implements OnInit {
           this.user = datoUsuario;
           res(this.user);
           this.usuarioRegistrado();
+
+          this.navCtrl.navigateForward('/login-almagest');
         }, error => {
           console.log('Error al registrar este usuario '+error);
         });

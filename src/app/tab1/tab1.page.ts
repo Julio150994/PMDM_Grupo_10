@@ -4,6 +4,7 @@ import { NavController, AlertController, LoadingController } from '@ionic/angula
 import { UsersService } from '../services/users.service';
 import { Operations } from '../interfaces/operaciones';
 import { Observable } from 'rxjs';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tab1',
@@ -25,6 +26,7 @@ export class Tab1Page implements OnInit{
   eliminarToken: any;
   botonActivar: any;
   botonDesactivar: any;
+
 
   constructor(private alertCtrl: AlertController,private http: HttpClient,
     private navCtrl: NavController, private usersService: UsersService, private loadingCtrl: LoadingController) {
