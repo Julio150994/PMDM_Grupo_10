@@ -53,8 +53,8 @@ export class Tab1Page implements OnInit{
     await this.usersService.activar(id);
     await this.presentLoading();
     console.log('Usuario activado correctamente');
-    this.alertUserActived(email);
     window.location.reload();
+    this.alertUserActived(email);
   }
   
   async desactivar(id:string, email:string) {
@@ -63,8 +63,8 @@ export class Tab1Page implements OnInit{
     await this.usersService.desactivar(id);
     await this.presentLoading();
     console.log('Usuario desactivado correctamente');
-    this.alertUserDeactived(email);
     window.location.reload();
+    this.alertUserDeactived(email);
   }
 
   async presentLoading() {
