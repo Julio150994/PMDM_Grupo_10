@@ -1,25 +1,21 @@
 [{
-        "nombre": "Activar",
-        "ruta": "/tabs/tab1",
-        "color": "success",
-        "icono": "power-outline"
-    },
-    {
-        "nombre": "Desactivar",
-        "ruta": "/tabs/tab1",
-        "color": "warning",
-        "icono": "power-outline"
-    },
-    {
-        "nombre": "Editar",
-        "ruta": "/editar-usuario",
-        "color": "tertiary",
-        "icono": "person-circle-outline"
-    },
-    {
-        "nombre": "Eliminar",
-        "ruta": "/tabs/tab1",
-        "color": "danger",
-        "icono": "trash-outline"
-    }
+    "nombre": "Activar",
+    "ruta": "/tabs/tab1",
+    "icono": "power-outline"
+},
+{
+    "nombre": "Desactivar",
+    "ruta": "/tabs/tab1",
+    "icono": "power-outline"
+},
+{
+    "nombre": "Editar",
+    "ruta": "/editar-usuario",
+    "icono": "person-circle-outline"
+},
+{
+    "nombre": "Eliminar",
+    "ruta": "/tabs/tab1",
+    "icono": "trash-outline"
+}
 ]

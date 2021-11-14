@@ -23,7 +23,7 @@ export class EditarUsuarioPage implements OnInit {
   loading: any;
 
   formularioEditar = new FormGroup({
-    id: new FormControl(''),
+
     firstname: new FormControl('', [Validators.required, Validators.minLength(1)]),
     secondname: new FormControl('', [Validators.required, Validators.minLength(1)]),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -33,23 +33,39 @@ export class EditarUsuarioPage implements OnInit {
   usuario: any;
 
   constructor(private alertContrasenia: AlertController,private loadingUserCtrl: LoadingController,private httpUser: HttpClient, private navCtrl: NavController, private usersService: UsersService) { 
-  
+    
   }
 
   async ngOnInit() {
     this.mostrarCompanias();
+    this.usuario=await this.usersService.usuario;
+    this.presentLoading();
+    
+  }
 
-    this.usuario=this.usersService.usuario;
-    this.formularioEditar.controls.id.setValue(this.usuario.id);
+  async presentLoading() {
+    const loading = await this.loadingUserCtrl.create({
+      message: 'Hellooo',
+      duration: 2000
+    });
+    await loading.present();
+    this.cambiarNombres();
+
+    const { role, data } = await loading.onDidDismiss();
+
+    console.log('Loading dismissed!');
+  }
+  
+
+  cancelarSeleccion(evento) {
+    console.log('No ha seleccionado una compañía a editar '+evento);
+  }
+
+  cambiarNombres(){
     this.formularioEditar.controls.firstname.setValue(this.usuario.firstname);
     this.formularioEditar.controls.secondname.setValue(this.usuario.secondname);
     this.formularioEditar.controls.email.setValue(this.usuario.email);
     this.formularioEditar.controls.compania.setValue(this.usuario.company_id);
-    this.loadingUserCtrl.dismiss();
-  }
-
-  cancelarSeleccion(evento) {
-    console.log('No ha seleccionado una compañía a editar '+evento);
   }
 
   mostrarCompanias() {

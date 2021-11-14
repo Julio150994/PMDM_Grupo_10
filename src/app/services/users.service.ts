@@ -78,15 +78,7 @@ export class UsersService {
     });
   }
 
-  async presentLoading() {
-    const loading = await this.loadingUserCtrl.create({
-      message: 'Cargando...',
-      duration: 1500
-    });
-  }
-
-  obtenerIdUsuario(tok: string, id: number) {
-    this.presentLoading();
+  async obtenerIdUsuario(tok: string, id: number) {
     return new Promise(res => {
       this.httpUser.get(this.url+'/user/'+id,{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
