@@ -1,4 +1,6 @@
-[{
+[
+
+    {
         "nombre": "Activar",
         "ruta": "/tabs/tab1",
         "color": "success",

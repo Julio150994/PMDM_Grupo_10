@@ -25,8 +25,8 @@ export class Tab1Page implements OnInit{
   eliminarToken: any;
  
 
-  constructor(private alertCtrl: AlertController,private http: HttpClient, private navCtrl: NavController, private usersService: UsersService,
-    private loadingCtrl: LoadingController) {
+  constructor(private alertCtrl: AlertController,private http: HttpClient,
+    private navCtrl: NavController, private usersService: UsersService, private loadingCtrl: LoadingController) {
   };
 
   ngOnInit() {
@@ -47,7 +47,7 @@ export class Tab1Page implements OnInit{
     console.log('El administrador ha cerrado la sesión');
   }
 
-  async getUserActived(id:string) {
+  async getUserActived(id: string) {
     const boton = document.getElementById(id);
     const txtActivar = 'Activar';
     const txtDesactivar = 'Desactivar';
@@ -56,31 +56,18 @@ export class Tab1Page implements OnInit{
     if (boton.innerHTML === txtActivar) {
       await this.presentLoading();
       this.usersService.activar(id);
-      /*.then(data => {
-        this.users = data;
-        this.users = this.users.data;
-      },
-      (error) => {
-        console.log('Error al intentar activar: '+error);
-      });*/
 
       boton.innerHTML = txtDesactivar;
       console.log('Usuario activado correctamente');
+      this.navCtrl.navigateForward('/tabs/tab1');
       this.obtenerUsuarios(this.token);
     }
     else {
       await this.presentLoading();
       this.usersService.desactivar(id);
-      /*.then(data => {
-        this.users = data;
-        this.users = this.users.data;
-      },
-      (error => {
-        console.log('Error al intentar activar: '+error);
-      }));*/
-
       boton.innerHTML = txtActivar;
       console.log('Usuario desactivado correctamente');
+      this.navCtrl.navigateForward('/tabs/tab1');
       this.obtenerUsuarios(this.token);
     }
   }
@@ -113,10 +100,20 @@ export class Tab1Page implements OnInit{
       this.usuario = data;
       this.usuario = this.usuario.data;
     });
+
     this.navCtrl.navigateForward('/editar-usuario');
   }
 
-  async eliminar(id:string) {
+  async editLoading(message: string) {
+    const loading = await this.loadingCtrl.create({
+      message,
+      duration: 3500,
+    });
+
+    await loading.present();
+  }
+
+  async eliminar(id: string) {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'ELIMINAR',

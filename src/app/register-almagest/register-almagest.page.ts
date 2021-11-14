@@ -32,19 +32,20 @@ export class RegisterAlmagestPage implements OnInit {
 
   ngOnInit() {
     console.log('Estas en la página de registrar usuarios.');
+    this.mostrarCompanias();
   }
 
   cancelarSeleccion(evento) {
     console.log('No ha seleccionado una compañía '+evento);
   }
 
-  usuarios() {
-    const headers = new HttpHeaders({
-      'Accept': 'application/json',
-      'Authorization': `Bearer `+this.tok.data.token
-    })
-    const path = `${this.url}/users`;
-    return this.http.get<UsersService[]>(path,{headers:headers});
+  mostrarCompanias() {
+    this.usersService.obtenerCompanias()
+    .then(data => {
+      console.log(data);
+      this.companies = data;
+      this.companies = this.companies.data;
+    });
   }
 
   registrarUsuario() {

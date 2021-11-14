@@ -94,21 +94,6 @@ export class UsersService {
         console.log(data);
         this.usuario = data;
         this.usuario = this.usuario.data;
-
-        /*console.log(this.usuario);
-
-        console.log('Id: '+this.usuario.id);
-        console.log('Firstname: '+this.usuario.firstname);
-        console.log('Secondname: '+this.usuario.secondname);
-        console.log('Email: '+this.usuario.email);
-        console.log('Compañía: '+this.usuario.company_id);
-
-        this.usuario = this.usuario.id;
-        this.usuario = this.usuario.firstname;
-        this.usuario = this.usuario.secondname;
-        this.usuario = this.usuario.email;
-        this.usuario = this.usuario.company_id;*/
-
         res(data);
         this.loadingUserCtrl.dismiss();
       }, error => {
@@ -118,24 +103,16 @@ export class UsersService {
     });
   }
 
-  /*async loadEditar(message: string) {
-    const alert = await this.loadingUserCtrl.create({
-      message,
-      duration: 1000
-    });
-
-    await alert.present();
-
-  }*/
-
   activar(id:string) {
     return new Promise(async res => {
       this.loadUsers('Activando usuario...');
       setTimeout(() => {
         this.actived.dismiss();
         this.httpUser.post<any>(this.url+'/activate?user_id='+id,{
-          headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
+          headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token')),
+          actived: 1
         }).subscribe(async data => {
+          console.log(this.obtenerUsuarios(localStorage.getItem('token')));
           console.log(data);
           this.token = data;
           res(data);
@@ -152,8 +129,10 @@ export class UsersService {
       setTimeout(() => {
         this.actived.dismiss();
         this.httpUser.post<any>(this.url+'/deactivate?user_id='+id,{
-          headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
-        }).subscribe(data => {
+          headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token')),
+          actived: 0
+        }).subscribe(async data => {
+          console.log(this.obtenerUsuarios(localStorage.getItem('token')));
           console.log(data);
           this.token = data;
           res(data);
@@ -172,17 +151,22 @@ export class UsersService {
     await this.actived.present();
   }
 
-  editar(tok, id) {
-    return new Promise(res => {
-      this.httpUser.post<any>(this.url+'/user/updated/'+id,{
+  editar(tok, id, firstname, secondname, email, password, compania) {
+    return new Promise((res) => {
+      this.httpUser.post<any>(this.url+'/user/updated/'+id+'?firstname='+firstname+
+      '&secondname='+secondname+'&email='+email+'&password='+password+
+      '&company_id='+compania, {
         headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
       }).subscribe(data => {
-        this.token = data;
-        res(data);
-      }, error => {
-        console.log('Error al editar usuario '+error);
+          console.log(data);
+          this.token = data;
+          this.users = data;
+          this.users = this.users.data;
+          res(this.users);
+        }, err => {
+          console.log('Error al editar este usuario: '+err);
+        });
       });
-    });
   }
 
   getElim(id) {
@@ -191,8 +175,8 @@ export class UsersService {
           this.httpUser.post(this.url+'/user/deleted/'+id, {
             headers: new HttpHeaders().set('Authorization', 'Bearer '+(localStorage.getItem('token')))
           }).subscribe(res => {
+            console.log(res);
             resolve(res);
-            console.log('ok');
           }, (err) => {
             reject(err);
           });
@@ -220,5 +204,17 @@ export class UsersService {
         });
         
       });
+  }
+
+  obtenerCompanias() {
+    return new Promise(res => {
+      this.httpUser.get(this.url+'/companies').subscribe(data => {
+        this.token = data;
+        this.token=this.token.data;
+        res(data);
+      }, error => {
+        console.log('Error al mostrar los usuarios '+error);
+      });
+    });
   }
 }

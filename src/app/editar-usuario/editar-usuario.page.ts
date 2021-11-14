@@ -14,19 +14,20 @@ import { LoadingController } from '@ionic/angular';
 export class EditarUsuarioPage implements OnInit {
   url = environment.almagestUrl;
   users: any;
+  companies: any;
   user: any;
   tok: any;
   token: any;
   form: any;
   datos: any;
-
+  loading: any;
 
   formularioEditar = new FormGroup({
+    id: new FormControl(''),
     firstname: new FormControl('', [Validators.required, Validators.minLength(1)]),
     secondname: new FormControl('', [Validators.required, Validators.minLength(1)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    c_password: new FormControl('',[Validators.required, Validators.minLength(5)]),
     compania: new FormControl('', [Validators.required]),
   });
   usuario: any;
@@ -36,8 +37,10 @@ export class EditarUsuarioPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.presentLoading();
+    this.mostrarCompanias();
+
     this.usuario=this.usersService.usuario;
+    this.formularioEditar.controls.id.setValue(this.usuario.id);
     this.formularioEditar.controls.firstname.setValue(this.usuario.firstname);
     this.formularioEditar.controls.secondname.setValue(this.usuario.secondname);
     this.formularioEditar.controls.email.setValue(this.usuario.email);
@@ -45,66 +48,25 @@ export class EditarUsuarioPage implements OnInit {
     this.loadingUserCtrl.dismiss();
   }
 
-  async presentLoading() {
-    const loading = await this.loadingUserCtrl.create({
-      message: 'Cargando...',
-      duration: 500
+  cancelarSeleccion(evento) {
+    console.log('No ha seleccionado una compañía a editar '+evento);
+  }
+
+  mostrarCompanias() {
+    this.usersService.obtenerCompanias()
+    .then(data => {
+      console.log(data);
+      this.companies = data;
+      this.companies = this.companies.data;
     });
   }
-  
-  /*usuarios() {
-    const headers = new HttpHeaders({
-      'Accept': 'application/json',
-      'Authorization': `Bearer `+this.tok.data.token
-    })
-    const path = `${this.url}/users`;
-    return this.httpUser.get<UsersService[]>(path,{headers:headers});
-  }*/
 
-  async editarUsuario() {
+  editarUsuario() {
     this.navCtrl.navigateForward('/tabs/tab1');
     this.form = this.formularioEditar.value;
+    this.token = localStorage.getItem('token');
 
-    if (this.form.password === this.form.c_password) {
-      this.token = localStorage.getItem('token');
-
-      return new Promise(res => {
-        this.httpUser.post<any>(this.usersService.url+'/users/updated/'+this.form.id+'&firstname='+this.form.firstname+
-          '&secondname='+this.form.secondname+'&email='+this.form.email+'&password='+this.form.password+
-          '&c_password='+this.form.c_password+'&company_id='+this.form.compania, {
-          headers: new HttpHeaders().set('Authorization', 'Bearer '+this.token)
-        }).subscribe(data => {
-          console.log(data);
-          this.token = data;
-          this.users = data;
-          this.users = this.users.data;
-          res(this.users);
-        }, error => {
-          console.log('Error al editar usuario '+error);
-        });
-      });
-    }
-    else {
-      console.log('Ambas contraseñas deben coincidir.');
-      this.alertContrasenias();
-    }
-  }
-
-  async alertContrasenias() {
-    const notEqualPassword = await this.alertContrasenia.create({
-      header: 'REGISTER',
-      cssClass: 'registerCss',
-      message: '<strong>Ambas contraseñas deben coincidir.</strong>',
-      buttons: [
-        {
-          text: 'Aceptar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (register) => {
-          }
-        }
-      ]
-    });
-    await notEqualPassword.present();
+    this.usersService.editar(this.token, this.form.id, this.form.firstname, this.form.secondname,
+      this.form.email, this.form.password, this.form.compania);
   }
 }

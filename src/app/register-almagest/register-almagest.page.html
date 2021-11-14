@@ -67,11 +67,16 @@
     </ion-label>
 
     <ion-item class="dato_usuario">
-      <ion-label position="floating">Compañia:</ion-label>
-      <ion-input formControlName="compania" type="number"></ion-input>
+      <ion-label>Nombre de Compañía:</ion-label>
+      <!--  (ionChange)="getIdCompania($event)"-->
+      <ion-select formControlName="compania" value="brown" okText="Seleccionar" cancelText="Cancelar" (ionCancel)="cancelarSeleccion($event)">
+        <ion-select-option *ngFor="let company of companies | ordenar:'id'" value="{{ company.id }}">
+          {{company.name }}
+        </ion-select-option>
+      </ion-select>
     </ion-item>
     <ion-label color="danger" *ngIf="formularioRegistro.controls.compania.errors?.required && (formularioRegistro.touched || formularioRegistro.dirty)">
-      * Debe indicar la compañía.
+      * Seleccione un nombre de compañía.
     </ion-label>
 
     <ion-button expand="full" type="submit" [disabled]="!formularioRegistro.valid" id="botonRegister" color="tertiary">
