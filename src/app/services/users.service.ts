@@ -152,11 +152,11 @@ export class UsersService {
     await editado.present();
   }
 
-  editar(tok, id, firstname, secondname, email, password, compania) {
+  editar(tok:any, id:string, firstname:string, secondname:string, email:string, password:string, compania:number) {
     return new Promise((res) => {
-      this.httpUser.post<any>(this.url+'/user/updated/'+id+'&firstname='+firstname+
+      this.httpUser.post<any>(this.url+'/user/updated/'+id+'?firstname='+firstname+
       '&secondname='+secondname+'&email='+email+'&password='+password+
-      '&compania='+compania, {
+      '&company_id='+compania, {
         headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
       }).subscribe(data => {
           console.log(data);

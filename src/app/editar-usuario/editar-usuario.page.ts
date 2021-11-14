@@ -28,7 +28,7 @@ export class EditarUsuarioPage implements OnInit {
     secondname: new FormControl('', [Validators.required, Validators.minLength(1)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    compania: new FormControl('', [Validators.required]),
+    compania: new FormControl('', [Validators.required])
   });
   usuario: any;
 
@@ -38,22 +38,8 @@ export class EditarUsuarioPage implements OnInit {
 
   async ngOnInit() {
     this.mostrarCompanias();
-    this.cambiarNombres();
     this.usuario=await this.usersService.usuario;
-    this.presentLoading();
-  }
-
-  async presentLoading() {
-    
-    const loading = await this.loadingUserCtrl.create({
-      message: 'Hellooo',
-      duration: 2000
-    });
-    await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-
-    console.log('Loading dismissed!');
+    this.cambiarNombres();
   }
   
 
@@ -66,7 +52,7 @@ export class EditarUsuarioPage implements OnInit {
     this.formularioEditar.controls.firstname.setValue(this.usuario.firstname);
     this.formularioEditar.controls.secondname.setValue(this.usuario.secondname);
     this.formularioEditar.controls.email.setValue(this.usuario.email);
-    this.formularioEditar.controls.compania.setValue(this.usuario.company_id);
+    this.formularioEditar.controls.compania.setValue(this.usuario.compania);
   }
 
   mostrarCompanias() {

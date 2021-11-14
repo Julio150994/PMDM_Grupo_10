@@ -56,17 +56,25 @@
       * La contraseña debe tener al menos 5 caracteres.
     </ion-label>
 
-   <ion-item class="dato_usuario">
+    <ion-item class="dato_usuario">
+      <ion-label>Compañía:</ion-label>
+      <ion-input formControlName="compania" type="number"></ion-input>
+    </ion-item>
+    <ion-label color="danger" *ngIf="formularioEditar.controls.compania.errors?.required && (formularioEditar.touched || formularioEditar.dirty)">
+      * Seleccione un nombre de compañía.
+    </ion-label>
+
+   <!--<ion-item class="dato_usuario">
       <ion-label>Nombre de Compañía:</ion-label>
       <ion-select formControlName="compania" value="brown" okText="Seleccionar" cancelText="Cancelar" (ionCancel)="cancelarSeleccion($event)">
-        <ion-select-option *ngFor="let company of companies | ordenar:'id'" value="{{ company.id }}">
+        <ion-select-option *ngFor="let company of companies | ordenar:'id'" value="{{ user.company_id }}">
           {{company.name }}
         </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-label color="danger" *ngIf="formularioEditar.controls.compania.errors?.required && (formularioEditar.touched || formularioEditar.dirty)">
       * Seleccione un nombre de compañía.
-    </ion-label>
+    </ion-label>-->
 
     <ion-button expand="full" type="submit" [disabled]="!formularioEditar.valid" id="botonRegister" color="tertiary" id="botonEditar">
       <ion-icon name="person"></ion-icon>
