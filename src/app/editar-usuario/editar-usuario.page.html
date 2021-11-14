@@ -9,7 +9,7 @@
 
 <ion-content class="ion-padding">
   <form [formGroup]="formularioEditar" (ngSubmit)="editarUsuario()" method="post">
-
+    <ion-input formControlName="id" type="hidden" disabled></ion-input>
 
     <ion-item class="dato_usuario">
       <ion-label position="floating">Nombre:</ion-label>
@@ -58,7 +58,6 @@
 
    <ion-item class="dato_usuario">
       <ion-label>Nombre de Compañía:</ion-label>
-      <!--  (ionChange)="getIdCompania($event)"-->
       <ion-select formControlName="compania" value="brown" okText="Seleccionar" cancelText="Cancelar" (ionCancel)="cancelarSeleccion($event)">
         <ion-select-option *ngFor="let company of companies | ordenar:'id'" value="{{ company.id }}">
           {{company.name }}

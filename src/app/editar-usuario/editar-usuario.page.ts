@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { NavController, AlertController } from '@ionic/angular';
 import { environment } from '../../environments/environment.prod';
 import { UsersService } from '../services/users.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { LoadingController } from '@ionic/angular';
 
 @Component({
@@ -23,7 +23,7 @@ export class EditarUsuarioPage implements OnInit {
   loading: any;
 
   formularioEditar = new FormGroup({
-
+    id: new FormControl(''),
     firstname: new FormControl('', [Validators.required, Validators.minLength(1)]),
     secondname: new FormControl('', [Validators.required, Validators.minLength(1)]),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -38,18 +38,18 @@ export class EditarUsuarioPage implements OnInit {
 
   async ngOnInit() {
     this.mostrarCompanias();
+    this.cambiarNombres();
     this.usuario=await this.usersService.usuario;
     this.presentLoading();
-    
   }
 
   async presentLoading() {
+    
     const loading = await this.loadingUserCtrl.create({
       message: 'Hellooo',
       duration: 2000
     });
     await loading.present();
-    this.cambiarNombres();
 
     const { role, data } = await loading.onDidDismiss();
 
@@ -62,6 +62,7 @@ export class EditarUsuarioPage implements OnInit {
   }
 
   cambiarNombres(){
+    this.formularioEditar.controls.id.setValue(this.usuario.id);
     this.formularioEditar.controls.firstname.setValue(this.usuario.firstname);
     this.formularioEditar.controls.secondname.setValue(this.usuario.secondname);
     this.formularioEditar.controls.email.setValue(this.usuario.email);

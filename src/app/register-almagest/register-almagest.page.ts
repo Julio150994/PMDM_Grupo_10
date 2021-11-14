@@ -61,7 +61,7 @@ export class RegisterAlmagestPage implements OnInit {
           console.log(datoUsuario);
           this.user = datoUsuario;
           res(this.user);
-          this.usuarioRegistrado();
+          this.usuarioRegistrado(this.f.email);
 
           this.navCtrl.navigateForward('/login-almagest');
         }, error => {
@@ -93,11 +93,11 @@ export class RegisterAlmagestPage implements OnInit {
     await notEqualPassword.present();
   }
 
-  async usuarioRegistrado() {
+  async usuarioRegistrado(email:string) {
     const registrado = await this.alertUserCtrl.create({
       header: 'Mensaje',
       cssClass: 'registerCss',
-      message: '<strong>Usuario registrado correctamente.</strong>',
+      message: '<strong>Usuario '+email+'registrado correctamente.</strong>',
       buttons: [
         {
           text: 'Aceptar',

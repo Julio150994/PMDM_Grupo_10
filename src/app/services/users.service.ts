@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { Operations } from '../interfaces/operaciones';
 
 @Injectable({
   providedIn: 'root'
@@ -74,18 +73,16 @@ export class UsersService {
     });
   }
 
-  async obtenerIdUsuario(tok: string, id: number) {
+  obtenerIdUsuario(id: number) {
     return new Promise(res => {
       this.httpUser.get(this.url+'/user/'+id,{
-        headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
+        headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
       }).subscribe(data => {
         console.log(data);
         this.usuario = data;
         this.usuario = this.usuario.data;
         res(data);
-        this.loadingUserCtrl.dismiss();
       }, error => {
-        this.loadingUserCtrl.dismiss();
         console.log('No se ha podido obtener el id del usuario '+error);
       });
     });
@@ -135,17 +132,17 @@ export class UsersService {
     await this.actived.present();
   }
 
-  async usuarioEditado() {
+  async usuarioEditado(email:string) {
     const editado = await this.alertUserCtrl.create({
       header: 'Mensaje',
       cssClass: 'editCss',
-      message: '<strong>Usuario editado correctamente.</strong>',
+      message: '<strong>Usuario '+email+' editado correctamente.</strong>',
       buttons: [
         {
           text: 'Aceptar',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: (register) => {
+          handler: (update) => {
           }
         }
       ]
@@ -155,9 +152,9 @@ export class UsersService {
 
   editar(tok, id, firstname, secondname, email, password, compania) {
     return new Promise((res) => {
-      this.httpUser.post<any>(this.url+'/user/updated/'+id+'?firstname='+firstname+
+      this.httpUser.post<any>(this.url+'/user/updated/'+id+'&firstname='+firstname+
       '&secondname='+secondname+'&email='+email+'&password='+password+
-      '&company_id='+compania, {
+      '&compania='+compania, {
         headers: new HttpHeaders().set('Authorization', 'Bearer '+tok)
       }).subscribe(data => {
           console.log(data);
@@ -165,7 +162,7 @@ export class UsersService {
           this.users = data;
           this.users = this.users.data;
           res(this.users);
-          this.usuarioEditado();
+          this.usuarioEditado(email);
         }, err => {
           console.log('Error al editar este usuario: '+err);
         });
@@ -179,6 +176,7 @@ export class UsersService {
             headers: new HttpHeaders().set('Authorization', 'Bearer '+(localStorage.getItem('token')))
           }).subscribe(res => {
             console.log(res);
+            window.location.reload();
             resolve(res);
           }, (err) => {
             reject(err);

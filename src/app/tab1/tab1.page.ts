@@ -47,22 +47,24 @@ export class Tab1Page implements OnInit{
     console.log('El administrador ha cerrado la sesión');
   }
 
-  async activar(id:string) {
+  async activar(id:string, email:string) {
     this.almagest.closeSlidingItems();
     this.token = localStorage.getItem('token');
     await this.usersService.activar(id);
     await this.presentLoading();
     window.location.reload();
     console.log('Usuario activado correctamente');
+    this.alertUserActived(email);
   }
   
-  async desactivar(id:string) {
+  async desactivar(id:string, email:string) {
     this.almagest.closeSlidingItems();
     this.token = localStorage.getItem('token');
     await this.usersService.desactivar(id);
     await this.presentLoading();
     window.location.reload();
-    console.log('Usuario activado correctamente');
+    console.log('Usuario desactivado correctamente');
+    this.alertUserDeactived(email);
   }
 
   async presentLoading() {
@@ -87,14 +89,14 @@ export class Tab1Page implements OnInit{
     });
   }
 
-  onEditar(id) {
-    this.almagest.closeSlidingItems();
-    this.usersService.obtenerIdUsuario(localStorage.getItem('token'),id)
+  async onEditar(id) {
+    this.usersService.obtenerIdUsuario(id)
     .then(data => {
       this.usuario = data;
       this.usuario = this.usuario.data;
     });
 
+    this.almagest.closeSlidingItems();
     this.navCtrl.navigateForward('/editar-usuario');
   }
 
@@ -126,12 +128,65 @@ export class Tab1Page implements OnInit{
           handler: () => {
             this.usersService.getElim(id);
             console.log('Usuario eliminado éxitosamente');
+            this.usuarioEliminado(id);
           }
         }
       ]
     });
-
     await alert.present();
   }
 
+  async usuarioEliminado(id:string) {
+    const eliminado = await this.alertCtrl.create({
+      header: 'ELIMINADO',
+      cssClass: 'removeCss',
+      message: '<strong>Usuario con id '+id+' eliminado correctamente.</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (remove) => {
+          }
+        }
+      ]
+    });
+    await eliminado.present();
+  }
+
+  async alertUserActived(email:string) {
+    const activado = await this.alertCtrl.create({
+      header: 'Activado',
+      cssClass: 'activedCss',
+      message: '<strong>Usuario '+email+' activado correctamente.</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (register) => {
+          }
+        }
+      ]
+    });
+    await activado.present();
+  }
+
+  async alertUserDeactived(email:string) {
+    const activado = await this.alertCtrl.create({
+      header: 'Desactivado',
+      cssClass: 'activedCss',
+      message: '<strong>Usuario '+email+' desactivado correctamente.</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (register) => {
+          }
+        }
+      ]
+    });
+    await activado.present();
+  }
 }

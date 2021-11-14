@@ -172,7 +172,7 @@ export class LoginAlmagestPage implements OnInit {
                 break;
               }
             }
-            usuario=await this.usersService.obtenerIdUsuario(this.usuario.token,this.usuario.id);
+            usuario=await this.usersService.obtenerIdUsuario(this.usuario.id);
             usuario=usuario.data;
             //console.log(usuario);
             this.deleted=usuario.deleted;
