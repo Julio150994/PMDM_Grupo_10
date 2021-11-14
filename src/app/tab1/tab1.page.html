@@ -15,13 +15,13 @@
         <ion-item-sliding *ngFor="let user of users | orderBy:'id'">
           <ion-item *ngIf="user.type==='u' && user.deleted===0">
            <ion-label>
-              <p >Id: {{ user.id }}</p>
-              <p>Firstname: {{ user.firstname }}</p>
-               <p>Secondname: {{ user.secondname }}</p>
+              <h3>Id: {{ user.id }}</h3>
+              <h3>Firstname: {{ user.firstname }}</h3>
+              <h3>Secondname: {{ user.secondname }}</h3>
             </ion-label>
-            <ion-label slot="end" text-right>
-              Email: {{ user.email }}
-              Compañía: {{ user.company_id }}
+            <ion-label text-right>
+              <h3 slot="start">Email: {{ user.email }}</h3>
+              <h3 slot="end">Compañía: {{ user.company_id }}</h3>
             </ion-label>
           </ion-item>
           <ion-item-options side="start">
