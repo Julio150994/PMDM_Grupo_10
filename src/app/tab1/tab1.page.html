@@ -11,39 +11,39 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-    <ion-item class="campo">
-      <ion-label>Id</ion-label>
-      <ion-label>Nombre</ion-label>
-      <ion-label>Apellidos</ion-label>
-      <ion-label>Email</ion-label>
-      <ion-label>Gestionar usuario</ion-label>
-    </ion-item>
-    <ion-item-sliding *ngFor="let user of users | orderBy:'id'">
-        <!-- Mostramos los usuarios, excepto al administrador -->
-        <ion-item *ngIf="user.type==='u' && user.deleted===0" class="usuarios">
-            <ion-label>{{ user.id }}</ion-label>
-            <ion-label>{{ user.firstname }}</ion-label>
-            <ion-label>{{ user.secondname }}</ion-label>
-            <ion-label>{{ user.email }}</ion-label>
-            <ion-buttons *ngFor="let funciones of buttons | async; let item = index;"
-              routerLink="{{ funciones.ruta }}">
-                <ion-button [disabled]='user.actived===1' *ngIf="item === 0" (click)="activar(user.id)" id={{user.id}} color="success">
-                  <ion-icon name="{{ funciones.icono }}"></ion-icon>
-                  <ion-label>{{ funciones.nombre }}</ion-label>
-                </ion-button>
-                <ion-button [disabled]='user.actived===0' *ngIf="item === 1" (click)="desactivar(user.id)" id="{{user.id}}" color="warning">
-                  <ion-icon name="{{ funciones.icono }}"></ion-icon>
-                  <ion-label>{{funciones.nombre}}</ion-label>
-                </ion-button>
-                <ion-button *ngIf="item === 2" (click)="onEditar(user.id)" id={{user.id}} color="tertiary">
-                  <ion-icon name="{{ funciones.icono }}"></ion-icon>
-                  <ion-label>{{funciones.nombre}}</ion-label>
-                </ion-button>
-                <ion-button *ngIf="item === 3" (click)="eliminar(user.id)" id="{{user.id}}" color="danger">
-                  <ion-icon name="{{ funciones.icono }}"></ion-icon>
-                  <ion-label>{{funciones.nombre}}</ion-label>
-                </ion-button>
-            </ion-buttons>
-        </ion-item>
-    </ion-item-sliding>
+    <ion-list #almagest>
+        <ion-item-sliding *ngFor="let user of users | orderBy:'id'">
+          <ion-item *ngIf="user.type==='u' && user.deleted===0">
+           <ion-label>
+              <p >Id: {{ user.id }}</p>
+              <p>Firstname: {{ user.firstname }}</p>
+               <p>Secondname: {{ user.secondname }}</p>
+            </ion-label>
+            <ion-label slot="end" text-right>
+              Email: {{ user.email }}
+              Compañía: {{ user.company_id }}
+            </ion-label>
+          </ion-item>
+          <ion-item-options side="start">
+              <ion-item-option [disabled]='user.actived === 1' (click)="activar(user.id)" id={{user.id}} color="success">
+                <ion-icon slot="icon-only" name="power-outline"></ion-icon>
+                Activar
+              </ion-item-option>
+              <ion-item-option [disabled]='user.actived===0' (click)="desactivar(user.id)" id="{{user.id}}" color="warning">
+                <ion-icon slot="icon-only" name="power-outline"></ion-icon>
+                Desactivar
+              </ion-item-option>
+          </ion-item-options>
+          <ion-item-options side="end">
+              <ion-item-option (click)="onEditar(user.id)" id={{user.id}} color="tertiary">
+                <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+                Editar
+              </ion-item-option>
+             <ion-item-option (click)="eliminar(user.id)" id="{{user.id}}" color="danger">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+                Eliminar
+              </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
 </ion-content>

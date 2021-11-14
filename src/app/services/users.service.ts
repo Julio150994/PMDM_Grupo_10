@@ -23,9 +23,9 @@ export class UsersService {
  
   }
 
-  mostrarBotonesUsuario() {
+  /*mostrarBotonesUsuario() {
     return this.httpUser.get<Operations[]>('/assets/data/operaciones.json');
-  }
+  }*/
 
   login(mail, contrasenia) {
     return new Promise(res => {

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController, LoadingController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, AlertController, LoadingController, IonList } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
 import { Operations } from '../interfaces/operaciones';
 import { Observable } from 'rxjs';
@@ -12,6 +12,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page implements OnInit{
+  @ViewChild('almagest', {static: true}) almagest: IonList;
+
   api = 'http://semillero.allsites.es/public/api';
   users: any;
   user: any;
@@ -21,7 +23,6 @@ export class Tab1Page implements OnInit{
   email: string;
   password: string;
   actived: any; //carga del usuario activo
-  buttons: Observable<Operations[]>;
   usuario: any;
   eliminarToken: any;
   botonActivar: any;
@@ -36,7 +37,6 @@ export class Tab1Page implements OnInit{
     this.token = localStorage.getItem('token');
 
     console.log('Estás en la pestaña del usuario administrador');
-    this.buttons = this.usersService.mostrarBotonesUsuario();
 
     this.usersService.obtenerUsuarios(this.token).then(data => {
       console.log(data);
@@ -51,6 +51,7 @@ export class Tab1Page implements OnInit{
   }
 
   async activar(id:string) {
+    this.almagest.closeSlidingItems();
     this.token = localStorage.getItem('token');
     await this.usersService.activar(id);
     await this.presentLoading();
@@ -59,6 +60,7 @@ export class Tab1Page implements OnInit{
   }
   
   async desactivar(id:string) {
+    this.almagest.closeSlidingItems();
     this.token = localStorage.getItem('token');
     await this.usersService.desactivar(id);
     await this.presentLoading();
@@ -89,6 +91,7 @@ export class Tab1Page implements OnInit{
   }
 
   onEditar(id) {
+    this.almagest.closeSlidingItems();
     this.usersService.obtenerIdUsuario(localStorage.getItem('token'),id)
     .then(data => {
       this.usuario = data;
@@ -108,6 +111,7 @@ export class Tab1Page implements OnInit{
   }
 
   async eliminar(id: string) {
+    this.almagest.closeSlidingItems();
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'ELIMINAR',
