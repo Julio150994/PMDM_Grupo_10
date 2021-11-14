@@ -97,6 +97,7 @@ export class UsersService {
           headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token')),
         }).subscribe(async data => {
           console.log(data);
+          window.location.reload();
           this.token = data;
           res(data);
         }, error => {
@@ -115,6 +116,7 @@ export class UsersService {
           headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token')),
         }).subscribe(async data => {
           console.log(data);
+          window.location.reload();
           this.token = data;
           res(data);
         }, error => {

@@ -52,9 +52,9 @@ export class Tab1Page implements OnInit{
     this.token = localStorage.getItem('token');
     await this.usersService.activar(id);
     await this.presentLoading();
-    window.location.reload();
     console.log('Usuario activado correctamente');
     this.alertUserActived(email);
+    window.location.reload();
   }
   
   async desactivar(id:string, email:string) {
@@ -62,9 +62,9 @@ export class Tab1Page implements OnInit{
     this.token = localStorage.getItem('token');
     await this.usersService.desactivar(id);
     await this.presentLoading();
-    window.location.reload();
     console.log('Usuario desactivado correctamente');
     this.alertUserDeactived(email);
+    window.location.reload();
   }
 
   async presentLoading() {
@@ -164,7 +164,7 @@ export class Tab1Page implements OnInit{
           text: 'Aceptar',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: (register) => {
+          handler: (actived) => {
           }
         }
       ]
@@ -182,7 +182,7 @@ export class Tab1Page implements OnInit{
           text: 'Aceptar',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: (register) => {
+          handler: (deactived) => {
           }
         }
       ]
