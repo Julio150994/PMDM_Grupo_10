@@ -50,6 +50,7 @@ export class RegisterAlmagestPage implements OnInit {
 
   registrarUsuario() {
     this.f = this.formularioRegistro.value;
+    console.log(this.f.compania);
 
     if (this.f.password === this.f.c_password) {
       return new Promise((res) => {
@@ -60,7 +61,7 @@ export class RegisterAlmagestPage implements OnInit {
           console.log(datoUsuario);
           this.user = datoUsuario;
           res(this.user);
-          console.log('User register successfully.');
+          this.usuarioRegistrado();
         }, error => {
           console.log('Error al registrar este usuario '+error);
         });
@@ -88,5 +89,23 @@ export class RegisterAlmagestPage implements OnInit {
       ]
     });
     await notEqualPassword.present();
+  }
+
+  async usuarioRegistrado() {
+    const registrado = await this.alertUserCtrl.create({
+      header: 'Mensaje',
+      cssClass: 'registerCss',
+      message: '<strong>Usuario registrado correctamente.</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (register) => {
+          }
+        }
+      ]
+    });
+    await registrado.present();
   }
 }

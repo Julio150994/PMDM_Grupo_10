@@ -151,6 +151,24 @@ export class UsersService {
     await this.actived.present();
   }
 
+  async usuarioEditado() {
+    const editado = await this.alertUserCtrl.create({
+      header: 'Mensaje',
+      cssClass: 'editCss',
+      message: '<strong>Usuario editado correctamente.</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (register) => {
+          }
+        }
+      ]
+    });
+    await editado.present();
+  }
+
   editar(tok, id, firstname, secondname, email, password, compania) {
     return new Promise((res) => {
       this.httpUser.post<any>(this.url+'/user/updated/'+id+'?firstname='+firstname+
@@ -163,6 +181,7 @@ export class UsersService {
           this.users = data;
           this.users = this.users.data;
           res(this.users);
+          this.usuarioEditado();
         }, err => {
           console.log('Error al editar este usuario: '+err);
         });
