@@ -92,6 +92,42 @@ export class LoginAlmagestPage implements OnInit {
     await notValid.present();
   }
 
+  async usuarioLogueado() {
+    const user = await this.alertUserCtrl.create({
+      header: 'USER',
+      cssClass: 'loginCss',
+      message: '<strong>Usuario logueado correctamente.</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (valid) => {
+          }
+        }
+      ]
+    });
+    await user.present();
+  }
+
+  async adminLogueado() {
+    const user = await this.alertUserCtrl.create({
+      header: 'ADMIN',
+      cssClass: 'loginCss',
+      message: '<strong>Administrador logueado correctamente.</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (valid) => {
+          }
+        }
+      ]
+    });
+    await user.present();
+  }
+
   async userSinConfirmar() {
     const notValid = await this.alertUserCtrl.create({
       header: 'LOGIN',
@@ -123,6 +159,7 @@ export class LoginAlmagestPage implements OnInit {
           this.token = this.usuario.token;
           localStorage.setItem('token',this.token);
           if(this.usuario.type==='a'){
+            this.adminLogueado();
             this.navCtrl.navigateForward('/tabs/tab1');// ruta hacia el administrador
           }
           else{
@@ -137,18 +174,19 @@ export class LoginAlmagestPage implements OnInit {
             }
             usuario=await this.usersService.obtenerIdUsuario(this.usuario.token,this.usuario.id);
             usuario=usuario.data;
-            console.log(usuario);
+            //console.log(usuario);
             this.deleted=usuario.deleted;
-            console.log('Borrado: '+this.deleted);
+            //console.log('Borrado: '+this.deleted);
             this.actived=usuario.actived;
-            console.log('Activado: '+this.actived);
+            //console.log('Activado: '+this.actived);
             this.email_confirmed=usuario.email_confirmed;
-            console.log('Emailconfirmed: '+this.email_confirmed);
+            //console.log('Emailconfirmed: '+this.email_confirmed);
             
             if(this.email_confirmed===0){
               this.userSinActivar();
             }
             else if(this.email_confirmed===1&&this.actived===0){
+              this.usuarioLogueado();
               this.navCtrl.navigateForward('/usuarios');
             }
             else if(this.email_confirmed===1&&this.actived===1&&this.deleted===0){
