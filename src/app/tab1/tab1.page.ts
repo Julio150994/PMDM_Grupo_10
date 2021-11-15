@@ -30,7 +30,7 @@ export class Tab1Page implements OnInit{
     private navCtrl: NavController, private usersService: UsersService, private loadingCtrl: LoadingController) {
   };
 
-  ngOnInit() {
+  async ngOnInit() {
     this.token = localStorage.getItem('token');
 
     console.log('Estás en la pestaña del usuario administrador');

@@ -37,9 +37,22 @@ export class EditarUsuarioPage implements OnInit {
   }
 
   async ngOnInit() {
+    await this.presentLoading();
     this.mostrarCompanias();
     this.usuario=await this.usersService.usuario;
     this.cambiarNombres();
+  }
+
+  async presentLoading() {
+    
+    const loading = await this.loadingUserCtrl.create({
+      message: 'Cargando usuario...',
+      duration: 100
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
   
 
@@ -64,12 +77,18 @@ export class EditarUsuarioPage implements OnInit {
     });
   }
 
-  editarUsuario() {
-    this.navCtrl.navigateForward('/tabs/tab1');
+  async editarUsuario() {
     this.form = this.formularioEditar.value;
     this.token = localStorage.getItem('token');
 
     this.usersService.editar(this.token, this.form.id, this.form.firstname, this.form.secondname,
       this.form.email, this.form.password, this.form.compania);
+      this.navCtrl.back();
+      this.usersService.obtenerUsuarios(localStorage.getItem('token'));
+      await this.presentLoading();
+      window.location.reload();
+
+
   }
+  
 }
