@@ -103,6 +103,7 @@ export class LoginAlmagestPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (valid) => {
+            this.navCtrl.navigateForward('usuarios');
           }
         }
       ]
@@ -183,14 +184,13 @@ export class LoginAlmagestPage implements OnInit {
             //console.log('Emailconfirmed: '+this.email_confirmed);
             
             if(this.email_confirmed===0){
-              this.userSinActivar();
+              this.userSinConfirmar();
             }
             else if(this.email_confirmed===1&&this.actived===0){
-              this.usuarioLogueado();
-              this.navCtrl.navigateForward('/usuarios');
+              this.userSinActivar();
             }
             else if(this.email_confirmed===1&&this.actived===1&&this.deleted===0){
-              this.navCtrl.navigateForward('/tabs/tab2');// ruta hacia el usuario
+              this.usuarioLogueado();
             }
             else if(this.email_confirmed===1&&this.actived===1&&this.deleted===1){
               this.userBaneado();

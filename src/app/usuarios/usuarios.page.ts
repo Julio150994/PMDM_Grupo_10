@@ -10,6 +10,7 @@ export class UsuariosPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('página del usuario')
   }
 
 }

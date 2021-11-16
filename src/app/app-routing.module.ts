@@ -31,13 +31,12 @@ const routes: Routes = [
     loadChildren: () => import('./register-almagest/register-almagest.module').then( m => m.RegisterAlmagestPageModule)
   },
   {
+    path: 'usuarios',
+    loadChildren: () => import('./usuarios/usuarios.module').then( m => m.UsuariosPageModule)
+  },{
     path: '**',
     redirectTo: '/login-almagest',
     pathMatch: 'full'
-  },
-  {
-    path: 'usuarios',
-    loadChildren: () => import('./usuarios/usuarios.module').then( m => m.UsuariosPageModule)
   }
 
 ];
