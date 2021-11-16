@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-usuarios',
@@ -7,10 +8,14 @@ import { Component } from '@angular/core';
 })
 export class UsuariosPage {
 
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
     console.log('página del usuario')
+  }
+  onLogout() {
+    this.navCtrl.navigateForward('/login-almagest');
+    console.log('El usuario ha cerrado la sesión');
   }
 
 }

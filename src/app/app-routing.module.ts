@@ -35,10 +35,6 @@ const routes: Routes = [
     loadChildren: () => import('./usuarios/usuarios.module').then( m => m.UsuariosPageModule)
   },
   {
-    path: 'catalogos',
-    loadChildren: () => import('./catalogos/catalogos.module').then( m => m.CatalogosPageModule)
-  },
-  {
     path: '**',
     redirectTo: '/login-almagest',
     pathMatch: 'full'
