@@ -163,83 +163,44 @@ export class LoginAlmagestPage implements OnInit {
             this.adminLogueado();
             this.navCtrl.navigateForward('/tabs/tab1');
           }
-          else{
-            let usuario:any;
-            usuario=await this.usersService.obtenerUsuarios(this.usuario.token);
-            usuario=usuario.data;
-            for (let i = 0; i < usuario.length; i++) {
-              if(usuario[i].email===this.email){
-                this.id=usuario[i].id;
-                break;
-              }
-            }
-            usuario=await this.usersService.obtenerIdUsuario(this.usuario.id);
-            usuario=usuario.data;
-            this.deleted=usuario.deleted;
-            this.actived=usuario.actived;
-            this.email_confirmed=usuario.email_confirmed;
-            
-            if(this.email_confirmed===0){
-              this.userSinActivar();
-            }
-            else if(this.email_confirmed===1) {
-              this.usuarioLogueado();
-            }
-            else if(this.email_confirmed===1&&this.actived===0){
-              this.usuarioLogueado();
-            }
-            else if(this.email_confirmed===1&&this.actived===1&&this.deleted===0){
-              this.usuarioLogueado();
-            }
-            else if(this.email_confirmed===1&&this.actived===1&&this.deleted===1){
-              this.userBaneado();
-            }
-            else{
-              this.problemaCuenta();
-            }
-            
-          }
-
-          /**-------------Para los usuarios normales-------------------*/
-          if (this.usuario.type === 'u') {
-            this.usuarioLogueado();
-            this.navCtrl.navigateForward('/usuarios');
-          }
           else {
-            let usuario:any;
-            usuario=await this.usersService.obtenerUsuarios(this.usuario.token);
-            usuario=usuario.data;
-            for (let i = 0; i < usuario.length; i++) {
-              if(usuario[i].email===this.email){
-                this.id=usuario[i].id;
-                break;
+              let usuario:any;
+              usuario=await this.usersService.obtenerUsuarios(this.usuario.token);
+              usuario=usuario.data;
+              for (let i = 0; i < usuario.length; i++) {
+                if(usuario[i].email===this.email){
+                  this.id=usuario[i].id;
+                  break;
+                }
+              }
+              usuario=await this.usersService.obtenerIdUsuario(this.usuario.id);
+              usuario=usuario.data;
+              this.deleted=usuario.deleted;
+              this.actived=usuario.actived;
+              this.email_confirmed=usuario.email_confirmed;
+
+              if(this.email_confirmed===0){
+                this.userSinActivar();
+              }
+              else if(this.email_confirmed===1) {
+                this.usuarioLogueado();
+                this.navCtrl.navigateForward('/usuarios/catalogos');
+              }
+              else if(this.email_confirmed===1&&this.actived===0){
+                //this.navCtrl.navigateForward('/usuarios/catalogos');
+                this.usuarioLogueado();
+              }
+              else if(this.email_confirmed===1&&this.actived===1&&this.deleted===0){
+                //this.navCtrl.navigateForward('/usuarios/catalogos');
+                this.usuarioLogueado();
+              }
+              else if(this.email_confirmed===1&&this.actived===1&&this.deleted===1){
+                this.userBaneado();
+              }
+              else{
+                this.problemaCuenta();
               }
             }
-            usuario=await this.usersService.obtenerIdUsuario(this.usuario.id);
-            usuario=usuario.data;
-            this.deleted=usuario.deleted;
-            this.actived=usuario.actived;
-            this.email_confirmed=usuario.email_confirmed;
-            
-            if(this.email_confirmed===0){
-              this.userSinActivar();
-            }
-            else if(this.email_confirmed===1) {
-              this.usuarioLogueado();
-            }
-            else if(this.email_confirmed===1&&this.actived===0){
-              this.usuarioLogueado();
-            }
-            else if(this.email_confirmed===1&&this.actived===1&&this.deleted===0){
-              this.usuarioLogueado();
-            }
-            else if(this.email_confirmed===1&&this.actived===1&&this.deleted===1){
-              this.userBaneado();
-            }
-            else{
-              this.problemaCuenta();
-            }
-          }
         });
       }
       else{

@@ -38,7 +38,11 @@ const routes: Routes = [
     path: '**',
     redirectTo: '/login-almagest',
     pathMatch: 'full'
+  },  {
+    path: 'catalogos',
+    loadChildren: () => import('./catalogos/catalogos.module').then( m => m.CatalogosPageModule)
   },
+
 
 ];
 @NgModule({
