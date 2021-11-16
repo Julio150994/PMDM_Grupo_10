@@ -5,8 +5,14 @@ import { UsuariosPage } from './usuarios.page';
 
 const routes: Routes = [
   {
-    path: '',
-    component: UsuariosPage
+    path: 'usuarios',
+    component: UsuariosPage,
+    children: [
+      {
+        path: 'catalogos',
+        loadChildren: () => import('../catalogos/catalogos.module').then(m => m.CatalogosPageModule)
+      }
+    ]
   }
 ];
 
