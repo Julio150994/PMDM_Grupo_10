@@ -13,7 +13,7 @@
 <ion-content class="ion-padding">
     <ion-list #almagest>
         <ion-item-sliding *ngFor="let user of users | orderBy:'id'">
-          <ion-item *ngIf="user.type==='u' && user.deleted === 0">
+          <ion-item *ngIf="user.type==='u' && user.deleted === 0 && user.email_confirmed === 1">
            <ion-label>
               <h3>Id: {{ user.id }}</h3>
               <h3>Firstname: {{ user.firstname }}</h3>
