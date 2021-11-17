@@ -218,9 +218,9 @@ export class UsersService {
       this.httpUser.post(this.url+'/products/company?id='+id,{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
       }).subscribe(data => {
+        console.log(data);
         this.catalogo = data;
         this.catalogo=this.catalogo.data;
-        console.log(this.catalogo);
         res(data);
       }, error => {
         console.log('Error al mostrar el catálogo de la compañia '+error);

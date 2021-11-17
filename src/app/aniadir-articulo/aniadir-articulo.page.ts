@@ -32,7 +32,6 @@ export class AniadirArticuloPage implements OnInit {
     this.mostrarCompanias();
     await this.loadingForm();
     this.mostrarFamilias();
-    console.log(this.families);
   }
 
   aniadirArticulo() {
