@@ -36,6 +36,10 @@ const routes: Routes = [
     loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosPageModule)
   },
   {
+    path: 'aniadir-articulo',
+    loadChildren: () => import('./aniadir-articulo/aniadir-articulo.module').then( m => m.AniadirArticuloPageModule)
+  },
+  {
     path: 'usuarios',
     component: UsuariosPage,
     children: [
@@ -50,6 +54,7 @@ const routes: Routes = [
     redirectTo: '/login-almagest',
     pathMatch: 'full'
   },
+
 ];
 @NgModule({
   imports: [

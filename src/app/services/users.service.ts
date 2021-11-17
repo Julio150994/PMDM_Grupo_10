@@ -21,7 +21,7 @@ export class UsersService {
   compania: any;
   constructor(private alertUserCtrl: AlertController,private httpUser: HttpClient,
     private loadingUserCtrl: LoadingController) {
- 
+
   }
 
   login(mail, contrasenia) {
@@ -205,17 +205,17 @@ export class UsersService {
               break;
             }
           }
-          res(valido); 
+          res(valido);
         }, err => {
           console.log('Error al obtener los usuarios '+err);
         });
-        
+
       });
   }
 
-  obtenerCatalogo() {
+  obtenerCatalogo(id: any) {
     return new Promise(res => {
-      this.httpUser.post(this.url+'/products/company?id='+'1',{
+      this.httpUser.post(this.url+'/products/company?id='+id,{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
       }).subscribe(data => {
         this.catalogo = data;
@@ -236,6 +236,44 @@ export class UsersService {
         res(data);
       }, error => {
         console.log('Error al mostrar los usuarios '+error);
+      });
+    });
+  }
+
+  obtenerProductos() {
+    return new Promise(res => {
+      this.httpUser.get(this.url+'/products').subscribe(data => {
+        this.token = data;
+        this.token=this.token.data;
+        res(data);
+      }, error => {
+        console.log('Error al mostrar los productos '+error);
+      });
+    });
+  }
+
+  obtenerArticulos() {
+    return new Promise(res => {
+      this.httpUser.get(this.url+'/articles',{
+        headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
+      }).subscribe(data => {
+        this.token = data;
+        this.token=this.token.data;
+        res(data);
+      }, error => {
+        console.log('Error al mostrar los artículos '+error);
+      });
+    });
+  }
+
+  obtenerFamilias() {
+    return new Promise(res => {
+      this.httpUser.get(this.url+'/families').subscribe(data => {
+        this.token = data;
+        this.token=this.token.data;
+        res(data);
+      }, error => {
+        console.log('Error al mostrar los familias '+error);
       });
     });
   }

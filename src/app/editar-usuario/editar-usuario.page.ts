@@ -32,8 +32,8 @@ export class EditarUsuarioPage implements OnInit {
   });
   usuario: any;
 
-  constructor(private alertContrasenia: AlertController,private loadingUserCtrl: LoadingController,private httpUser: HttpClient, private navCtrl: NavController, private usersService: UsersService) { 
-    
+  constructor(private alertContrasenia: AlertController,private loadingUserCtrl: LoadingController,private httpUser: HttpClient, private navCtrl: NavController, private usersService: UsersService) {
+
   }
 
   async ngOnInit() {
@@ -44,7 +44,7 @@ export class EditarUsuarioPage implements OnInit {
   }
 
   async presentLoading() {
-    
+
     const loading = await this.loadingUserCtrl.create({
       message: 'Cargando usuario...',
       duration: 100
@@ -54,7 +54,7 @@ export class EditarUsuarioPage implements OnInit {
     const { role, data } = await loading.onDidDismiss();
     console.log('Loading dismissed!');
   }
-  
+
 
   cancelarSeleccion(evento) {
     console.log('No ha seleccionado una compañía a editar '+evento);
@@ -90,5 +90,4 @@ export class EditarUsuarioPage implements OnInit {
 
 
   }
-  
 }

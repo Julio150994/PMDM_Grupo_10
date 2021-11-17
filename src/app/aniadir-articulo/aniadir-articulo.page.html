@@ -1,0 +1,63 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/usuarios/catalogos">
+        Cancelar
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Formulario artículo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="formularioProducto" (ngSubmit)="aniadirArticulo()" method="post">
+    <ion-item class="dato_usuario">
+      <ion-label>Nombre de Compañía:</ion-label>
+      <ion-select formControlName="company" value="brown" okText="Seleccionar" cancelText="Cancelar">
+        <ion-select-option *ngFor="let company of companies" value="{{ company.id }}">
+          {{company.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-label color="danger" *ngIf="formularioProducto.controls.compania.errors?.required && (formularioProducto.touched || formularioProducto.dirty)">
+      * Seleccione una compañía.
+    </ion-label>
+
+    <ion-item class="dato_usuario">
+      <ion-label position="floating">Precio:</ion-label>
+      <ion-input formControlName="price" type="number"></ion-input>
+    </ion-item>
+    <!--<ion-label color="danger" *ngIf="formularioProducto.controls.price.errors?.required && (formularioProducto.touched || formularioProducto.dirty)">
+      * Debe introducir un precio.
+    </ion-label>-->
+
+    <ion-item class="dato_usuario">
+      <ion-label>Familia:</ion-label>
+      <ion-select formControlName="family" value="brown" okText="Seleccionar" cancelText="Cancelar">
+        <ion-select-option *ngFor="let family of families" value="{{ family.id }}">
+          {{family.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-label color="danger" *ngIf="formularioProducto.controls.family.errors?.required && (formularioProducto.touched || formularioProducto.dirty)">
+      * Seleccione una familia.
+    </ion-label>
+
+    <ion-item class="dato_usuario">
+      <ion-label>Nombre de artículo:</ion-label>
+      <ion-select formControlName="article" value="brown" okText="Seleccionar" cancelText="Cancelar">
+        <ion-select-option *ngFor="let article of articles" value="{{ article.id }}">
+          {{article.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-label color="danger" *ngIf="formularioProducto.controls.article.errors?.required && (formularioProducto.touched || formularioProducto.dirty)">
+      * Seleccione un artículo.
+    </ion-label>
+
+    <ion-button expand="full" type="submit" [disabled]="!formularioProducto.valid" id="botonAniadir" color="success">
+      <ion-icon name="add-circle"></ion-icon>
+      Añadir
+    </ion-button>
+  </form>
+</ion-content>

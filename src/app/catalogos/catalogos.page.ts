@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment.prod';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NavController, LoadingController } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
 
@@ -14,15 +13,18 @@ export class CatalogosPage implements OnInit {
   catalogo: any;
   id: any;
 
-  constructor(private usersService: UsersService,private loadingUserCtrl: LoadingController,
-    private navCtrl: NavController, private http: HttpClient) { }
+  constructor(private usersService: UsersService, private loadingUserCtrl: LoadingController,
+    private navCtrl: NavController) { }
 
   async ngOnInit() {
     await this.presentLoading();
     console.log('página del usuario');
     this.id= await this.usersService.compania;
-    console.log(this.id);
-    this.obtenerCatalogo(this.id);
+    this.usersService.obtenerCatalogo(this.id)
+    .then(data => {
+      this.catalogo = data;
+      this.catalogo = this.catalogo.data;
+    });
   }
 
   async presentLoading() {
@@ -42,19 +44,9 @@ export class CatalogosPage implements OnInit {
     console.log('El usuario ha cerrado la sesión');
   }
 
-  obtenerCatalogo(id) {
-    return new Promise(res => {
-      this.http.post(this.url+'/products/company?id='+id,{
-        headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
-      }).subscribe(data => {
-        this.catalogo = data;
-        this.catalogo=this.catalogo.data;
-        console.log(this.catalogo);
-        res(data);
-      }, error => {
-        console.log('Error al mostrar el catálogo de la compañia '+error);
-      });
-    });
+  formAniadirArticulo() {
+    console.log('Formulario añadir artículo');
+    this.navCtrl.navigateForward('/aniadir-articulo');
   }
 
 }

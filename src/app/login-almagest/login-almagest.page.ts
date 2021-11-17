@@ -122,6 +122,7 @@ export class LoginAlmagestPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (valid) => {
+
           }
         }
       ]
@@ -175,13 +176,9 @@ export class LoginAlmagestPage implements OnInit {
             }
             usuario=await this.usersService.obtenerIdUsuario(this.usuario.id);
             usuario=usuario.data;
-            //console.log(usuario);
             this.deleted=usuario.deleted;
-            //console.log('Borrado: '+this.deleted);
             this.actived=usuario.actived;
-            //console.log('Activado: '+this.actived);
             this.email_confirmed=usuario.email_confirmed;
-            //console.log('Emailconfirmed: '+this.email_confirmed);
 
             if(this.email_confirmed===0){
               this.userSinConfirmar();
