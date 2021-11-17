@@ -5,12 +5,12 @@
         Cancelar
       </ion-back-button>
     </ion-buttons>
-    <ion-title>Formulario artículo</ion-title>
+    <ion-title>Formulario producto</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form [formGroup]="formularioProducto" (ngSubmit)="aniadirArticulo()" method="post">
+  <form [formGroup]="formularioProducto" (ngSubmit)="aniadirProducto()" method="post">
     <ion-item class="dato_usuario">
       <ion-label>Nombre de familia:</ion-label>
       <ion-select formControlName="family" value="brown" okText="Seleccionar" cancelText="Cancelar">

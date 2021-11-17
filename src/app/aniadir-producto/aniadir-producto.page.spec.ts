@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AniadirArticuloPage } from './aniadir-articulo.page';
+import { AniadirProductoPage } from './aniadir-producto.page';
 
-describe('AniadirArticuloPage', () => {
-  let component: AniadirArticuloPage;
-  let fixture: ComponentFixture<AniadirArticuloPage>;
+describe('AniadirProductoPage', () => {
+  let component: AniadirProductoPage;
+  let fixture: ComponentFixture<AniadirProductoPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AniadirArticuloPage ],
+      declarations: [ AniadirProductoPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AniadirArticuloPage);
+    fixture = TestBed.createComponent(AniadirProductoPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

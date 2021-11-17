@@ -15,7 +15,7 @@
         <ion-item-sliding *ngFor="let compania of catalogo">
           <ion-item>
            <ion-label>
-              <h3>Id articulo: {{ compania.id }}</h3>
+              <h3>Id: {{ compania.id }}</h3>
               <h3>Stock: {{ compania.stock }}</h3>
               <h3>Precio: {{ compania.price }}</h3>
            </ion-label>
@@ -24,7 +24,7 @@
     </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed"
-  (click)="formAniadirArticulo()">
+  (click)="formAniadirProducto()">
     <ion-fab-button color="success">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

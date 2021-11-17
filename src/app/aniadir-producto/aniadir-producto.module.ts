@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AniadirArticuloPageRoutingModule } from './aniadir-articulo-routing.module';
+import { AniadirProductoPageRoutingModule } from './aniadir-producto-routing.module';
 
-import { AniadirArticuloPage } from './aniadir-articulo.page';
+import { AniadirProductoPage } from './aniadir-producto.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AniadirArticuloPageRoutingModule,
+    AniadirProductoPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [AniadirArticuloPage]
+  declarations: [AniadirProductoPage]
 })
-export class AniadirArticuloPageModule {}
+export class AniadirProductoPageModule {}

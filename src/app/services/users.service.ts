@@ -19,6 +19,8 @@ export class UsersService {
   usuario: any;
   catalogo: any;
   compania: any;
+  producto: any;
+
   constructor(private alertUserCtrl: AlertController,private httpUser: HttpClient,
     private loadingUserCtrl: LoadingController) {
 
@@ -275,6 +277,22 @@ export class UsersService {
       }, error => {
         console.log('Error al mostrar los familias '+error);
       });
+    });
+  }
+
+  addProduct(tok: any, article_id: number, company_id: number, price: number, family_id: number) {
+    return new Promise(res => {
+      this.httpUser.post<any>(this.url+'/products?article_id='+article_id+'&company_id='+
+        company_id+'&price='+price+'&family_id='+family_id,{
+          headers: new HttpHeaders().set('Authorization','Bearer '+tok)
+        }).subscribe(datoProducto => {
+            console.log(datoProducto);
+            this.producto = datoProducto;
+            res(this.producto);
+            console.log('Producto añadido correctamente');
+        }, error => {
+          console.log('Error al añadir este producto. '+error);
+        });
     });
   }
 }
