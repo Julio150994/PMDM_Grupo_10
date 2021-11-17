@@ -103,7 +103,7 @@ export class LoginAlmagestPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (valid) => {
-            this.navCtrl.navigateForward('/usuarios');
+            this.navCtrl.navigateForward('/usuarios/catalogos');
           }
         }
       ]
@@ -182,7 +182,7 @@ export class LoginAlmagestPage implements OnInit {
             //console.log('Activado: '+this.actived);
             this.email_confirmed=usuario.email_confirmed;
             //console.log('Emailconfirmed: '+this.email_confirmed);
-            
+
             if(this.email_confirmed===0){
               this.userSinConfirmar();
             }
@@ -198,12 +198,12 @@ export class LoginAlmagestPage implements OnInit {
             else{
               this.problemaCuenta();
             }
-            
+
           }
         });
       }
       else{
-        console.log('usuario no activo')
+        console.log('usuario no activo');
       }
     }
     else {

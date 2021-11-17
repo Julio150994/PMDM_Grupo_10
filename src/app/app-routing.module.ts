@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs/tabs.page';
+import { UsuariosPage } from './usuarios/usuarios.page';
 
 
 const routes: Routes = [
@@ -32,14 +33,23 @@ const routes: Routes = [
   },
   {
     path: 'usuarios',
-    loadChildren: () => import('./usuarios/usuarios.module').then( m => m.UsuariosPageModule)
+    loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosPageModule)
+  },
+  {
+    path: 'usuarios',
+    component: UsuariosPage,
+    children: [
+      {
+        path: 'catalogos',
+        loadChildren: () => import('./catalogos/catalogos.module').then(m => m.CatalogosPageModule)
+      }
+    ]
   },
   {
     path: '**',
     redirectTo: '/login-almagest',
     pathMatch: 'full'
-  }
-
+  },
 ];
 @NgModule({
   imports: [
