@@ -17,6 +17,8 @@ export class UsersService {
   loadingDatas: any;
   id: number;
   usuario: any;
+  catalogo: any;
+  compania: any;
   constructor(private alertUserCtrl: AlertController,private httpUser: HttpClient,
     private loadingUserCtrl: LoadingController) {
  
@@ -28,6 +30,7 @@ export class UsersService {
         email: mail,
         password: contrasenia
       }).subscribe(data => {
+        console.log(data);
         console.log(data);
         this.user = data;
         this.user=this.user.data;
@@ -81,6 +84,7 @@ export class UsersService {
         console.log(data);
         this.usuario = data;
         this.usuario = this.usuario.data;
+        this.compania=this.usuario.company_id;
         res(data);
       }, error => {
         console.log('No se ha podido obtener el id del usuario '+error);
@@ -207,6 +211,21 @@ export class UsersService {
         });
         
       });
+  }
+
+  obtenerCatalogo() {
+    return new Promise(res => {
+      this.httpUser.post(this.url+'/products/company?id='+'1',{
+        headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
+      }).subscribe(data => {
+        this.catalogo = data;
+        this.catalogo=this.catalogo.data;
+        console.log(this.catalogo);
+        res(data);
+      }, error => {
+        console.log('Error al mostrar el catálogo de la compañia '+error);
+      });
+    });
   }
 
   obtenerCompanias() {
