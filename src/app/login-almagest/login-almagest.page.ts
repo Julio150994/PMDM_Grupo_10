@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
@@ -27,7 +27,7 @@ export class LoginAlmagestPage implements OnInit {
   actived: any;
 
   constructor(private alertUserCtrl: AlertController,private navCtrl: NavController,
-    private usersService: UsersService) { }
+    private usersService: UsersService, private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
     console.log('Login');
@@ -103,7 +103,6 @@ export class LoginAlmagestPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (valid) => {
-            this.navCtrl.navigateForward('/usuarios/catalogos');
           }
         }
       ]
@@ -148,6 +147,19 @@ export class LoginAlmagestPage implements OnInit {
     await notValid.present();
   }
 
+  async cargarUsuario() {
+
+    const loadingUser = await this.loadingCtrl.create({
+      message: 'Cargando usuario...',
+      duration: 1200
+    });
+    await loadingUser.present();
+
+    const { role, data } = await loadingUser.onDidDismiss();
+    
+    this.usuarioLogueado();// después de cargar el usuario
+  }
+
   async loginUsuario() {
     if (this.user.valid) {
       this.datos = this.user.value;
@@ -187,7 +199,8 @@ export class LoginAlmagestPage implements OnInit {
               this.userSinActivar();
             }
             else if(this.email_confirmed===1&&this.actived===1&&this.deleted===0){
-              this.usuarioLogueado();
+              this.navCtrl.navigateForward('/usuarios/catalogos');
+              this.cargarUsuario();
             }
             else if(this.email_confirmed===1&&this.actived===1&&this.deleted===1){
               this.userBaneado();

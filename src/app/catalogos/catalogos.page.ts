@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../environments/environment.prod';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, IonList } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
 
 @Component({
@@ -9,34 +9,22 @@ import { UsersService } from '../services/users.service';
   styleUrls: ['./catalogos.page.scss'],
 })
 export class CatalogosPage implements OnInit {
-  url= environment.almagestUrl;
-  catalogo: any;
+  @ViewChild('catalogo', {static:true}) catalogo: IonList;
+
+  url = environment.almagestUrl;
+  productos: any;
   id: any;
 
-  constructor(private usersService: UsersService, private loadingUserCtrl: LoadingController,
-    private navCtrl: NavController) { }
+  constructor(private usersService: UsersService, private navCtrl: NavController) { }
 
   async ngOnInit() {
-    await this.presentLoading();
     console.log('página del usuario');
     this.id= await this.usersService.compania;
     this.usersService.obtenerCatalogo(this.id)
     .then(data => {
-      this.catalogo = data;
-      this.catalogo = this.catalogo.data;
+      this.productos = data;
+      this.productos = this.productos.data;
     });
-  }
-
-  async presentLoading() {
-
-    const loading = await this.loadingUserCtrl.create({
-      message: 'Cargando usuario...',
-      duration: 2000
-    });
-    await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
   }
 
   onLogout() {
@@ -49,4 +37,14 @@ export class CatalogosPage implements OnInit {
     this.navCtrl.navigateForward('/aniadir-producto');
   }
 
+  async eliminarProducto(id) {
+    console.log('Id eliminar: '+id);
+    this.catalogo.closeSlidingItems();
+    this.navCtrl.navigateForward('/usuarios/catalogos');
+  }
+
+  async pruebaProducto(id) {
+    this.catalogo.closeSlidingItems();
+    console.log('Id prueba: '+id);
+  }
 }
