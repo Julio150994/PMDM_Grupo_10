@@ -36,18 +36,6 @@
     </ion-label>
 
     <ion-item class="dato_usuario">
-      <ion-label>Nombre de Compañía:</ion-label>
-      <ion-select formControlName="company" value="brown" okText="Seleccionar" cancelText="Cancelar">
-        <ion-select-option *ngFor="let company of companies" value="{{ company.id }}">
-          {{company.name }}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-label color="danger" *ngIf="formularioProducto.controls.company.errors?.required && (formularioProducto.touched || formularioProducto.dirty)">
-      * Seleccione una compañía.
-    </ion-label>
-
-    <ion-item class="dato_usuario">
       <ion-label position="floating">Precio:</ion-label>
       <ion-input formControlName="price" type="number"></ion-input>
     </ion-item>

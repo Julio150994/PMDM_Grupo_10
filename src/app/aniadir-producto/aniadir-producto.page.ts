@@ -12,7 +12,6 @@ import { NavController, LoadingController, AlertController } from '@ionic/angula
 export class AniadirProductoPage implements OnInit {
   url = environment.almagestUrl;
   articles: any;
-  companies: any;
   families: any;
   products: any;
   token: any;
@@ -30,8 +29,6 @@ export class AniadirProductoPage implements OnInit {
     async ngOnInit() {
       await this.loadingForm();
       this.mostrarArticulos();
-      await this.loadingForm();
-      this.mostrarCompanias();
       await this.loadingForm();
       this.mostrarFamilias();
     }
@@ -55,15 +52,6 @@ export class AniadirProductoPage implements OnInit {
         console.log(data);
         this.articles = data;
         this.articles = this.articles.data;
-      });
-    }
-
-    mostrarCompanias() {
-      this.usersService.obtenerCompanias()
-      .then(data => {
-        console.log(data);
-        this.companies = data;
-        this.companies = this.companies.data;
       });
     }
 
