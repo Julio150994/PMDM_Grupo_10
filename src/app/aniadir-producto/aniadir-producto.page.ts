@@ -22,6 +22,7 @@ export class AniadirProductoPage implements OnInit {
     price: new FormControl('', [Validators.required]),
     family: new FormControl('',[Validators.required])
   });
+  productos: any;
 
   constructor(private usersService: UsersService, private navCtrl: NavController,
     private loadingCtrl: LoadingController, private alertCtrl: AlertController) { }
@@ -35,7 +36,7 @@ export class AniadirProductoPage implements OnInit {
 
     async aniadirProducto() {
       console.log(this.usersService.user.company_id);
-      this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
+      await this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
         this.usersService.user.company_id,
         this.formularioProducto.controls.price.value, this.formularioProducto.controls.family.value).then(data => {
         this.products = data;
@@ -43,9 +44,6 @@ export class AniadirProductoPage implements OnInit {
       });
 
       await this.productoAniadido();
-      this.loadingForm();
-      this.navCtrl.navigateForward('/usuarios/catalogos');
-      await this.usersService.obtenerCatalogo(this.usersService.user.company_id);
     }
 
     /**-------Para los select del formulario-----------*/
@@ -85,8 +83,10 @@ export class AniadirProductoPage implements OnInit {
             text: 'Aceptar',
             role: 'cancel',
             cssClass: 'secondary',
-            handler: () => {
-              this.usersService.obtenerCatalogo(this.usersService.user.company_id);
+            handler: async () => {
+              this.navCtrl.navigateForward('/usuarios/catalogos');
+              await this.loadingForm();
+              await this.ngOnInit();
             }
           }
         ]
@@ -95,3 +95,4 @@ export class AniadirProductoPage implements OnInit {
     }
 
 }
+

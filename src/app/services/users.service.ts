@@ -245,8 +245,8 @@ export class UsersService {
   obtenerProductos() {
     return new Promise(res => {
       this.httpUser.get(this.url+'/products').subscribe(data => {
-        this.token = data;
-        this.token=this.token.data;
+        this.producto = data;
+        this.producto=this.producto.data;
         res(data);
       }, error => {
         console.log('Error al mostrar los productos '+error);

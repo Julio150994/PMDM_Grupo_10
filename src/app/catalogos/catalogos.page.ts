@@ -18,9 +18,9 @@ export class CatalogosPage implements OnInit {
 
   constructor(private http: HttpClient,private loadingCtrl: LoadingController,private alertCtrl: AlertController,private usersService: UsersService, private navCtrl: NavController) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     console.log('página del usuario');
-    this.id= await this.usersService.compania;
+    this.id= this.usersService.compania;
     this.usersService.obtenerCatalogo(this.id)
     .then(data => {
       this.productos = data;
@@ -33,7 +33,7 @@ export class CatalogosPage implements OnInit {
     console.log('El usuario ha cerrado la sesión');
   }
 
-  formAniadirProducto() {
+  async formAniadirProducto() {
     console.log('Formulario añadir producto');
     this.navCtrl.navigateForward('/aniadir-producto');
   }
@@ -55,12 +55,10 @@ export class CatalogosPage implements OnInit {
         }, {
           text: 'SI',
           handler: async () => {
-            this.usersService.getElim(id);
+            this.eliminarProducto(id);
+            await this.loading('Borrando producto');
             console.log('Producto eliminado éxitosamente');
-            await this.borrarLoading('Borrando producto');
-            await this.eliminarProducto(id);
-            console.log('Id eliminar: '+id);
-            console.log(this.usersService.obtenerCatalogo(this.id));
+            this.ngOnInit();
           }
         }
       ]
@@ -68,7 +66,7 @@ export class CatalogosPage implements OnInit {
     await alert.present();
   }
 
-  async borrarLoading(message: string) {
+  async loading(message: string) {
     const loading = await this.loadingCtrl.create({
       message,
       duration: 3500,
@@ -91,10 +89,6 @@ export class CatalogosPage implements OnInit {
           });
     });
   }
-
-  /*async eliminarProducto(id) {
-    
-  }*/
 
   async pruebaProducto(id) {
     this.catalogo.closeSlidingItems();
