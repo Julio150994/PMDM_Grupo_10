@@ -11,10 +11,6 @@ const routes: Routes = [
         path: 'catalogos',
         loadChildren: () => import('../catalogos/catalogos.module').then(m => m.CatalogosPageModule)
       },
-      {
-        path: 'articulos',
-        loadChildren: () => import('../articulos/tabla-articulos/tabla-articulos.module').then(m => m.TablaArticulosPageModule)
-      }
     ]
   }
 ];

@@ -27,7 +27,7 @@
       <ion-label>Nombre de artículo:</ion-label>
       <ion-select formControlName="article" value="brown" okText="Seleccionar" cancelText="Cancelar">
         <ion-select-option *ngFor="let article of articles" value="{{ article.id }}">
-          {{article.name }}
+          {{article.color_name }}
         </ion-select-option>
       </ion-select>
     </ion-item>

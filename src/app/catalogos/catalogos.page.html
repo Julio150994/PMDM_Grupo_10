@@ -17,8 +17,8 @@
            <ion-label>
               <h3>Id: {{ producto.id }}</h3>
               <h3>Id artículo: {{ producto.article_id }}</h3>
-              <h3>Nombre compañía: {{ producto.compamy_name }}</h3>
-              <h3>Nombre Color: {{ producto.compamy_description }}</h3>
+              <h3>Nombre producto: {{ producto.compamy_name }}</h3>
+              <h3>Color: {{ producto.compamy_description }}</h3>
            </ion-label>
           <ion-label>
               <h3>Peso: {{ producto.weight }}</h3>
@@ -29,7 +29,7 @@
           </ion-item>
 
          <ion-item-options side="start">
-            <ion-item-option (click)="eliminarProducto(producto.id)" color="danger">
+            <ion-item-option (click)="eliminar(producto.id)" color="danger">
               <ion-icon slot="icon-only" name="trash"></ion-icon>
               <ion-label>Eliminar</ion-label>
             </ion-item-option>

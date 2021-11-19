@@ -42,20 +42,12 @@ const routes: Routes = [
       {
         path: 'catalogos',
         loadChildren: () => import('./catalogos/catalogos.module').then(m => m.CatalogosPageModule)
-      },
-      {
-        path: 'tabla-articulos',
-        loadChildren: () => import('./articulos/tabla-articulos/tabla-articulos.module').then( m => m.TablaArticulosPageModule)
       }
     ]
   },
   {
     path: 'aniadir-producto',
     loadChildren: () => import('./aniadir-producto/aniadir-producto.module').then( m => m.AniadirProductoPageModule)
-  },
-  {
-    path: 'aniadir-articulo',
-    loadChildren: () => import('./articulos/aniadir-articulo/aniadir-articulo.module').then( m => m.AniadirArticuloPageModule)
   },
   {
     path: '**',

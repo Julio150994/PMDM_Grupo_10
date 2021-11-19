@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../environments/environment.prod';
-import { NavController, IonList } from '@ionic/angular';
+import { NavController, AlertController, LoadingController, IonList } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-catalogos',
@@ -15,7 +16,7 @@ export class CatalogosPage implements OnInit {
   productos: any;
   id: any;
 
-  constructor(private usersService: UsersService, private navCtrl: NavController) { }
+  constructor(private http: HttpClient,private loadingCtrl: LoadingController,private alertCtrl: AlertController,private usersService: UsersService, private navCtrl: NavController) { }
 
   async ngOnInit() {
     console.log('página del usuario');
@@ -37,11 +38,63 @@ export class CatalogosPage implements OnInit {
     this.navCtrl.navigateForward('/aniadir-producto');
   }
 
-  async eliminarProducto(id) {
-    console.log('Id eliminar: '+id);
+  async eliminar(id: string) {
     this.catalogo.closeSlidingItems();
-    this.navCtrl.navigateForward('/usuarios/catalogos');
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'ELIMINAR',
+      message: '<strong>¿Estás seguro que deseas eliminar el producto?</strong>',
+      buttons: [
+        {
+          text: 'NO',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('No has eliminado este producto');
+          }
+        }, {
+          text: 'SI',
+          handler: async () => {
+            this.usersService.getElim(id);
+            console.log('Producto eliminado éxitosamente');
+            await this.borrarLoading('Borrando producto');
+            await this.eliminarProducto(id);
+            console.log('Id eliminar: '+id);
+            console.log(this.usersService.obtenerCatalogo(this.id));
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
+
+  async borrarLoading(message: string) {
+    const loading = await this.loadingCtrl.create({
+      message,
+      duration: 3500,
+    });
+
+    await loading.present();
+  }
+
+
+  eliminarProducto(id) {
+    return new Promise((resolve, reject) => {
+      console.log(localStorage.getItem('token'));
+          this.http.delete(this.url+'/products/'+id, {
+            headers: new HttpHeaders().set('Authorization', 'Bearer '+(localStorage.getItem('token')))
+          }).subscribe(res => {
+            console.log(res);
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+    });
+  }
+
+  /*async eliminarProducto(id) {
+    
+  }*/
 
   async pruebaProducto(id) {
     this.catalogo.closeSlidingItems();

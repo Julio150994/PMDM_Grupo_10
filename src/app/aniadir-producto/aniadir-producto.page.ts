@@ -18,7 +18,7 @@ export class AniadirProductoPage implements OnInit {
 
   formularioProducto = new FormGroup({
     article: new FormControl('',[Validators.required]),
-    company: new FormControl('',[Validators.required]),
+    //company: new FormControl('',[Validators.required]),
     price: new FormControl('', [Validators.required]),
     family: new FormControl('',[Validators.required])
   });
@@ -33,16 +33,19 @@ export class AniadirProductoPage implements OnInit {
       this.mostrarFamilias();
     }
 
-    aniadirProducto() {
+    async aniadirProducto() {
+      console.log(this.usersService.user.company_id);
       this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
-        this.formularioProducto.controls.company.value,
+        this.usersService.user.company_id,
         this.formularioProducto.controls.price.value, this.formularioProducto.controls.family.value).then(data => {
         this.products = data;
         this.products = this.products.data;
       });
 
-      this.productoAniadido();
+      await this.productoAniadido();
+      this.loadingForm();
       this.navCtrl.navigateForward('/usuarios/catalogos');
+      await this.usersService.obtenerCatalogo(this.usersService.user.company_id);
     }
 
     /**-------Para los select del formulario-----------*/
@@ -82,7 +85,8 @@ export class AniadirProductoPage implements OnInit {
             text: 'Aceptar',
             role: 'cancel',
             cssClass: 'secondary',
-            handler: (register) => {
+            handler: () => {
+              this.usersService.obtenerCatalogo(this.usersService.user.company_id);
             }
           }
         ]
