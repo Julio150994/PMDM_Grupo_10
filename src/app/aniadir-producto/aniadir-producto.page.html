@@ -29,6 +29,7 @@
     <ion-item class="dato_usuario">
       <ion-label>Nombre de artículo:</ion-label>
       <ion-select formControlName="article" value="brown" okText="Seleccionar" cancelText="Cancelar">
+        <!-- Tubería del buscador: | buscador:'nombreArticulo' -->
         <ion-select-option *ngFor="let article of articles" value="{{ article.id }}">
           {{article.color_name }}
         </ion-select-option>

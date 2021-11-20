@@ -96,12 +96,8 @@ export class AniadirProductoPage implements OnInit {
     }
 
     buscarArticulos(articulo) {
-      //console.log(articulo);
       this.nombreArticulo = articulo.detail.value;
-
       const search = document.querySelector('ion-searchbar');
-      //const items = Array.from(document.querySelector('ion-label').children);
-      // Para realizar la búsqueda
       const items = Array.from(document.querySelector('ion-list').children);
       this.getDataArticles(items,articulo);
     }

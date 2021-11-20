@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AniadirProductoPageRoutingModule } from './aniadir-producto-routing.module';
 
 import { AniadirProductoPage } from './aniadir-producto.page';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { AniadirProductoPage } from './aniadir-producto.page';
     FormsModule,
     IonicModule,
     AniadirProductoPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipesModule
   ],
   declarations: [AniadirProductoPage]
 })

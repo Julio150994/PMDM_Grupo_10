@@ -16,9 +16,10 @@ export class CatalogosPage implements OnInit {
   productos: any; //any[] = []
   id: any;
 
-  constructor(private http: HttpClient,private loadingCtrl: LoadingController,private alertCtrl: AlertController,private usersService: UsersService, private navCtrl: NavController) { }
+  constructor(private http: HttpClient,private loadingCtrl: LoadingController,private alertCtrl: AlertController,
+    private usersService: UsersService, private navCtrl: NavController) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     console.log('página del usuario');
     this.id= this.usersService.compania;
     this.usersService.obtenerCatalogo(this.id)
@@ -56,7 +57,7 @@ export class CatalogosPage implements OnInit {
           text: 'SI',
           handler: async () => {
             this.eliminarProducto(id);
-            await this.loading('Borrando producto');
+            await this.cargandoProducto('Borrando producto');
             console.log('Producto eliminado éxitosamente');
             this.ngOnInit();
           }
@@ -66,28 +67,50 @@ export class CatalogosPage implements OnInit {
     await alert.present();
   }
 
-  async loading(message: string) {
-    const loading = await this.loadingCtrl.create({
+  async cargandoProducto(message: string) {
+    const loadingProduct = await this.loadingCtrl.create({
       message,
-      duration: 3500,
+      duration: 2000,
     });
 
-    await loading.present();
+    await loadingProduct.present();
+
+    const { role, data } = await loadingProduct.onDidDismiss();
+
+    this.productoEliminado();
   }
 
 
   eliminarProducto(id) {
     return new Promise((resolve, reject) => {
-      console.log(localStorage.getItem('token'));
-          this.http.delete(this.url+'/products/'+id, {
-            headers: new HttpHeaders().set('Authorization', 'Bearer '+(localStorage.getItem('token')))
-          }).subscribe(res => {
-            console.log(res);
-            resolve(res);
-          }, (err) => {
-            reject(err);
-          });
+      this.http.delete(this.url+'/products/'+id, {
+        headers: new HttpHeaders().set('Authorization', 'Bearer '+(localStorage.getItem('token')))
+      }).subscribe(res => {
+        console.log(res);
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
     });
+  }
+
+  async productoEliminado() {
+    const eliminado = await this.alertCtrl.create({
+      header: 'Mensaje',
+      cssClass: 'productCss',
+      message: '<strong>Producto eliminado correctamente.</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: async () => {
+            this.navCtrl.navigateForward('/usuarios/catalogos');
+          }
+        }
+      ]
+    });
+    await eliminado.present();
   }
 
   async editarProducto(id) {

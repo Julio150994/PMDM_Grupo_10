@@ -12,7 +12,7 @@
 
 <ion-content class="ion-padding">
   <ion-list #catalogo>
-        <ion-item-sliding *ngFor="let producto of productos | buscador:'txtProducto'">
+        <ion-item-sliding *ngFor="let producto of productos">
            <ion-item>
            <ion-label>
               <h3>Id: {{ producto.id }}</h3>
@@ -41,40 +41,11 @@
               <ion-label>Editar</ion-label>
             </ion-item-option>
           </ion-item-options>
-        </ion-item-sliding>
-
-        <ion-item-sliding *ngFor="let producto of productos">
-          <ion-item>
-           <ion-label>
-              <h3>Id: {{ producto.id }}</h3>
-              <h3>Id artículo: {{ producto.article_id }}</h3>
-              <h3>Nombre producto: {{ producto.compamy_name }}</h3>
-           </ion-label>
-          <ion-label>
-              <h3>Color: {{ producto.compamy_description }}</h3>
-              <h3>Precio: {{ producto.price }}</h3>
-              <h3>Id familia: {{ producto.family_id }}</h3>
-           </ion-label>
-          </ion-item>
-
-         <ion-item-options side="start">
-            <ion-item-option (click)="eliminar(producto.id)" color="danger">
-              <ion-icon slot="icon-only" name="trash"></ion-icon>
-              <ion-label>Eliminar</ion-label>
-            </ion-item-option>
-          </ion-item-options>
-          
-          <ion-item-options side="end">
-            <ion-item-option (click)="editar(producto.id)" color="secondary">
-              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-              <ion-label>Editar</ion-label>
-            </ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
+        </ion-item-sliding>  
     </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed"
-      (click)="formAniadirProducto()">
+      (click)="formAniadirArticulo()">
       <ion-fab-button color="success">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
