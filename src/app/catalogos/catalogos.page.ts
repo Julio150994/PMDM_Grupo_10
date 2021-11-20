@@ -13,7 +13,7 @@ export class CatalogosPage implements OnInit {
   @ViewChild('catalogo', {static:true}) catalogo: IonList;
 
   url = environment.almagestUrl;
-  productos: any;
+  productos: any; //any[] = []
   id: any;
 
   constructor(private http: HttpClient,private loadingCtrl: LoadingController,private alertCtrl: AlertController,private usersService: UsersService, private navCtrl: NavController) { }
@@ -90,7 +90,7 @@ export class CatalogosPage implements OnInit {
     });
   }
 
-  async pruebaProducto(id) {
+  async editarProducto(id) {
     this.catalogo.closeSlidingItems();
     console.log('Id prueba: '+id);
   }

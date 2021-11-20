@@ -19,14 +19,12 @@ import { AuthInterceptorService } from './auth-interceptor.service';
     AppRoutingModule,
     HttpClientModule,
     PipesModule,
-    ReactiveFormsModule,
-    
+    ReactiveFormsModule
   ],
   providers: [
-    { 
-      provide: RouteReuseStrategy, 
+    {
+      provide: RouteReuseStrategy,
       useClass: IonicRouteStrategy,
-      
     },
 
     {

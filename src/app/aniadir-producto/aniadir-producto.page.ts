@@ -15,6 +15,7 @@ export class AniadirProductoPage implements OnInit {
   families: any;
   products: any;
   token: any;
+  nombreArticulo: '';
 
   formularioProducto = new FormGroup({
     article: new FormControl('',[Validators.required]),
@@ -94,5 +95,25 @@ export class AniadirProductoPage implements OnInit {
       await aniadido.present();
     }
 
+    buscarArticulos(articulo) {
+      //console.log(articulo);
+      this.nombreArticulo = articulo.detail.value;
+
+      const search = document.querySelector('ion-searchbar');
+      //const items = Array.from(document.querySelector('ion-label').children);
+      // Para realizar la búsqueda
+      const items = Array.from(document.querySelector('ion-list').children);
+      this.getDataArticles(items,articulo);
+    }
+
+    getDataArticles(indices, evento) {
+      const query = evento.target.value;
+      requestAnimationFrame(() => {
+        indices.forEach(index => {
+          const shouldShow = index.textContent.toLowerCase().indexOf(query) > -1;
+          index.style.display = shouldShow ? 'block' : 'none';
+        });
+      });
+    }
 }
 
