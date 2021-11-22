@@ -34,7 +34,7 @@ export class CatalogosPage implements OnInit {
     console.log('El usuario ha cerrado la sesión');
   }
 
-  async formAniadirProducto() {
+  async formAniadirArticulo() {
     console.log('Formulario añadir producto');
     this.navCtrl.navigateForward('/aniadir-producto');
   }

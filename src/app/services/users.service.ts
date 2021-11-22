@@ -295,4 +295,8 @@ export class UsersService {
         });
     });
   }
+  getArticulos(){
+    return this.httpUser.get<any[]>(this.url+'/articles',{
+      headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))});
+  }
 }

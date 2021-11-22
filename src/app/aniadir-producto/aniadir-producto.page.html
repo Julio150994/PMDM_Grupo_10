@@ -7,14 +7,16 @@
     </ion-buttons>
     <ion-title>Formulario producto</ion-title>
   </ion-toolbar>
-   <ion-searchbar animated debounce placeholder="Nombre de artículo"
-    (ionChange)="buscarArticulos($event)" class="form-search">
-  </ion-searchbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar animated placeholder="Nombre de artículo"
+      (ionChange)="buscarArticulos($event)">
+    </ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <form [formGroup]="formularioProducto" (ngSubmit)="aniadirProducto()" method="post">
-    <ion-item class="dato_usuario">
+    <!--<ion-item class="dato_usuario">
       <ion-label>Nombre de familia:</ion-label>
       <ion-select formControlName="family" value="brown" okText="Seleccionar" cancelText="Cancelar">
         <ion-select-option *ngFor="let family of families" value="{{ family.id }}">
@@ -24,14 +26,14 @@
     </ion-item>
     <ion-label color="danger" *ngIf="formularioProducto.controls.family.errors?.required && (formularioProducto.touched || formularioProducto.dirty)">
       * Seleccione una familia.
-    </ion-label>
+    </ion-label>-->
 
     <ion-item class="dato_usuario">
-      <ion-label>Nombre de artículo:</ion-label>
+      <ion-label>Descripción del artículo:</ion-label>
       <ion-select formControlName="article" value="brown" okText="Seleccionar" cancelText="Cancelar">
         <!-- Tubería del buscador: | buscador:'nombreArticulo' -->
-        <ion-select-option *ngFor="let article of articles" value="{{ article.id }}">
-          {{article.color_name }}
+        <ion-select-option *ngFor="let articulo of articulos | buscador: nombreArticulo" value="{{ articulo.id }}">
+          {{articulo.description}}
         </ion-select-option>
       </ion-select>
     </ion-item>

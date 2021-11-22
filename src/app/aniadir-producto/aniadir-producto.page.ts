@@ -15,46 +15,51 @@ export class AniadirProductoPage implements OnInit {
   families: any;
   products: any;
   token: any;
-  nombreArticulo: '';
+  nombreArticulo:'';
 
   formularioProducto = new FormGroup({
     article: new FormControl('',[Validators.required]),
     //company: new FormControl('',[Validators.required]),
     price: new FormControl('', [Validators.required]),
-    family: new FormControl('',[Validators.required])
+    //family: new FormControl('',[Validators.required])
   });
   productos: any;
+  articulos:any;
 
   constructor(private usersService: UsersService, private navCtrl: NavController,
     private loadingCtrl: LoadingController, private alertCtrl: AlertController) { }
 
-    async ngOnInit() {
+   async ngOnInit() {
+      this.usersService.getArticulos().
+      subscribe(articulos=>{ 
+        this.articulos = articulos;
+        this.articulos=this.articulos.data;
+      });
       await this.loadingForm();
-      this.mostrarArticulos();
+      console.log('pasaillo');
+      console.log(await this.articulos);
       await this.loadingForm();
       this.mostrarFamilias();
     }
 
+    buscarArticulos(evento){
+      this.nombreArticulo=evento.detail.value;
+    }
+
     async aniadirProducto() {
-      console.log(this.usersService.user.company_id);
+      let familyId:number;
+      let idArticulo=this.formularioProducto.controls.article.value;
+      console.log(idArticulo);
+      console.log(this.articles[idArticulo].family_id);
+      familyId=this.articles[idArticulo].family_id;
+      console.log(familyId);
       await this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
-        this.usersService.user.company_id,
-        this.formularioProducto.controls.price.value, this.formularioProducto.controls.family.value).then(data => {
+        await this.usersService.user.company_id,this.formularioProducto.controls.price.value,familyId).then(data => {
         this.products = data;
         this.products = this.products.data;
       });
 
       await this.productoAniadido();
-    }
-
-    /**-------Para los select del formulario-----------*/
-    mostrarArticulos() {
-      this.usersService.obtenerArticulos()
-      .then(data => {
-        console.log(data);
-        this.articles = data;
-        this.articles = this.articles.data;
-      });
     }
 
     mostrarFamilias() {
@@ -93,23 +98,6 @@ export class AniadirProductoPage implements OnInit {
         ]
       });
       await aniadido.present();
-    }
-
-    buscarArticulos(articulo) {
-      this.nombreArticulo = articulo.detail.value;
-      const search = document.querySelector('ion-searchbar');
-      const items = Array.from(document.querySelector('ion-list').children);
-      this.getDataArticles(items,articulo);
-    }
-
-    getDataArticles(indices, evento) {
-      const query = evento.target.value;
-      requestAnimationFrame(() => {
-        indices.forEach(index => {
-          const shouldShow = index.textContent.toLowerCase().indexOf(query) > -1;
-          index.style.display = shouldShow ? 'block' : 'none';
-        });
-      });
     }
 }
 
