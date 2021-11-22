@@ -15,30 +15,25 @@ export class AniadirProductoPage implements OnInit {
   families: any;
   products: any;
   token: any;
-  nombreArticulo:'';
+  nombreArticulo: '';
 
   formularioProducto = new FormGroup({
     article: new FormControl('',[Validators.required]),
-    //company: new FormControl('',[Validators.required]),
     price: new FormControl('', [Validators.required]),
-    //family: new FormControl('',[Validators.required])
   });
   productos: any;
-  articulos:any;
+  articulos: any;
 
   constructor(private usersService: UsersService, private navCtrl: NavController,
     private loadingCtrl: LoadingController, private alertCtrl: AlertController) { }
 
    async ngOnInit() {
-      this.usersService.getArticulos().
-      subscribe(articulos=>{ 
+      this.usersService.obtenerArticulos().
+      then(articulos=>{
         this.articulos = articulos;
         this.articulos=this.articulos.data;
       });
-      await this.loadingForm();
-      console.log('pasaillo');
-      console.log(await this.articulos);
-      await this.loadingForm();
+
       this.mostrarFamilias();
     }
 
@@ -47,27 +42,27 @@ export class AniadirProductoPage implements OnInit {
     }
 
     async aniadirProducto() {
-      let familyId:number;
-      let idArticulo=(this.formularioProducto.controls.article.value)-(1);
-      this.usersService.getArticulos().
-      subscribe(async articulos=>{ 
+      let familyId: number;
+      let idArticulo = (this.formularioProducto.controls.article.value)-(1);
+      this.usersService.obtenerArticulos().
+      then(async articulos=>{
         this.articulos = articulos;
         this.articulos=this.articulos.data;
       });
-      await this.loadingForm();
+      
+      await this.loadingFormProduct();
+
       console.log(idArticulo);
       console.log(this.articulos);
-      familyId=this.articulos[idArticulo].family_id;
+      familyId = this.articulos[idArticulo].family_id;
       console.log(familyId);
-      let numero:string;
-      numero=familyId.toString();
+      let numero: string;
+      numero = familyId.toString();
       this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
         this.usersService.user.company_id,this.formularioProducto.controls.price.value,numero).then(data => {
         this.products = data;
         this.products = this.products.data;
       });
-
-      await this.productoAniadido();
     }
 
     mostrarFamilias() {
@@ -79,12 +74,16 @@ export class AniadirProductoPage implements OnInit {
       });
     }
 
-    async loadingForm() {
+    async loadingFormProduct() {
       const formArticle = await this.loadingCtrl.create({
         message: 'Cargando formulario...',
         duration: 1750
       });
       await formArticle.present();
+
+      const { role, data } = await formArticle.onDidDismiss();
+    
+      this.productoAniadido();
     }
 
     async productoAniadido() {
@@ -99,8 +98,6 @@ export class AniadirProductoPage implements OnInit {
             cssClass: 'secondary',
             handler: async () => {
               this.navCtrl.navigateForward('/usuarios/catalogos');
-              await this.loadingForm();
-              await this.ngOnInit();
             }
           }
         ]

@@ -16,22 +16,17 @@
 
 <ion-content class="ion-padding">
   <form [formGroup]="formularioProducto" (ngSubmit)="aniadirProducto()" method="post">
-    <!--<ion-item class="dato_usuario">
-      <ion-label>Nombre de familia:</ion-label>
-      <ion-select formControlName="family" value="brown" okText="Seleccionar" cancelText="Cancelar">
-        <ion-select-option *ngFor="let family of families" value="{{ family.id }}">
-          {{family.name }}
-        </ion-select-option>
-      </ion-select>
+    <ion-item class="dato_usuario">
+      <ion-label position="floating">Precio:</ion-label>
+      <ion-input formControlName="price" type="number"></ion-input>
     </ion-item>
-    <ion-label color="danger" *ngIf="formularioProducto.controls.family.errors?.required && (formularioProducto.touched || formularioProducto.dirty)">
-      * Seleccione una familia.
-    </ion-label>-->
+    <ion-label color="danger" *ngIf="formularioProducto.controls.price.errors?.required && (formularioProducto.touched || formularioProducto.dirty)">
+      * Debe introducir un precio.
+    </ion-label>
 
     <ion-item class="dato_usuario">
       <ion-label>Descripción del artículo:</ion-label>
       <ion-select formControlName="article" value="brown" okText="Seleccionar" cancelText="Cancelar">
-        <!-- Tubería del buscador: | buscador:'nombreArticulo' -->
         <ion-select-option *ngFor="let articulo of articulos | buscador: nombreArticulo" value="{{ articulo.id }}">
           {{articulo.description}}
         </ion-select-option>
@@ -39,14 +34,6 @@
     </ion-item>
     <ion-label color="danger" *ngIf="formularioProducto.controls.article.errors?.required && (formularioProducto.touched || formularioProducto.dirty)">
       * Seleccione un artículo.
-    </ion-label>
-
-    <ion-item class="dato_usuario">
-      <ion-label position="floating">Precio:</ion-label>
-      <ion-input formControlName="price" type="number"></ion-input>
-    </ion-item>
-    <ion-label color="danger" *ngIf="formularioProducto.controls.price.errors?.required && (formularioProducto.touched || formularioProducto.dirty)">
-      * Debe introducir un precio.
     </ion-label>
 
     <ion-button expand="full" [disabled]="formularioProducto.invalid" type="submit" class="botonArticulo" color="success">

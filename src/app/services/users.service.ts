@@ -256,7 +256,7 @@ export class UsersService {
 
   obtenerArticulos() {
     return new Promise(res => {
-      this.httpUser.get(this.url+'/articles',{
+      this.httpUser.get<any>(this.url+'/articles',{
         headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
       }).subscribe(data => {
         this.token = data;
@@ -280,10 +280,10 @@ export class UsersService {
     });
   }
 
-  addProduct(tok: any, article_id: number, company_id: number, price: number, nombre: string) {
+  addProduct(tok: any, article_id: number, company_id: number, price: number, familia: string) {
     return new Promise(res => {
       this.httpUser.post<any>(this.url+'/products?article_id='+article_id+'&company_id='+
-        company_id+'&price='+price+'&family_id='+nombre,{
+        company_id+'&price='+price+'&family_id='+familia,{
           headers: new HttpHeaders().set('Authorization','Bearer '+tok)
         }).subscribe(datoProducto => {
             console.log(datoProducto);
@@ -295,8 +295,5 @@ export class UsersService {
         });
     });
   }
-  getArticulos(){
-    return this.httpUser.get<any[]>(this.url+'/articles',{
-      headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))});
-  }
+
 }

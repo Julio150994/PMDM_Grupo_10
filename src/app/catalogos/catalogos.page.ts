@@ -13,7 +13,7 @@ export class CatalogosPage implements OnInit {
   @ViewChild('catalogo', {static:true}) catalogo: IonList;
 
   url = environment.almagestUrl;
-  productos: any; //any[] = []
+  productos: any;
   id: any;
 
   constructor(private http: HttpClient,private loadingCtrl: LoadingController,private alertCtrl: AlertController,
