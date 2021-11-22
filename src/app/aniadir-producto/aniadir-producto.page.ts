@@ -48,13 +48,21 @@ export class AniadirProductoPage implements OnInit {
 
     async aniadirProducto() {
       let familyId:number;
-      let idArticulo=this.formularioProducto.controls.article.value;
+      let idArticulo=(this.formularioProducto.controls.article.value)-(1);
+      this.usersService.getArticulos().
+      subscribe(async articulos=>{ 
+        this.articulos = articulos;
+        this.articulos=this.articulos.data;
+      });
+      await this.loadingForm();
       console.log(idArticulo);
-      console.log(this.articles[idArticulo].family_id);
-      familyId=this.articles[idArticulo].family_id;
+      console.log(this.articulos);
+      familyId=this.articulos[idArticulo].family_id;
       console.log(familyId);
-      await this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
-        await this.usersService.user.company_id,this.formularioProducto.controls.price.value,familyId).then(data => {
+      let numero:string;
+      numero=familyId.toString();
+      this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
+        this.usersService.user.company_id,this.formularioProducto.controls.price.value,numero).then(data => {
         this.products = data;
         this.products = this.products.data;
       });

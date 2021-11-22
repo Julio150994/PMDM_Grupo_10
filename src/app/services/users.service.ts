@@ -280,10 +280,10 @@ export class UsersService {
     });
   }
 
-  addProduct(tok: any, article_id: number, company_id: number, price: number, family_id: number) {
+  addProduct(tok: any, article_id: number, company_id: number, price: number, nombre: string) {
     return new Promise(res => {
       this.httpUser.post<any>(this.url+'/products?article_id='+article_id+'&company_id='+
-        company_id+'&price='+price+'&family_id='+family_id,{
+        company_id+'&price='+price+'&family_id='+nombre,{
           headers: new HttpHeaders().set('Authorization','Bearer '+tok)
         }).subscribe(datoProducto => {
             console.log(datoProducto);
