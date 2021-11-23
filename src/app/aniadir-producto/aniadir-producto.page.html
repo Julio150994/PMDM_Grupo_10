@@ -22,7 +22,7 @@
         <ion-label class="select">Seleccione uno de estos artículos:</ion-label>
       </ion-list-header>
 
-      <ion-item class="dato_usuario" *ngFor="let articulo of articulos | buscador: nombreArticulo" value="{{ articulo.id }}">
+      <ion-item class="dato_usuario" *ngFor="let articulo of articulos | buscador: nombreArticulo">
         <ion-label>{{ articulo.description }}</ion-label>
         <ion-radio slot="start" value="{{ articulo.id }}" (click)="seleccionarArticulo(articulo.description)"></ion-radio>
       </ion-item>

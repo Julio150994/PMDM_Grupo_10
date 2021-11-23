@@ -46,7 +46,6 @@ export class AniadirProductoPage implements OnInit {
     }
 
     seleccionarArticulo(articulo) {
-      console.log('Artículo: '+articulo);
       this.descripcionArticulo = articulo;
     }
 
@@ -61,10 +60,7 @@ export class AniadirProductoPage implements OnInit {
 
       await this.loadingAddProduct('Cargando producto...');
 
-      console.log(idArticulo);
-      console.log(this.articulos);
       familyId = this.articulos[idArticulo].family_id;
-      console.log(familyId);
       let numero: string;
       numero = familyId.toString();
       this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
