@@ -16,6 +16,21 @@
 
 <ion-content class="ion-padding">
   <form [formGroup]="formularioProducto" (ngSubmit)="aniadirProducto()" method="post">
+    
+    <ion-radio-group formControlName="article">
+      <ion-list-header>
+        <ion-label class="select">Seleccione uno de estos artículos:</ion-label>
+      </ion-list-header>
+
+      <ion-item class="dato_usuario" *ngFor="let articulo of articulos | buscador: nombreArticulo" value="{{ articulo.id }}">
+        <ion-label>{{ articulo.description }}</ion-label>
+        <ion-radio slot="start" value="{{ articulo.id }}" (click)="seleccionarArticulo(articulo.description)"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+    <ion-label color="danger" *ngIf="formularioProducto.controls.article.errors?.required && (formularioProducto.touched || formularioProducto.dirty)">
+      * Elija un artículo.
+    </ion-label>
+    
     <ion-item class="dato_usuario">
       <ion-label position="floating">Precio:</ion-label>
       <ion-input formControlName="price" type="number"></ion-input>
@@ -25,16 +40,9 @@
     </ion-label>
 
     <ion-item class="dato_usuario">
-      <ion-label>Descripción del artículo:</ion-label>
-      <ion-select formControlName="article" value="brown" okText="Seleccionar" cancelText="Cancelar">
-        <ion-select-option *ngFor="let articulo of articulos | buscador: nombreArticulo" value="{{ articulo.id }}">
-          {{articulo.description}}
-        </ion-select-option>
-      </ion-select>
+      <ion-label>Descripción del artículo: </ion-label>
+      <ion-input formControlName="article" text-capitalize> {{ descripcionArticulo }}</ion-input>
     </ion-item>
-    <ion-label color="danger" *ngIf="formularioProducto.controls.article.errors?.required && (formularioProducto.touched || formularioProducto.dirty)">
-      * Seleccione un artículo.
-    </ion-label>
 
     <ion-button expand="full" [disabled]="formularioProducto.invalid" type="submit" class="botonArticulo" color="success">
       <ion-icon name="add-circle"></ion-icon>

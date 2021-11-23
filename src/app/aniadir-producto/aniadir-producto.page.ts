@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { environment } from '../../environments/environment.prod';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsersService } from '../services/users.service';
@@ -10,6 +10,8 @@ import { NavController, LoadingController, AlertController } from '@ionic/angula
   styleUrls: ['./aniadir-producto.page.scss'],
 })
 export class AniadirProductoPage implements OnInit {
+  @Input() descripcionArticulo: any;
+
   url = environment.almagestUrl;
   articles: any;
   families: any;
@@ -28,6 +30,8 @@ export class AniadirProductoPage implements OnInit {
     private loadingCtrl: LoadingController, private alertCtrl: AlertController) { }
 
    async ngOnInit() {
+      await this.loadingForm('Cargando formulario...');
+
       this.usersService.obtenerArticulos().
       then(articulos=>{
         this.articulos = articulos;
@@ -41,6 +45,11 @@ export class AniadirProductoPage implements OnInit {
       this.nombreArticulo=evento.detail.value;
     }
 
+    seleccionarArticulo(articulo) {
+      console.log('Artículo: '+articulo);
+      this.descripcionArticulo = articulo;
+    }
+
     async aniadirProducto() {
       let familyId: number;
       let idArticulo = (this.formularioProducto.controls.article.value)-(1);
@@ -49,8 +58,8 @@ export class AniadirProductoPage implements OnInit {
         this.articulos = articulos;
         this.articulos=this.articulos.data;
       });
-      
-      await this.loadingFormProduct();
+
+      await this.loadingAddProduct('Cargando producto...');
 
       console.log(idArticulo);
       console.log(this.articulos);
@@ -74,15 +83,25 @@ export class AniadirProductoPage implements OnInit {
       });
     }
 
-    async loadingFormProduct() {
+    async loadingForm(message: string) {
+      const loadForm = await this.loadingCtrl.create({
+        message,
+        duration: 1080
+      });
+
+      await loadForm.present();
+    }
+
+    async loadingAddProduct(message: string) {
       const formArticle = await this.loadingCtrl.create({
-        message: 'Cargando formulario...',
+        message,
         duration: 1750
       });
       await formArticle.present();
 
       const { role, data } = await formArticle.onDidDismiss();
-    
+
+      this.navCtrl.navigateForward('/usuarios/catalogos');
       this.productoAniadido();
     }
 
@@ -97,7 +116,6 @@ export class AniadirProductoPage implements OnInit {
             role: 'cancel',
             cssClass: 'secondary',
             handler: async () => {
-              this.navCtrl.navigateForward('/usuarios/catalogos');
             }
           }
         ]
