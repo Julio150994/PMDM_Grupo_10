@@ -40,8 +40,8 @@
     </ion-label>
 
     <ion-item class="dato_usuario">
-      <ion-label>Descripción del artículo: </ion-label>
-      <ion-input formControlName="article" text-capitalize> {{ descripcionArticulo }} </ion-input>
+      <ion-label><pre>Descripción artículo: </pre></ion-label>
+      <ion-input [disabled]="deshabilitado" formControlName="article" text-capitalize> {{ descripcionArticulo }} </ion-input>
     </ion-item>
 
     <ion-button expand="full" [disabled]="formularioProducto.invalid" type="submit" class="botonArticulo" color="success">
