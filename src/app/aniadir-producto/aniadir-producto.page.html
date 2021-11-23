@@ -19,7 +19,7 @@
     
     <ion-radio-group formControlName="article">
       <ion-list-header>
-        <ion-label class="select">Seleccione uno de estos artículos:</ion-label>
+        <ion-label class="select">Seleccione un artículo:</ion-label>
       </ion-list-header>
 
       <ion-item class="dato_usuario" *ngFor="let articulo of articulos | buscador: nombreArticulo">
@@ -28,7 +28,7 @@
       </ion-item>
     </ion-radio-group>
     <ion-label color="danger" *ngIf="formularioProducto.controls.article.errors?.required && (formularioProducto.touched || formularioProducto.dirty)">
-      * Elija un artículo.
+      * Debe seleccionar un artículo.
     </ion-label>
     
     <ion-item class="dato_usuario">
@@ -41,7 +41,7 @@
 
     <ion-item class="dato_usuario">
       <ion-label>Descripción del artículo: </ion-label>
-      <ion-input formControlName="article" text-capitalize> {{ descripcionArticulo }}</ion-input>
+      <ion-input formControlName="article" text-capitalize> {{ descripcionArticulo }} </ion-input>
     </ion-item>
 
     <ion-button expand="full" [disabled]="formularioProducto.invalid" type="submit" class="botonArticulo" color="success">

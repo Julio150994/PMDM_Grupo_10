@@ -61,6 +61,7 @@ export class AniadirProductoPage implements OnInit {
       await this.loadingAddProduct('Cargando producto...');
 
       familyId = this.articulos[idArticulo].family_id;
+      
       let numero: string;
       numero = familyId.toString();
       this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
