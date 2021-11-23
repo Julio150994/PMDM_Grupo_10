@@ -11,7 +11,8 @@ export class BuscadorPipe implements PipeTransform {
     if (!articulos || !texto) {
       return articulos;
     }
-    return articulos.filter(resultado => resultado.description.includes(texto));
+    texto=texto.toLowerCase();
+    return articulos.filter(resultado => resultado.description.toLowerCase().includes(texto));
   }
 
   async presentLoading() {
