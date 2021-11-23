@@ -60,17 +60,22 @@ export class AniadirProductoPage implements OnInit {
         this.articulos=this.articulos.data;
       });
 
-      await this.loadingAddProduct('Cargando producto...');
-
-      familyId = this.articulos[idArticulo].family_id;
-      
-      let numero: string;
+     
+      if(this.usersService.producto <=30){
+        await this.loadingAddProduct('Cargando producto...');
+        familyId = this.articulos[idArticulo].family_id;
+        let numero: string;
       numero = familyId.toString();
       this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
         this.usersService.user.company_id,this.formularioProducto.controls.price.value,numero).then(data => {
         this.products = data;
         this.products = this.products.data;
       });
+      }
+      else{
+        console.log('NO SE PUEDEN AÑADIR MÁS DE 10 PRODUCTOS');
+      }
+      
     }
 
     mostrarFamilias() {
