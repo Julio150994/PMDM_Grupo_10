@@ -19,6 +19,7 @@ export class AniadirProductoPage implements OnInit {
   token: any;
   nombreArticulo: '';
   deshabilitado: boolean = false;
+  mensajeError: string;
 
   formularioProducto = new FormGroup({
     article: new FormControl('',[Validators.required]),
@@ -87,13 +88,13 @@ export class AniadirProductoPage implements OnInit {
         }
         else{
           if (this.formularioProducto.controls.price.value < this.articulos[idArticulo].price_min) {
-            console.log('El precio mínimo es '+this.articulos[idArticulo].price_min);
+            this.alertPrecioMinimo(this.articulos[idArticulo].price_min);
           }
           else if (this.formularioProducto.controls.price.value > this.articulos[idArticulo].price_max) {
-            console.log('El precio máximo es '+this.articulos[idArticulo].price_max);
+            this.alertPrecioMaximo(this.articulos[idArticulo].price_max);
           }
           else {
-            console.log('Error. No puedes añadir más de 75 artículos.');
+            this.alertContadorArticulos(this.productos?.length);
           }
         }
       });
@@ -115,6 +116,60 @@ export class AniadirProductoPage implements OnInit {
       });
 
       await loadForm.present();
+    }
+
+    async alertPrecioMinimo(precioMinimo: any) {
+      const precio = await this.alertCtrl.create({
+        header: 'Mensaje de error',
+        cssClass: 'productCss',
+        message: '<strong>El precio mínimo es '+precioMinimo+'.</strong>',
+        buttons: [
+          {
+            text: 'Aceptar',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: async () => {
+            }
+          }
+        ]
+      });
+      await precio.present();
+    }
+
+    async alertPrecioMaximo(precioMaximo: any) {
+      const maximo = await this.alertCtrl.create({
+        header: 'Mensaje de error',
+        cssClass: 'productCss',
+        message: '<strong>El precio máximo es '+precioMaximo+'.</strong>',
+        buttons: [
+          {
+            text: 'Aceptar',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: async () => {
+            }
+          }
+        ]
+      });
+      await maximo.present();
+    }
+
+    async alertContadorArticulos(numeroArticulos: any) {
+      const maximo = await this.alertCtrl.create({
+        header: 'Mensaje de error',
+        cssClass: 'productCss',
+        message: '<strong>No puedes añadir más de'+numeroArticulos+' artículos.</strong>',
+        buttons: [
+          {
+            text: 'Aceptar',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: async () => {
+            }
+          }
+        ]
+      });
+      await maximo.present();
     }
 
     async loadingAddProduct(message: string) {
