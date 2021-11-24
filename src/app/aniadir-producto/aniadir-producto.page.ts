@@ -18,7 +18,7 @@ export class AniadirProductoPage implements OnInit {
   products: any;
   token: any;
   nombreArticulo: '';
-  deshabilitado: boolean=false;
+  deshabilitado: boolean = false;
 
   formularioProducto = new FormGroup({
     article: new FormControl('',[Validators.required]),
@@ -37,7 +37,6 @@ export class AniadirProductoPage implements OnInit {
 
       this.usersService.obtenerArticulos().
       then(articulos=>{
-        console.log(articulos);
         this.articulos = articulos;
         this.articulos=this.articulos.data;
       });
@@ -63,37 +62,41 @@ export class AniadirProductoPage implements OnInit {
         this.articulos = articulos;
         this.articulos=this.articulos.data;
       });
+
       await this.loadingForm('Cargando...');
       this.id= this.usersService.compania;
-    this.usersService.obtenerCatalogo(this.id)
-    .then(async data => {
-      this.productos = data;
-      this.productos = this.productos.data;
+      this.usersService.obtenerCatalogo(this.id)
+      .then(async data => {
+        this.productos = data;
+        this.productos = this.productos.data;
 
-      if(this.productos?.length < 75 && (this.formularioProducto.controls.price.value >= this.articulos[idArticulo].price_min &&
-        this.formularioProducto.controls.price.value <= this.articulos[idArticulo].price_max)){
-        await this.loadingAddProduct('Cargando producto...');
-        familyId = this.articulos[idArticulo].family_id;
-        let numero: string;
-      numero = familyId.toString();
-      this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
-        this.usersService.user.company_id,this.formularioProducto.controls.price.value,numero).then(async data => {
-        this.products = data;
-        this.products = this.products.data;
+        if(this.productos?.length < 75 && (this.formularioProducto.controls.price.value >= this.articulos[idArticulo].price_min &&
+          this.formularioProducto.controls.price.value <= this.articulos[idArticulo].price_max)){
+          await this.loadingAddProduct('Cargando producto...');
+          familyId = this.articulos[idArticulo].family_id;
+
+          let idFamilia: string;
+          idFamilia = familyId.toString();
+
+          this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
+          this.usersService.user.company_id,this.formularioProducto.controls.price.value,idFamilia)
+          .then(async data => {
+            this.products = data;
+            this.products = this.products.data;
+          });
+        }
+        else{
+          if (this.formularioProducto.controls.price.value < this.articulos[idArticulo].price_min) {
+            console.log('El precio mínimo es '+this.articulos[idArticulo].price_min);
+          }
+          else if (this.formularioProducto.controls.price.value > this.articulos[idArticulo].price_max) {
+            console.log('El precio máximo es '+this.articulos[idArticulo].price_max);
+          }
+          else {
+            console.log('Error. No puedes añadir más de 75 artículos.');
+          }
+        }
       });
-      }
-      else{
-        if (this.formularioProducto.controls.price.value < this.articulos[idArticulo].price_min) {
-          console.log('El precio mínimo es '+this.articulos[idArticulo].price_min);
-        }
-        else if (this.formularioProducto.controls.price.value > this.articulos[idArticulo].price_max) {
-          console.log('El precio máximo es '+this.articulos[idArticulo].price_max);
-        }
-        else {
-          console.log('Error. No puedes añadir más de 75 artículos.');
-        }
-      }
-    });
     }
 
     mostrarFamilias() {
@@ -145,4 +148,3 @@ export class AniadirProductoPage implements OnInit {
       await aniadido.present();
     }
 }
-

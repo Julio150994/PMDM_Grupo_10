@@ -296,4 +296,16 @@ export class UsersService {
     });
   }
 
+  removeProduct(id) {
+    return new Promise((resolve, reject) => {
+      this.httpUser.delete(this.url+'/products/'+id, {
+        headers: new HttpHeaders().set('Authorization', 'Bearer '+(localStorage.getItem('token')))
+      }).subscribe(res => {
+        console.log(res);
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+    });
+  }
 }

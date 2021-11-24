@@ -41,7 +41,7 @@ export class CatalogosPage implements OnInit {
     this.navCtrl.navigateForward('/aniadir-producto');
   }
 
-  async eliminar(id: string) {
+  async eliminarProducto(id: string) {
     this.catalogo.closeSlidingItems();
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
@@ -58,7 +58,7 @@ export class CatalogosPage implements OnInit {
         }, {
           text: 'SI',
           handler: async () => {
-            this.eliminarProducto(id);
+            this.usersService.removeProduct(id);
             await this.cargandoProducto('Borrando producto');
             console.log('Producto eliminado éxitosamente');
             this.ngOnInit();
@@ -80,20 +80,6 @@ export class CatalogosPage implements OnInit {
     const { role, data } = await loadingProduct.onDidDismiss();
 
     this.productoEliminado();
-  }
-
-
-  eliminarProducto(id) {
-    return new Promise((resolve, reject) => {
-      this.http.delete(this.url+'/products/'+id, {
-        headers: new HttpHeaders().set('Authorization', 'Bearer '+(localStorage.getItem('token')))
-      }).subscribe(res => {
-        console.log(res);
-        resolve(res);
-      }, (err) => {
-        reject(err);
-      });
-    });
   }
 
   async productoEliminado() {
