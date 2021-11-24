@@ -12,9 +12,11 @@
 
 <ion-content class="ion-padding">
   <ion-list #catalogo>
-    <h1 *ngIf="productos.length===0">No hay productos</h1>
-    <h1 *ngIf="productos.length>0">Hay {{ this.productos.length }} de 30 </h1>
-        <ion-item-sliding *ngFor="let producto of productos">
+    <ion-header>
+      <p *ngIf="productos?.length===0">No hay productos</p>
+      <p *ngIf="productos?.length > 0">Hay {{ this.productos?.length }} de 30 </p>
+    </ion-header>
+        <ion-item-sliding *ngFor="let producto of productos" class="sliding">
            <ion-item>
            <ion-label>
               <h3>Id: {{ producto.id }}</h3>
@@ -36,14 +38,14 @@
               <ion-label>Eliminar</ion-label>
             </ion-item-option>
           </ion-item-options>
-          
+
           <ion-item-options side="end">
-            <ion-item-option (click)="editar(producto.id)" color="secondary">
+            <ion-item-option (click)="editarProducto(producto.id)" color="secondary">
               <ion-icon slot="icon-only" name="create-outline"></ion-icon>
               <ion-label>Editar</ion-label>
             </ion-item-option>
           </ion-item-options>
-        </ion-item-sliding>  
+        </ion-item-sliding>
     </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed"

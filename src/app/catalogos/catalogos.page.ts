@@ -14,6 +14,7 @@ export class CatalogosPage implements OnInit {
 
   url = environment.almagestUrl;
   productos: any;
+  articulos: any;
   id: any;
 
   constructor(private http: HttpClient,private loadingCtrl: LoadingController,private alertCtrl: AlertController,
@@ -21,11 +22,12 @@ export class CatalogosPage implements OnInit {
 
   async ngOnInit() {
     console.log('página del usuario');
+
     this.id= this.usersService.compania;
-    this.usersService.obtenerCatalogo(this.id)
-    .then(data => {
-      this.productos = data;
-      this.productos = this.productos.data;
+      this.usersService.obtenerCatalogo(this.id)
+      .then(data => {
+        this.productos = data;
+        this.productos = this.productos.data;
     });
   }
 

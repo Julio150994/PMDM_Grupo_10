@@ -11,6 +11,8 @@ import { NavController, LoadingController, AlertController } from '@ionic/angula
 })
 export class AniadirProductoPage implements OnInit {
   @Input() descripcionArticulo: any;
+  @Input() precioMinimo: number;
+  @Input() precioMaximo: number;
 
   url = environment.almagestUrl;
   articles: any;
@@ -26,6 +28,7 @@ export class AniadirProductoPage implements OnInit {
   });
   productos: any;
   articulos: any;
+  longitud: any;
   id: any;
 
   constructor(private usersService: UsersService, private navCtrl: NavController,
@@ -36,6 +39,7 @@ export class AniadirProductoPage implements OnInit {
 
       this.usersService.obtenerArticulos().
       then(articulos=>{
+        console.log(articulos);
         this.articulos = articulos;
         this.articulos=this.articulos.data;
       });
@@ -61,17 +65,15 @@ export class AniadirProductoPage implements OnInit {
         this.articulos = articulos;
         this.articulos=this.articulos.data;
       });
-
+      await this.loadingForm('Cargando...');
       this.id= this.usersService.compania;
     this.usersService.obtenerCatalogo(this.id)
-    .then(data => {
+    .then(async data => {
       this.productos = data;
       this.productos = this.productos.data;
-    });
-    this.loadingCtrl.dismiss();
-      console.log(this.productos.length);
-     
-      if(this.productos.length <30){
+
+      if(this.productos?.length < 30 && (this.formularioProducto.controls.price.value >= this.articulos[idArticulo].price_min &&
+        this.formularioProducto.controls.price.value <= this.articulos[idArticulo].price_max)){
         await this.loadingAddProduct('Cargando producto...');
         familyId = this.articulos[idArticulo].family_id;
         let numero: string;
@@ -83,9 +85,17 @@ export class AniadirProductoPage implements OnInit {
       });
       }
       else{
-        console.log('NO SE PUEDEN AÑADIR MÁS DE 30 PRODUCTOS');
+        if (this.formularioProducto.controls.price.value < this.articulos[idArticulo].price_min) {
+          console.log('El precio mínimo es '+this.articulos[idArticulo].price_min);
+        }
+        else if (this.formularioProducto.controls.price.value > this.articulos[idArticulo].price_max) {
+          console.log('El precio máximo es '+this.articulos[idArticulo].price_max);
+        }
+        else {
+          console.log('Error. No puedes añadir más de 30 artículos.');
+        }
       }
-      
+    });
     }
 
     mostrarFamilias() {
@@ -100,7 +110,7 @@ export class AniadirProductoPage implements OnInit {
     async loadingForm(message: string) {
       const loadForm = await this.loadingCtrl.create({
         message,
-        duration: 1080
+        duration: 3500
       });
 
       await loadForm.present();
@@ -109,7 +119,7 @@ export class AniadirProductoPage implements OnInit {
     async loadingAddProduct(message: string) {
       const formArticle = await this.loadingCtrl.create({
         message,
-        duration: 1750
+        duration: 2100
       });
       await formArticle.present();
 
