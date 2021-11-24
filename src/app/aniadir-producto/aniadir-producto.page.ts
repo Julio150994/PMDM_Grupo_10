@@ -70,14 +70,14 @@ export class AniadirProductoPage implements OnInit {
       this.productos = data;
       this.productos = this.productos.data;
 
-      if(this.productos?.length < 30 && (this.formularioProducto.controls.price.value >= this.articulos[idArticulo].price_min &&
+      if(this.productos?.length < 75 && (this.formularioProducto.controls.price.value >= this.articulos[idArticulo].price_min &&
         this.formularioProducto.controls.price.value <= this.articulos[idArticulo].price_max)){
         await this.loadingAddProduct('Cargando producto...');
         familyId = this.articulos[idArticulo].family_id;
         let numero: string;
       numero = familyId.toString();
       this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
-        this.usersService.user.company_id,this.formularioProducto.controls.price.value,numero).then(data => {
+        this.usersService.user.company_id,this.formularioProducto.controls.price.value,numero).then(async data => {
         this.products = data;
         this.products = this.products.data;
       });
@@ -90,7 +90,7 @@ export class AniadirProductoPage implements OnInit {
           console.log('El precio máximo es '+this.articulos[idArticulo].price_max);
         }
         else {
-          console.log('Error. No puedes añadir más de 30 artículos.');
+          console.log('Error. No puedes añadir más de 75 artículos.');
         }
       }
     });

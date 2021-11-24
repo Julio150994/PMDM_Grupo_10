@@ -12,10 +12,19 @@
 
 <ion-content class="ion-padding">
   <ion-list #catalogo>
-    <ion-header>
-      <p *ngIf="productos?.length===0">No hay productos</p>
-      <p *ngIf="productos?.length > 0">Hay {{ this.productos?.length }} de 30 </p>
-    </ion-header>
+    <ion-card class="card">
+      <ion-card-header *ngIf="productos?.length===0" color="warning" class="encabezado">
+        <ion-card-title>
+          <p>No se han encontrado productos.</p>
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-header *ngIf="productos?.length > 0" color="success" class="encabezado">
+        <ion-card-title>
+          <p> {{ this.productos?.length }} artículos de 75.</p>
+        </ion-card-title>
+      </ion-card-header>
+    </ion-card>
         <ion-item-sliding *ngFor="let producto of productos" class="sliding">
            <ion-item>
            <ion-label>
