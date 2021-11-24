@@ -26,6 +26,7 @@ export class AniadirProductoPage implements OnInit {
   });
   productos: any;
   articulos: any;
+  id: any;
 
   constructor(private usersService: UsersService, private navCtrl: NavController,
     private loadingCtrl: LoadingController, private alertCtrl: AlertController) { }
@@ -54,14 +55,23 @@ export class AniadirProductoPage implements OnInit {
     async aniadirProducto() {
       let familyId: number;
       let idArticulo = (this.formularioProducto.controls.article.value)-(1);
+      await this.loadingForm('Cargando...');
       this.usersService.obtenerArticulos().
       then(async articulos=>{
         this.articulos = articulos;
         this.articulos=this.articulos.data;
       });
 
+      this.id= this.usersService.compania;
+    this.usersService.obtenerCatalogo(this.id)
+    .then(data => {
+      this.productos = data;
+      this.productos = this.productos.data;
+    });
+    this.loadingCtrl.dismiss();
+      console.log(this.productos.length);
      
-      if(this.usersService.producto <=30){
+      if(this.productos.length <30){
         await this.loadingAddProduct('Cargando producto...');
         familyId = this.articulos[idArticulo].family_id;
         let numero: string;
@@ -73,7 +83,7 @@ export class AniadirProductoPage implements OnInit {
       });
       }
       else{
-        console.log('NO SE PUEDEN AÑADIR MÁS DE 10 PRODUCTOS');
+        console.log('NO SE PUEDEN AÑADIR MÁS DE 30 PRODUCTOS');
       }
       
     }
