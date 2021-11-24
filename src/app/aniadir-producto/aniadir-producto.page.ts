@@ -36,10 +36,15 @@ export class AniadirProductoPage implements OnInit {
    async ngOnInit() {
       await this.loadingForm('Cargando formulario...');
 
-      this.usersService.obtenerArticulos().
-      then(articulos=>{
-        this.articulos = articulos;
-        this.articulos=this.articulos.data;
+      this.usersService.obtenerProductos().then(productos=>{
+        this.productos = productos;
+        this.productos = this.productos.data;
+
+        this.usersService.obtenerArticulos().
+        then(articulos=>{
+          this.articulos = articulos;
+          this.articulos = this.articulos.data;
+        });
       });
 
       this.mostrarFamilias();
@@ -57,14 +62,12 @@ export class AniadirProductoPage implements OnInit {
     async aniadirProducto() {
       let familyId: number;
       let idArticulo = (this.formularioProducto.controls.article.value)-(1);
-      await this.loadingForm('Cargando...');
       this.usersService.obtenerArticulos().
       then(async articulos=>{
         this.articulos = articulos;
         this.articulos=this.articulos.data;
       });
 
-      await this.loadingForm('Cargando...');
       this.id= this.usersService.compania;
       this.usersService.obtenerCatalogo(this.id)
       .then(async data => {

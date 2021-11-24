@@ -100,9 +100,4 @@ export class CatalogosPage implements OnInit {
     });
     await eliminado.present();
   }
-
-  async editarProducto(id) {
-    this.catalogo.closeSlidingItems();
-    console.log('Id prueba: '+id);
-  }
 }

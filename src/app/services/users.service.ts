@@ -259,6 +259,7 @@ export class UsersService {
       this.httpUser.get<any>(this.url+'/articles',{
         headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
       }).subscribe(data => {
+        console.log(data);
         this.token = data;
         this.token=this.token.data;
         res(data);
