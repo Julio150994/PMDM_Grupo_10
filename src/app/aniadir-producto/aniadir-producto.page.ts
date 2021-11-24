@@ -87,14 +87,15 @@ export class AniadirProductoPage implements OnInit {
           });
         }
         else{
+
           if (this.formularioProducto.controls.price.value < this.articulos[idArticulo].price_min) {
-            this.alertPrecioMinimo(this.articulos[idArticulo].price_min);
+            this.loadingMinimo('Cargando producto...',this.articulos[idArticulo].price_min);
           }
           else if (this.formularioProducto.controls.price.value > this.articulos[idArticulo].price_max) {
-            this.alertPrecioMaximo(this.articulos[idArticulo].price_max);
+            this.loadingMaximo('Cargando producto...',this.articulos[idArticulo].price_max);
           }
           else {
-            this.alertContadorArticulos(this.productos?.length);
+            this.loadingLengthArticles('Cargando producto...',this.productos?.length);
           }
         }
       });
@@ -136,6 +137,20 @@ export class AniadirProductoPage implements OnInit {
       await precio.present();
     }
 
+    async loadingMinimo(message: string, precioMinimo: any) {
+      const loadForm = await this.loadingCtrl.create({
+        message,
+        duration: 1200
+      });
+
+      await loadForm.present();
+
+      const { role, data } = await loadForm.onDidDismiss();
+
+      this.alertPrecioMinimo(precioMinimo);
+    }
+
+
     async alertPrecioMaximo(precioMaximo: any) {
       const maximo = await this.alertCtrl.create({
         header: 'Mensaje de error',
@@ -154,6 +169,20 @@ export class AniadirProductoPage implements OnInit {
       await maximo.present();
     }
 
+    async loadingMaximo(message: string, precioMaximo: any) {
+      const loadForm = await this.loadingCtrl.create({
+        message,
+        duration: 1200
+      });
+
+      await loadForm.present();
+
+      const { role, data } = await loadForm.onDidDismiss();
+
+      this.alertPrecioMaximo(precioMaximo);
+    }
+
+
     async alertContadorArticulos(numeroArticulos: any) {
       const maximo = await this.alertCtrl.create({
         header: 'Mensaje de error',
@@ -171,6 +200,20 @@ export class AniadirProductoPage implements OnInit {
       });
       await maximo.present();
     }
+
+    async loadingLengthArticles(message: string, numeroArticulos: any) {
+      const loadForm = await this.loadingCtrl.create({
+        message,
+        duration: 1200
+      });
+
+      await loadForm.present();
+
+      const { role, data } = await loadForm.onDidDismiss();
+
+      this.alertContadorArticulos(numeroArticulos);
+    }
+
 
     async loadingAddProduct(message: string) {
       const formArticle = await this.loadingCtrl.create({
