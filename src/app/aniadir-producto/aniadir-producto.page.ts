@@ -11,8 +11,6 @@ import { NavController, LoadingController, AlertController } from '@ionic/angula
 })
 export class AniadirProductoPage implements OnInit {
   @Input() descripcionArticulo: any;
-  @Input() precioMinimo: number;
-  @Input() precioMaximo: number;
 
   url = environment.almagestUrl;
   articles: any;
