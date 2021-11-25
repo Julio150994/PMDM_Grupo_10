@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../environments/environment.prod';
 import { NavController, AlertController, LoadingController, IonList } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-catalogos',
@@ -18,17 +19,34 @@ export class CatalogosPage implements OnInit {
   id: any;
 
   constructor(private http: HttpClient,private loadingCtrl: LoadingController,private alertCtrl: AlertController,
-    private usersService: UsersService, private navCtrl: NavController) { }
+    private usersService: UsersService, private navCtrl: NavController) {
+      console.log('puto ionic constructor');
 
-  async ngOnInit() {
-    console.log('página del usuario');
-
-    this.id= this.usersService.compania;
-      this.usersService.obtenerCatalogo(this.id)
-      .then(data => {
+     }
+  async presentLoading() {
+    const loading = await this.loadingCtrl.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 2000
+    });
+    await loading.present();
+  
+      this.usersService.obtenerCatalogo(localStorage.getItem('id_comp'))
+      .then( async data => {
         this.productos = data;
         this.productos = this.productos.data;
+        console.log(this.productos)
     });
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
+   async ngOnInit() {
+     //console.log('puto ionic');
+await this.presentLoading();
+
+
+    
   }
 
   onLogout() {
@@ -37,8 +55,9 @@ export class CatalogosPage implements OnInit {
   }
 
   async formAniadirArticulo() {
-    console.log('Formulario añadir producto');
-    this.navCtrl.navigateForward('/aniadir-producto');
+    console.log('Formulario añadir producto'); 
+   this.navCtrl.navigateForward('/aniadir-producto');
+
   }
 
   async eliminarProducto(id: string) {
@@ -61,7 +80,6 @@ export class CatalogosPage implements OnInit {
             this.usersService.removeProduct(id);
             await this.cargandoProducto('Borrando producto');
             console.log('Producto eliminado éxitosamente');
-            this.ngOnInit();
           }
         }
       ]
@@ -94,6 +112,7 @@ export class CatalogosPage implements OnInit {
           cssClass: 'secondary',
           handler: async () => {
             this.navCtrl.navigateForward('/usuarios/catalogos');
+            this.ngOnInit();
           }
         }
       ]

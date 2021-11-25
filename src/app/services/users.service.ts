@@ -87,6 +87,7 @@ export class UsersService {
         this.usuario = data;
         this.usuario = this.usuario.data;
         this.compania=this.usuario.company_id;
+        localStorage.setItem('id_comp',this.compania);
         res(data);
       }, error => {
         console.log('No se ha podido obtener el id del usuario '+error);
@@ -295,7 +296,7 @@ export class UsersService {
         });
     });
   }
-
+  
   removeProduct(id) {
     return new Promise((resolve, reject) => {
       this.httpUser.delete(this.url+'/products/'+id, {

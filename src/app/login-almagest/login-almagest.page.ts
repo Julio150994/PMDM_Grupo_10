@@ -200,7 +200,6 @@ export class LoginAlmagestPage implements OnInit {
             }
             else if(this.email_confirmed===1&&this.actived===1&&this.deleted===0){
               this.navCtrl.navigateForward('/usuarios/catalogos');
-              this.cargarUsuario();
             }
             else if(this.email_confirmed===1&&this.actived===1&&this.deleted===1){
               this.userBaneado();

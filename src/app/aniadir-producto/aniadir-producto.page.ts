@@ -243,11 +243,9 @@ export class AniadirProductoPage implements OnInit {
         
                   let idFamilia: string;
                   idFamilia = familyId.toString();
-                   this.id_comp=localStorage.getItem('id_comp');
-        
-              
+
               this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
-                this.id_comp,this.formularioProducto.controls.price.value,idFamilia)
+                this.usersService.compania,this.formularioProducto.controls.price.value,idFamilia)
                 .then(async data => {
                   this.products = data;
                   this.products = this.products.data;
