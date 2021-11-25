@@ -46,7 +46,7 @@ export class CatalogosPage implements OnInit {
 
     const { role, data } = await encabezado.onDidDismiss();
 
-    this.usersService.contadorProductos(id)
+    this.usersService.getEncabezadoProductos(id)
     .then(async data => {
       this.encabezadoProductos = data;
       this.encabezadoProductos = this.encabezadoProductos.data;

@@ -17,7 +17,7 @@
         <ion-label class="encabezado">No se han encontrado artículos.</ion-label>
       </ion-item>
       <ion-item color="success" *ngIf="encabezadoProductos?.length > 0">
-        <ion-label class="encabezado">{{ productos?.length }} artículos de 75.</ion-label>
+        <ion-label class="encabezado">{{ encabezadoProductos?.length }} artículos de 75.</ion-label>
       </ion-item>
     </ion-card>
         <ion-item-sliding *ngFor="let producto of productos" class="sliding">

@@ -33,7 +33,6 @@ export class UsersService {
         password: contrasenia
       }).subscribe(data => {
         console.log(data);
-        console.log(data);
         this.user = data;
         this.user=this.user.data;
         localStorage.setItem('token',this.user);
@@ -230,12 +229,11 @@ export class UsersService {
     });
   }
 
-  contadorProductos(id: any) {
+  getEncabezadoProductos(id: any) {
     return new Promise(res => {
       this.httpUser.post(this.url+'/products/company?id='+id,{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
       }).subscribe(data => {
-        console.log(data);
         this.catalogo = data;
         this.catalogo=this.catalogo.data;
         res(data);
