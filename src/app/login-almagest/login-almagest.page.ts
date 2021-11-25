@@ -103,6 +103,7 @@ export class LoginAlmagestPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (valid) => {
+            this.navCtrl.navigateForward('/usuarios/catalogos');
           }
         }
       ]
@@ -199,7 +200,6 @@ export class LoginAlmagestPage implements OnInit {
               this.userSinActivar();
             }
             else if(this.email_confirmed===1&&this.actived===1&&this.deleted===0){
-              this.navCtrl.navigateForward('/usuarios/catalogos');
               this.cargarUsuario();
             }
             else if(this.email_confirmed===1&&this.actived===1&&this.deleted===1){
