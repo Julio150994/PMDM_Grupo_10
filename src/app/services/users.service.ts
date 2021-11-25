@@ -77,7 +77,7 @@ export class UsersService {
     });
   }
 
-  obtenerIdUsuario(id: number) {
+  obtenerIdUsuario(id) {
     return new Promise(res => {
       this.httpUser.get(this.url+'/user/'+id,{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
@@ -230,9 +230,9 @@ export class UsersService {
     });
   }
 
-  getEncabezadoProductos(id: any) {
+  getEncabezadoProductos() {
     return new Promise(res => {
-      this.httpUser.post(this.url+'/products/company?id='+id,{
+      this.httpUser.post(this.url+'/products/company?id='+localStorage.getItem('id_comp'),{
         headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
       }).subscribe(data => {
         this.catalogo = data;
@@ -295,7 +295,7 @@ export class UsersService {
     });
   }
 
-  addProduct(tok: any, article_id: number, company_id: number, price: number, familia: string) {
+  addProduct(tok: any, article_id: number, company_id, price: number, familia: string) {
     return new Promise(res => {
       this.httpUser.post<any>(this.url+'/products?article_id='+article_id+'&company_id='+
         company_id+'&price='+price+'&family_id='+familia,{

@@ -99,13 +99,6 @@ export class AniadirProductoPage implements OnInit {
               break;
             }
           }*/
-
-          this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
-          this.usersService.user.company_id,this.formularioProducto.controls.price.value,idFamilia)
-          .then(async data => {
-            this.products = data;
-            this.products = this.products.data;
-          });
         }
         else{
 
@@ -276,7 +269,7 @@ export class AniadirProductoPage implements OnInit {
                   idFamilia = familyId.toString();
 
               this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
-                this.usersService.compania,this.formularioProducto.controls.price.value,idFamilia)
+                localStorage.getItem('id_comp'),this.formularioProducto.controls.price.value,idFamilia)
                 .then(async data => {
                   this.products = data;
                   this.products = this.products.data;

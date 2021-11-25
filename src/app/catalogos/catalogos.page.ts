@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../environments/environment.prod';
 import { NavController, AlertController, LoadingController, IonList } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
-import { HttpClient } from '@angular/common/http';
+
 
 
 @Component({
@@ -25,10 +25,8 @@ export class CatalogosPage implements OnInit {
 
   async ngOnInit() {
     console.log('página del usuario');
-    this.id = this.usersService.compania;
-
-    await this.cargarEncabezado(this.id,'Cargando encabezado...');
-    await this.cargarListado(this.id,'Cargando listado...');
+    await this.cargarEncabezado(localStorage.getItem('id_comp'),'Cargando encabezado...');
+    await this.cargarListado(localStorage.getItem('id_comp'),'Cargando listado...');
   }
 
   onLogout() {
@@ -47,7 +45,7 @@ export class CatalogosPage implements OnInit {
 
     const { role, data } = await encabezado.onDidDismiss();
 
-    this.usersService.getEncabezadoProductos(id)
+    this.usersService.getEncabezadoProductos()
     .then(async data => {
       this.encabezadoProductos = data;
       this.encabezadoProductos = this.encabezadoProductos.data;
@@ -64,7 +62,7 @@ export class CatalogosPage implements OnInit {
 
     const { role, data } = await listado.onDidDismiss();
 
-    this.usersService.obtenerCatalogo(id)
+    this.usersService.obtenerCatalogo(localStorage.getItem('id_comp'))
       .then(async data => {
         this.productos = data;
         this.productos = this.productos.data;
