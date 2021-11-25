@@ -15,44 +15,62 @@ export class CatalogosPage implements OnInit {
 
   url = environment.almagestUrl;
   productos: any;
+  encabezadoProductos: any;
   articulos: any;
   id: any;
+  token: any;
 
-  constructor(private http: HttpClient,private loadingCtrl: LoadingController,private alertCtrl: AlertController,
-    private usersService: UsersService, private navCtrl: NavController) {
-      console.log('puto ionic constructor');
+  constructor(private loadingCtrl: LoadingController,private alertCtrl: AlertController,
+    private usersService: UsersService, private navCtrl: NavController) { }
 
-     }
-  async presentLoading() {
-    const loading = await this.loadingCtrl.create({
-      cssClass: 'my-custom-class',
-      message: 'Please wait...',
-      duration: 2000
-    });
-    await loading.present();
-  
-      this.usersService.obtenerCatalogo(localStorage.getItem('id_comp'))
-      .then( async data => {
-        this.productos = data;
-        this.productos = this.productos.data;
-        console.log(this.productos)
-    });
+  async ngOnInit() {
+    console.log('página del usuario');
+    this.id = this.usersService.compania;
 
-    const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
-  }
-   async ngOnInit() {
-     //console.log('puto ionic');
-await this.presentLoading();
-
-
-    
+    await this.cargarEncabezado(this.id,'Cargando encabezado...');
+    await this.cargarListado(this.id,'Cargando listado...');
   }
 
   onLogout() {
     this.navCtrl.navigateForward('/login-almagest');
     console.log('El usuario ha cerrado la sesión');
   }
+
+
+  async cargarEncabezado(id: any, message: string) {
+    const encabezado = await this.loadingCtrl.create({
+      message,
+      duration: 1000,
+    });
+
+    await encabezado.present();
+
+    const { role, data } = await encabezado.onDidDismiss();
+
+    this.usersService.getEncabezadoProductos(id)
+    .then(async data => {
+      this.encabezadoProductos = data;
+      this.encabezadoProductos = this.encabezadoProductos.data;
+    });
+  }
+
+  async cargarListado(id: any, message: string) {
+    const listado = await this.loadingCtrl.create({
+      message,
+      duration: 1000,
+    });
+
+    await listado.present();
+
+    const { role, data } = await listado.onDidDismiss();
+
+    this.usersService.obtenerCatalogo(id)
+      .then(async data => {
+        this.productos = data;
+        this.productos = this.productos.data;
+    });
+  }
+
 
   async formAniadirArticulo() {
     console.log('Formulario añadir producto'); 
@@ -118,10 +136,5 @@ await this.presentLoading();
       ]
     });
     await eliminado.present();
-  }
-
-  async editarProducto(id) {
-    this.catalogo.closeSlidingItems();
-    console.log('Id prueba: '+id);
   }
 }

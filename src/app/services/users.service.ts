@@ -33,7 +33,6 @@ export class UsersService {
         password: contrasenia
       }).subscribe(data => {
         console.log(data);
-        console.log(data);
         this.user = data;
         this.user=this.user.data;
         localStorage.setItem('token',this.user);
@@ -231,6 +230,20 @@ export class UsersService {
     });
   }
 
+  getEncabezadoProductos(id: any) {
+    return new Promise(res => {
+      this.httpUser.post(this.url+'/products/company?id='+id,{
+        headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
+      }).subscribe(data => {
+        this.catalogo = data;
+        this.catalogo=this.catalogo.data;
+        res(data);
+      }, error => {
+        console.log('Error al mostrar el contador de artículos '+error);
+      });
+    });
+  }
+
   obtenerCompanias() {
     return new Promise(res => {
       this.httpUser.get(this.url+'/companies').subscribe(data => {
@@ -255,11 +268,12 @@ export class UsersService {
     });
   }
 
-  obtenerArticulos() {
+  obtenerArticulos(tok: any) {
     return new Promise(res => {
       this.httpUser.get<any>(this.url+'/articles',{
-        headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
+        headers: new HttpHeaders().set('Authorization','Bearer '+tok)
       }).subscribe(data => {
+        console.log(data);
         this.token = data;
         this.token=this.token.data;
         res(data);

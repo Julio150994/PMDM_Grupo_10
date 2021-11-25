@@ -103,6 +103,7 @@ export class LoginAlmagestPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (valid) => {
+            this.navCtrl.navigateForward('/usuarios/catalogos');
           }
         }
       ]

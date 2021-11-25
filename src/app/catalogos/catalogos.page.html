@@ -13,17 +13,12 @@
 <ion-content class="ion-padding">
   <ion-list #catalogo>
     <ion-card class="card">
-      <ion-card-header *ngIf="productos?.length===0" color="warning" class="encabezado">
-        <ion-card-title>
-          <p>No se han encontrado productos.</p>
-        </ion-card-title>
-      </ion-card-header>
-
-      <ion-card-header *ngIf="productos?.length > 0" color="success" class="encabezado">
-        <ion-card-title>
-          <p> {{ this.productos?.length }} artículos de 75.</p>
-        </ion-card-title>
-      </ion-card-header>
+      <ion-item color="warning" *ngIf="encabezadoProductos?.length === 0">
+        <ion-label class="encabezado">No se han encontrado artículos.</ion-label>
+      </ion-item>
+      <ion-item color="success" *ngIf="encabezadoProductos?.length > 0">
+        <ion-label class="encabezado">{{ encabezadoProductos?.length }} artículos de 75.</ion-label>
+      </ion-item>
     </ion-card>
         <ion-item-sliding *ngFor="let producto of productos" class="sliding">
            <ion-item>
@@ -45,13 +40,6 @@
             <ion-item-option (click)="eliminarProducto(producto.id)" color="danger">
               <ion-icon slot="icon-only" name="trash"></ion-icon>
               <ion-label>Eliminar</ion-label>
-            </ion-item-option>
-          </ion-item-options>
-
-          <ion-item-options side="end">
-            <ion-item-option (click)="editarProducto(producto.id)" color="secondary">
-              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-              <ion-label>Editar</ion-label>
             </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
