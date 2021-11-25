@@ -14,27 +14,62 @@ export class CatalogosPage implements OnInit {
 
   url = environment.almagestUrl;
   productos: any;
+  encabezadoProductos: any;
   articulos: any;
   id: any;
+  token: any;
 
-  constructor(private http: HttpClient,private loadingCtrl: LoadingController,private alertCtrl: AlertController,
+  constructor(private loadingCtrl: LoadingController,private alertCtrl: AlertController,
     private usersService: UsersService, private navCtrl: NavController) { }
 
   async ngOnInit() {
     console.log('página del usuario');
+    this.id = this.usersService.compania;
 
-    this.id= this.usersService.compania;
-      this.usersService.obtenerCatalogo(this.id)
-      .then(data => {
-        this.productos = data;
-        this.productos = this.productos.data;
-    });
+    await this.cargarEncabezado(this.id,'Cargando encabezado...');
+    await this.cargarListado(this.id,'Cargando listado...');
   }
 
   onLogout() {
     this.navCtrl.navigateForward('/login-almagest');
     console.log('El usuario ha cerrado la sesión');
   }
+
+
+  async cargarEncabezado(id: any, message: string) {
+    const encabezado = await this.loadingCtrl.create({
+      message,
+      duration: 1000,
+    });
+
+    await encabezado.present();
+
+    const { role, data } = await encabezado.onDidDismiss();
+
+    this.usersService.contadorProductos(id)
+    .then(async data => {
+      this.encabezadoProductos = data;
+      this.encabezadoProductos = this.encabezadoProductos.data;
+    });
+  }
+
+  async cargarListado(id: any, message: string) {
+    const listado = await this.loadingCtrl.create({
+      message,
+      duration: 1000,
+    });
+
+    await listado.present();
+
+    const { role, data } = await listado.onDidDismiss();
+
+    this.usersService.obtenerCatalogo(id)
+      .then(async data => {
+        this.productos = data;
+        this.productos = this.productos.data;
+    });
+  }
+
 
   async formAniadirArticulo() {
     console.log('Formulario añadir producto');

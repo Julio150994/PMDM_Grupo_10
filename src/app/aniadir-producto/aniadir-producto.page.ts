@@ -27,6 +27,7 @@ export class AniadirProductoPage implements OnInit {
   });
   productos: any;
   articulos: any;
+  company_name: string;
   longitud: any;
   id: any;
 
@@ -35,12 +36,13 @@ export class AniadirProductoPage implements OnInit {
 
    async ngOnInit() {
       await this.loadingForm('Cargando formulario...');
+      this.token = localStorage.getItem('token');
 
       this.usersService.obtenerProductos().then(productos=>{
         this.productos = productos;
         this.productos = this.productos.data;
 
-        this.usersService.obtenerArticulos().
+        this.usersService.obtenerArticulos(this.token).
         then(articulos=>{
           this.articulos = articulos;
           this.articulos = this.articulos.data;
@@ -60,9 +62,11 @@ export class AniadirProductoPage implements OnInit {
     }
 
     async aniadirProducto() {
+      this.token = localStorage.getItem('token');
+
       let familyId: number;
       let idArticulo = (this.formularioProducto.controls.article.value)-(1);
-      this.usersService.obtenerArticulos().
+      this.usersService.obtenerArticulos(this.token).
       then(async articulos=>{
         this.articulos = articulos;
         this.articulos=this.articulos.data;
@@ -81,6 +85,18 @@ export class AniadirProductoPage implements OnInit {
 
           let idFamilia: string;
           idFamilia = familyId.toString();
+
+          /*let articulo: any;
+          articulo = await this.usersService.obtenerArticulos(this.token);
+          console.log(articulo);
+          articulo = articulo.data;
+
+          for(let i = 0; i < articulo.length; i++) {
+            if (articulo[i].company_name === this.company_name) {
+              this.id = articulo[i].id;
+              break;
+            }
+          }*/
 
           this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
           this.usersService.user.company_id,this.formularioProducto.controls.price.value,idFamilia)
