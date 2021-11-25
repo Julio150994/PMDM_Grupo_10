@@ -29,9 +29,11 @@ export class AniadirProductoPage implements OnInit {
   articulos: any;
   longitud: any;
   id: any;
+  id_comp: number;
 
   constructor(private usersService: UsersService, private navCtrl: NavController,
     private loadingCtrl: LoadingController, private alertCtrl: AlertController) { }
+
 
    async ngOnInit() {
       await this.loadingForm('Cargando formulario...');
@@ -55,7 +57,6 @@ export class AniadirProductoPage implements OnInit {
     }
 
     async aniadirProducto() {
-      let familyId: number;
       let idArticulo = (this.formularioProducto.controls.article.value)-(1);
       await this.loadingForm('Cargando...');
       this.usersService.obtenerArticulos().
@@ -74,17 +75,6 @@ export class AniadirProductoPage implements OnInit {
         if(this.productos?.length < 75 && (this.formularioProducto.controls.price.value >= this.articulos[idArticulo].price_min &&
           this.formularioProducto.controls.price.value <= this.articulos[idArticulo].price_max)){
           await this.loadingAddProduct('Cargando producto...');
-          familyId = this.articulos[idArticulo].family_id;
-
-          let idFamilia: string;
-          idFamilia = familyId.toString();
-
-          this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
-          this.usersService.user.company_id,this.formularioProducto.controls.price.value,idFamilia)
-          .then(async data => {
-            this.products = data;
-            this.products = this.products.data;
-          });
         }
         else{
 
@@ -214,6 +204,17 @@ export class AniadirProductoPage implements OnInit {
       this.alertContadorArticulos(numeroArticulos);
     }
 
+    async presentLoading() {
+      const loading = await this.loadingCtrl.create({
+        cssClass: 'my-custom-class',
+        message: 'Please wait...',
+        duration: 2000
+      });
+      await loading.present();
+  
+      const { role, data } = await loading.onDidDismiss();
+      console.log('Loading dismissed!');
+    }
 
     async loadingAddProduct(message: string) {
       const formArticle = await this.loadingCtrl.create({
@@ -223,11 +224,8 @@ export class AniadirProductoPage implements OnInit {
       await formArticle.present();
 
       const { role, data } = await formArticle.onDidDismiss();
-
-      this.navCtrl.navigateForward('/usuarios/catalogos');
       this.productoAniadido();
     }
-
     async productoAniadido() {
       const aniadido = await this.alertCtrl.create({
         header: 'Mensaje',
@@ -239,6 +237,22 @@ export class AniadirProductoPage implements OnInit {
             role: 'cancel',
             cssClass: 'secondary',
             handler: async () => {
+              let idArticulo = (this.formularioProducto.controls.article.value)-(1);
+              let familyId: number;
+              familyId = this.articulos[idArticulo].family_id;
+        
+                  let idFamilia: string;
+                  idFamilia = familyId.toString();
+                   this.id_comp=localStorage.getItem('id_comp');
+        
+              
+              this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
+                this.id_comp,this.formularioProducto.controls.price.value,idFamilia)
+                .then(async data => {
+                  this.products = data;
+                  this.products = this.products.data;
+                });
+              this.navCtrl.navigateRoot('/usuarios/catalogos');
             }
           }
         ]
