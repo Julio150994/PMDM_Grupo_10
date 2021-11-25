@@ -250,6 +250,8 @@ export class AniadirProductoPage implements OnInit {
       const { role, data } = await formArticle.onDidDismiss();
       this.productoAniadido();
     }
+
+    
     async productoAniadido() {
       const aniadido = await this.alertCtrl.create({
         header: 'Mensaje',
@@ -275,6 +277,9 @@ export class AniadirProductoPage implements OnInit {
                   this.products = this.products.data;
                 });
               this.navCtrl.navigateRoot('/usuarios/catalogos');
+              await this.presentLoading();
+              window.location.reload();
+              
             }
           }
         ]
