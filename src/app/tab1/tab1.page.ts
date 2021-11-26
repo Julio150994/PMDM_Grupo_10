@@ -21,10 +21,9 @@ export class Tab1Page implements OnInit{
   password: string;
   actived: any; //carga del usuario activo
   usuario: any;
-  eliminarToken: any;
+  tokenEliminado: any;
   botonActivar: any;
   botonDesactivar: any;
-
 
   constructor(private alertCtrl: AlertController,private http: HttpClient,
     private navCtrl: NavController, private usersService: UsersService, private loadingCtrl: LoadingController) {
@@ -43,6 +42,9 @@ export class Tab1Page implements OnInit{
   }
 
   onLogout() {
+    this.token = localStorage.getItem('token');
+    localStorage.removeItem('token');
+    
     this.navCtrl.navigateForward('/login-almagest');
     console.log('El administrador ha cerrado la sesión');
   }

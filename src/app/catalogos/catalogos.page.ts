@@ -19,6 +19,7 @@ export class CatalogosPage implements OnInit {
   articulos: any;
   id: any;
   token: any;
+  tokenEliminado: any;
   productosReales: any[] = [];
   aparece: Boolean;
   prods: any[] = [];
@@ -34,6 +35,11 @@ export class CatalogosPage implements OnInit {
   }
 
   onLogout() {
+    this.token = localStorage.getItem('token');
+    localStorage.removeItem('token');
+
+    console.log('Token eliminado: '+localStorage.removeItem('token'));
+
     this.navCtrl.navigateForward('/login-almagest');
     console.log('El usuario ha cerrado la sesión');
   }
