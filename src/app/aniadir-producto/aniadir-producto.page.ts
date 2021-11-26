@@ -67,7 +67,7 @@ export class AniadirProductoPage implements OnInit {
           }
         });
       });
-      await this.presentLoading();
+
       this.mostrarFamilias();
     }
 
@@ -104,18 +104,6 @@ export class AniadirProductoPage implements OnInit {
 
           let idFamilia: string;
           idFamilia = familyId.toString();
-
-          /*let articulo: any;
-          articulo = await this.usersService.obtenerArticulos(this.token);
-          console.log(articulo);
-          articulo = articulo.data;
-
-          for(let i = 0; i < articulo.length; i++) {
-            if (articulo[i].company_name === this.company_name) {
-              this.id = articulo[i].id;
-              break;
-            }
-          }*/
         }
         else{
 
@@ -144,7 +132,7 @@ export class AniadirProductoPage implements OnInit {
     async loadingForm(message: string) {
       const loadForm = await this.loadingCtrl.create({
         message,
-        duration: 100
+        duration: 800
       });
 
       await loadForm.present();
@@ -249,12 +237,12 @@ export class AniadirProductoPage implements OnInit {
       const loading = await this.loadingCtrl.create({
         cssClass: 'my-custom-class',
         message: 'Cargando',
-        duration: 9000
+        duration: 1100
       });
       await loading.present();
   
       const { role, data } = await loading.onDidDismiss();
-      console.log('Loading dismissed!');
+      console.log('Producto cargado éxitosamente');
     }
 
     async loadingAddProduct(message: string) {

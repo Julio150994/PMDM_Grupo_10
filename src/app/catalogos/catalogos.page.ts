@@ -72,7 +72,7 @@ export class CatalogosPage implements OnInit {
 
   async formAniadirArticulo() {
     console.log('Formulario añadir producto'); 
-   this.navCtrl.navigateForward('/aniadir-producto');
+    this.navCtrl.navigateForward('/aniadir-producto');
 
   }
 
@@ -106,7 +106,7 @@ export class CatalogosPage implements OnInit {
   async cargandoProducto(message: string) {
     const loadingProduct = await this.loadingCtrl.create({
       message,
-      duration: 2000,
+      duration: 1750,
     });
 
     await loadingProduct.present();
