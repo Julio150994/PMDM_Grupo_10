@@ -31,9 +31,9 @@ export class AniadirProductoPage implements OnInit {
   longitud: any;
   id: any;
   id_comp: number;
-  arts:any[]=[];
-  prods:any[]=[];
-  articulosReales:any[]=[];
+  arts: any[] = [];
+  prods: any[] = [];
+  articulosReales: any[] = [];
   aparece: boolean;
 
   constructor(private usersService: UsersService, private navCtrl: NavController,
@@ -63,7 +63,7 @@ export class AniadirProductoPage implements OnInit {
             }
             if(!this.aparece){
               this.articulosReales.push(this.arts[i]);
-            }          
+            }
           }
         });
       });
@@ -240,7 +240,7 @@ export class AniadirProductoPage implements OnInit {
         duration: 1100
       });
       await loading.present();
-  
+
       const { role, data } = await loading.onDidDismiss();
       console.log('Producto cargado éxitosamente');
     }
@@ -256,7 +256,7 @@ export class AniadirProductoPage implements OnInit {
       this.productoAniadido();
     }
 
-    
+
     async productoAniadido() {
       const aniadido = await this.alertCtrl.create({
         header: 'Mensaje',
@@ -271,9 +271,9 @@ export class AniadirProductoPage implements OnInit {
               let idArticulo = (this.formularioProducto.controls.article.value)-(1);
               let familyId: number;
               familyId = this.articulos[idArticulo].family_id;
-        
-                  let idFamilia: string;
-                  idFamilia = familyId.toString();
+
+              let idFamilia: string;
+              idFamilia = familyId.toString();
 
               this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
                 localStorage.getItem('id_comp'),this.formularioProducto.controls.price.value,idFamilia)
@@ -284,7 +284,7 @@ export class AniadirProductoPage implements OnInit {
               this.navCtrl.navigateRoot('/usuarios/catalogos');
               await this.presentLoading();
               window.location.reload();
-              
+
             }
           }
         ]

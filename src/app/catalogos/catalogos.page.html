@@ -23,13 +23,12 @@
         <ion-item-sliding *ngFor="let producto of productosReales" class="sliding">
            <ion-item>
            <ion-label>
-              <ion-label>
-                  <h3>Nombre producto: {{ producto.description }}</h3>
+              <ion-label slot="start">
+                  <h3>Nombre: {{ producto.description }}</h3>
                   <h3>Color: {{ producto.color_name }}</h3>
               </ion-label>
            </ion-label>
           <ion-label>
-              
               <h3>Peso: {{ producto.weight }}</h3>
               <h3>Tamaño: {{ producto.size }}</h3>
            </ion-label>

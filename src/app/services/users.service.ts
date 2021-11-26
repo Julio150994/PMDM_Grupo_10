@@ -44,7 +44,6 @@ export class UsersService {
     });
   }
 
-  /** Para mostrar mensaje de alerta de que no existe el usuario */
   async userNoRegistrado() {
     const notValid = await this.alertUserCtrl.create({
       header: 'LOGIN',
