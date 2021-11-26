@@ -166,8 +166,7 @@ export class LoginAlmagestPage implements OnInit {
       this.datos = this.user.value;
       this.email=this.datos.email;
       this.password=this.datos.password;
-      if(this.usersService.existe(this.email)){
-        await this.usersService.login(this.email,this.password)
+      await this.usersService.login(this.email,this.password)
         .then(async data => {
           this.tok = data;
           this.usuario=this.tok.data;
@@ -211,10 +210,6 @@ export class LoginAlmagestPage implements OnInit {
 
           }
         });
-      }
-      else{
-        console.log('usuario no activo');
-      }
     }
     else {
       console.log('Error al mostrar los usuarios.');

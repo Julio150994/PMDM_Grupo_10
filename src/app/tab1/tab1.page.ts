@@ -19,7 +19,7 @@ export class Tab1Page implements OnInit{
   id: number;
   email: string;
   password: string;
-  actived: any; //carga del usuario activo
+  actived: any;
   usuario: any;
   tokenEliminado: any;
   botonActivar: any;
@@ -42,11 +42,10 @@ export class Tab1Page implements OnInit{
   }
 
   onLogout() {
-    console.log(localStorage.getItem('token'));
+    console.log('Token del administrador eliminado:\n'+localStorage.getItem('token'));
     localStorage.removeItem('token');
 
-    this.navCtrl.navigateForward('/login-almagest');
-    console.log('El administrador ha cerrado la sesión');
+    this.loadLogoutAdmin('Cerrando sesión...');
   }
 
   async activar(id:string, email:string) {
@@ -190,5 +189,37 @@ export class Tab1Page implements OnInit{
       ]
     });
     await activado.present();
+  }
+
+  async loadLogoutAdmin(message: string) {
+    const loading = await this.loadingCtrl.create({
+      message,
+      duration: 850,
+    });
+
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+
+    this.navCtrl.navigateForward('/login-almagest');
+    this.alertLogoutAdmin();
+  }
+
+  async alertLogoutAdmin() {
+    const logout = await this.alertCtrl.create({
+      header: 'Logout',
+      cssClass: 'logoutCss',
+      message: '<strong>El usuario ha cerrado sesión correctamente.</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (deactived) => {
+          }
+        }
+      ]
+    });
+    await logout.present();
   }
 }

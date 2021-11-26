@@ -35,11 +35,10 @@ export class CatalogosPage implements OnInit {
   }
 
   onLogout() {
-    console.log(localStorage.getItem('token'));
+    console.log('Token de usuario eliminado: '+localStorage.getItem('token'));
     localStorage.removeItem('token');
-    
-    this.navCtrl.navigateForward('/login-almagest');
-    console.log('El usuario ha cerrado la sesión');
+
+    this.loadLogoutUser('Cerrando sesión...');
   }
 
 
@@ -97,7 +96,7 @@ export class CatalogosPage implements OnInit {
 
 
   async formAniadirArticulo() {
-    console.log('Formulario añadir producto'); 
+    console.log('Formulario añadir producto');
     this.navCtrl.navigateForward('/aniadir-producto');
 
   }
@@ -114,14 +113,13 @@ export class CatalogosPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('No has eliminado este producto');
+            this.productoNoEliminado();
           }
         }, {
           text: 'SI',
           handler: async () => {
             this.usersService.removeProduct(id);
             await this.cargandoProducto('Borrando producto');
-            console.log('Producto eliminado éxitosamente');
           }
         }
       ]
@@ -142,6 +140,24 @@ export class CatalogosPage implements OnInit {
     this.productoEliminado();
   }
 
+  async productoNoEliminado() {
+    const eliminado = await this.alertCtrl.create({
+      header: 'Mensaje',
+      cssClass: 'productCss',
+      message: '<strong>No has eliminado este producto.</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: async () => {
+          }
+        }
+      ]
+    });
+    await eliminado.present();
+  }
+
   async productoEliminado() {
     const eliminado = await this.alertCtrl.create({
       header: 'Mensaje',
@@ -160,5 +176,37 @@ export class CatalogosPage implements OnInit {
       ]
     });
     await eliminado.present();
+  }
+
+  async loadLogoutUser(message: string) {
+    const loading = await this.loadingCtrl.create({
+      message,
+      duration: 850,
+    });
+
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+
+    this.navCtrl.navigateForward('/login-almagest');
+    this.alertLogoutUser();
+  }
+
+  async alertLogoutUser() {
+    const logout = await this.alertCtrl.create({
+      header: 'Logout',
+      cssClass: 'logoutCss',
+      message: '<strong>El usuario ha cerrado sesión correctamente.</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (deactived) => {
+          }
+        }
+      ]
+    });
+    await logout.present();
   }
 }

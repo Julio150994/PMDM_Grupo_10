@@ -191,29 +191,6 @@ export class UsersService {
     });
   }
 
-  existe(mail:string){
-    let valido=false;
-      return new Promise(res => {
-        this.httpUser.get(this.url+'/users', {
-          headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
-        }).subscribe(data => {
-          this.users = data;
-          this.users=this.users.data;
-          for (let usuario = 0; usuario < this.users.length; usuario++) {
-            valido=false;
-            if(mail===this.users[usuario].email){
-              valido=true;
-              break;
-            }
-          }
-          res(valido);
-        }, err => {
-          console.log('Error al obtener los usuarios '+err);
-        });
-
-      });
-  }
-
   obtenerCatalogo(id: any) {
     return new Promise(res => {
       this.httpUser.post(this.url+'/products/company?id='+id,{
@@ -312,7 +289,7 @@ export class UsersService {
         });
     });
   }
-  
+
   removeProduct(id) {
     return new Promise((resolve, reject) => {
       this.httpUser.delete(this.url+'/products/'+id, {
