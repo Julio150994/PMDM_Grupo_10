@@ -48,38 +48,26 @@ export class AniadirProductoPage implements OnInit {
         this.productos = productos;
         this.productos = this.productos.data;
         this.prods=this.productos;
-        console.log(this.prods);
         this.usersService.obtenerArticulos(this.token).
         then(articulos=>{
           this.articulos = articulos;
           this.articulos = this.articulos.data;
           this.arts=this.articulos;
-          console.log(this.arts);
           for (let i = 0; i < this.arts?.length; i++) {
-            console.log('NO aparece al comienzo')
             this.aparece=false;
-            console.log(this.aparece);
             for (let j = 0; j < this.prods?.length; j++) {
-              console.log(this.arts[i]);
-              console.log(this.prods[j]);
               if(this.prods[j].article_id===this.arts[i].id){
-                console.log('aparece');
                 this.aparece=true;
-                console.log(this.aparece);
                 break;
               }
             }
             if(!this.aparece){
-              console.log("este")
-              console.log(this.arts[i]);
-              console.log('este');
               this.articulosReales.push(this.arts[i]);
             }          
           }
         });
       });
       await this.presentLoading();
-      console.log(this.articulosReales);
       this.mostrarFamilias();
     }
 
