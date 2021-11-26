@@ -20,19 +20,18 @@
         <ion-label class="encabezado">{{ encabezadoProductos?.length }} artículos de 75.</ion-label>
       </ion-item>
     </ion-card>
-        <ion-item-sliding *ngFor="let producto of productos" class="sliding">
+        <ion-item-sliding *ngFor="let producto of productosReales" class="sliding">
            <ion-item>
            <ion-label>
-              <h3>Id: {{ producto.id }}</h3>
-              <h3>Id artículo: {{ producto.article_id }}</h3>
               <ion-label>
-                  <h3>Nombre producto: {{ producto.compamy_name }}</h3>
+                  <h3>Nombre producto: {{ producto.description }}</h3>
+                  <h3>Color: {{ producto.color_name }}</h3>
               </ion-label>
            </ion-label>
           <ion-label>
-              <h3>Color: {{ producto.compamy_description }}</h3>
-              <h3>Precio: {{ producto.price }}</h3>
-              <h3>Id familia: {{ producto.family_id }}</h3>
+              
+              <h3>Peso: {{ producto.weight }}</h3>
+              <h3>Tamaño: {{ producto.size }}</h3>
            </ion-label>
           </ion-item>
 

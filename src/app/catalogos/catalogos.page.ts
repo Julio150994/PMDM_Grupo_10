@@ -19,6 +19,10 @@ export class CatalogosPage implements OnInit {
   articulos: any;
   id: any;
   token: any;
+  productosReales: any[]=[];
+  aparece: Boolean;
+  prods: any[]=[];
+  arts: any[]=[];
 
   constructor(private loadingCtrl: LoadingController,private alertCtrl: AlertController,
     private usersService: UsersService, private navCtrl: NavController) { }
@@ -62,11 +66,35 @@ export class CatalogosPage implements OnInit {
 
     const { role, data } = await listado.onDidDismiss();
 
-    this.usersService.obtenerCatalogo(localStorage.getItem('id_comp'))
+    this.usersService.obtenerProductos().then(productos=>{
+      this.productos = productos;
+      this.productos = this.productos.data;
+      this.prods=this.productos;
+      this.usersService.obtenerArticulos(this.token).
+      then(articulos=>{
+        this.articulos = articulos;
+        this.articulos = this.articulos.data;
+        this.arts=this.articulos;
+        for (let i = 0; i < this.arts?.length; i++) {
+          this.aparece=false;
+          for (let j = 0; j < this.prods?.length; j++) {
+            if(this.prods[j].article_id===this.arts[i].id){
+              this.aparece=true;
+              break;
+            }
+          }
+          if(this.aparece){
+            this.productosReales.push(this.arts[i]);
+          }          
+        }
+      });
+    });
+
+    /*this.usersService.obtenerCatalogo(localStorage.getItem('id_comp'))
       .then(async data => {
         this.productos = data;
         this.productos = this.productos.data;
-    });
+    });*/
   }
 
 
