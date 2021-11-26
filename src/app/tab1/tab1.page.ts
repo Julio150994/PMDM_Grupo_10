@@ -42,9 +42,9 @@ export class Tab1Page implements OnInit{
   }
 
   onLogout() {
-    this.token = localStorage.getItem('token');
+    console.log(localStorage.getItem('token'));
     localStorage.removeItem('token');
-    
+
     this.navCtrl.navigateForward('/login-almagest');
     console.log('El administrador ha cerrado la sesión');
   }

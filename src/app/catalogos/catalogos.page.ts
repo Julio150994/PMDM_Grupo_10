@@ -35,11 +35,9 @@ export class CatalogosPage implements OnInit {
   }
 
   onLogout() {
-    this.token = localStorage.getItem('token');
+    console.log(localStorage.getItem('token'));
     localStorage.removeItem('token');
-
-    console.log('Token eliminado: '+localStorage.removeItem('token'));
-
+    
     this.navCtrl.navigateForward('/login-almagest');
     console.log('El usuario ha cerrado la sesión');
   }
