@@ -258,7 +258,10 @@ export class UsersService {
 
   obtenerProductos() {
     return new Promise(res => {
-      this.httpUser.get(this.url+'/products').subscribe(data => {
+      this.httpUser.post(this.url+'/products/company?id='+localStorage.getItem('id_comp'),{
+    headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
+    }).subscribe(data => {
+        console.log(data);
         this.producto = data;
         this.producto=this.producto.data;
         res(data);

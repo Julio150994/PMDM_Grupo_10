@@ -31,6 +31,10 @@ export class AniadirProductoPage implements OnInit {
   longitud: any;
   id: any;
   id_comp: number;
+  arts:any[]=[];
+  prods:any[]=[];
+  articulosReales:any[]=[];
+  aparece: boolean;
 
   constructor(private usersService: UsersService, private navCtrl: NavController,
     private loadingCtrl: LoadingController, private alertCtrl: AlertController) { }
@@ -43,14 +47,39 @@ export class AniadirProductoPage implements OnInit {
       this.usersService.obtenerProductos().then(productos=>{
         this.productos = productos;
         this.productos = this.productos.data;
-
+        this.prods=this.productos;
+        console.log(this.prods);
         this.usersService.obtenerArticulos(this.token).
         then(articulos=>{
           this.articulos = articulos;
           this.articulos = this.articulos.data;
+          this.arts=this.articulos;
+          console.log(this.arts);
+          for (let i = 0; i < this.arts?.length; i++) {
+            console.log('NO aparece al comienzo')
+            this.aparece=false;
+            console.log(this.aparece);
+            for (let j = 0; j < this.prods?.length; j++) {
+              console.log(this.arts[i]);
+              console.log(this.prods[j]);
+              if(this.prods[j].article_id===this.arts[i].id){
+                console.log('aparece');
+                this.aparece=true;
+                console.log(this.aparece);
+                break;
+              }
+            }
+            if(!this.aparece){
+              console.log("este")
+              console.log(this.arts[i]);
+              console.log('este');
+              this.articulosReales.push(this.arts[i]);
+            }          
+          }
         });
       });
-
+      await this.presentLoading();
+      console.log(this.articulosReales);
       this.mostrarFamilias();
     }
 
@@ -127,7 +156,7 @@ export class AniadirProductoPage implements OnInit {
     async loadingForm(message: string) {
       const loadForm = await this.loadingCtrl.create({
         message,
-        duration: 3500
+        duration: 100
       });
 
       await loadForm.present();
@@ -154,7 +183,7 @@ export class AniadirProductoPage implements OnInit {
     async loadingMinimo(message: string, precioMinimo: any) {
       const loadForm = await this.loadingCtrl.create({
         message,
-        duration: 1200
+        duration: 100
       });
 
       await loadForm.present();
@@ -186,7 +215,7 @@ export class AniadirProductoPage implements OnInit {
     async loadingMaximo(message: string, precioMaximo: any) {
       const loadForm = await this.loadingCtrl.create({
         message,
-        duration: 1200
+        duration: 1
       });
 
       await loadForm.present();
@@ -218,7 +247,7 @@ export class AniadirProductoPage implements OnInit {
     async loadingLengthArticles(message: string, numeroArticulos: any) {
       const loadForm = await this.loadingCtrl.create({
         message,
-        duration: 1200
+        duration: 1
       });
 
       await loadForm.present();
@@ -231,8 +260,8 @@ export class AniadirProductoPage implements OnInit {
     async presentLoading() {
       const loading = await this.loadingCtrl.create({
         cssClass: 'my-custom-class',
-        message: 'Please wait...',
-        duration: 2000
+        message: 'Cargando',
+        duration: 9000
       });
       await loading.present();
   
@@ -243,7 +272,7 @@ export class AniadirProductoPage implements OnInit {
     async loadingAddProduct(message: string) {
       const formArticle = await this.loadingCtrl.create({
         message,
-        duration: 2100
+        duration: 100
       });
       await formArticle.present();
 
