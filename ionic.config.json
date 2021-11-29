@@ -1,5 +1,7 @@
 {
   "name": "trabajo_almagest_grupo10",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

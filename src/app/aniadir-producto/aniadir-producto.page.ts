@@ -18,7 +18,7 @@ export class AniadirProductoPage implements OnInit {
   products: any;
   token: any;
   nombreArticulo: '';
-  deshabilitado: boolean = false;
+  //deshabilitado: boolean = false;
   mensajeError: string;
 
   formularioProducto = new FormGroup({
@@ -76,8 +76,8 @@ export class AniadirProductoPage implements OnInit {
     }
 
     seleccionarArticulo(articulo) {
-      this.deshabilitado=true;
-      this.descripcionArticulo =articulo;
+      //this.deshabilitado=true;
+      this.descripcionArticulo=articulo;
     }
 
     async aniadirProducto() {

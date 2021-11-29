@@ -72,7 +72,8 @@ export class CatalogosPage implements OnInit {
     this.usersService.obtenerProductos().then(productos=>{
       this.productos = productos;
       this.productos = this.productos.data;
-      this.prods = this.productos;
+      console.log(this.productos);
+     /*this.prods = this.productos;
       this.usersService.obtenerArticulos(this.token).
       then(articulos=>{
         this.articulos = articulos;
@@ -89,8 +90,7 @@ export class CatalogosPage implements OnInit {
           if(this.aparece){
             this.productosReales.push(this.arts[i]);
           }
-        }
-      });
+      });*/
     });
   }
 
