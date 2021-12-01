@@ -14,10 +14,10 @@
   <ion-list #catalogo>
     <ion-card class="card">
       <ion-item color="warning" *ngIf="encabezadoProductos?.length === 0">
-        <ion-label class="encabezado">No se han encontrado artículos.</ion-label>
+        <ion-label class="encabezado">No se han encontrado productos.</ion-label>
       </ion-item>
       <ion-item color="tertiary" *ngIf="encabezadoProductos?.length > 0">
-        <ion-label class="encabezado">{{ encabezadoProductos?.length }} artículos de 75.</ion-label>
+        <ion-label class="encabezado">{{ encabezadoProductos?.length }} artículos de 5</ion-label>
       </ion-item>
     </ion-card>
         <ion-item-sliding *ngFor="let producto of productos" class="sliding">

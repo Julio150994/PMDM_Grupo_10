@@ -42,7 +42,6 @@ export class Tab1Page implements OnInit{
   }
 
   onLogout() {
-    console.log('Token del administrador eliminado:\n'+localStorage.getItem('token'));
     localStorage.removeItem('token');
 
     this.loadLogoutAdmin('Cerrando sesión...');
@@ -209,7 +208,7 @@ export class Tab1Page implements OnInit{
     const logout = await this.alertCtrl.create({
       header: 'Logout',
       cssClass: 'logoutCss',
-      message: '<strong>El usuario ha cerrado sesión correctamente.</strong>',
+      message: '<strong>El administrador ha cerrado sesión correctamente.</strong>',
       buttons: [
         {
           text: 'Aceptar',

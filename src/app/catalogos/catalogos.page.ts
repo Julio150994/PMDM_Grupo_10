@@ -20,85 +20,29 @@ export class CatalogosPage implements OnInit {
   id: any;
   token: any;
   tokenEliminado: any;
-  productosReales: any[] = [];
-  aparece: Boolean;
-  prods: any[] = [];
-  arts: any[] = [];
+
 
   constructor(private loadingCtrl: LoadingController,private alertCtrl: AlertController,
     private usersService: UsersService, private navCtrl: NavController) { }
 
-  async ngOnInit() {
-    console.log('página del usuario');
-    await this.cargarEncabezado(localStorage.getItem('id_comp'),'Cargando encabezado...');
-    await this.cargarListado(localStorage.getItem('id_comp'),'Cargando listado...');
-  }
-
-  onLogout() {
-    console.log('Token de usuario eliminado: '+localStorage.getItem('token'));
-    localStorage.removeItem('token');
-
-    this.loadLogoutUser('Cerrando sesión...');
-  }
-
-
-  async cargarEncabezado(id: any, message: string) {
-    const encabezado = await this.loadingCtrl.create({
-      message,
-      duration: 1000,
-    });
-
-    await encabezado.present();
-
-    const { role, data } = await encabezado.onDidDismiss();
-
+  ngOnInit() {
     this.usersService.getEncabezadoProductos()
     .then(async data => {
       this.encabezadoProductos = data;
       this.encabezadoProductos = this.encabezadoProductos.data;
     });
-  }
-
-  async cargarListado(id: any, message: string) {
-    const listado = await this.loadingCtrl.create({
-      message,
-      duration: 1000,
-    });
-
-    await listado.present();
-
-    const { role, data } = await listado.onDidDismiss();
-
     this.usersService.obtenerProductos().then(productos=>{
       this.productos = productos;
       this.productos = this.productos.data;
-      console.log(this.productos);
-     /*this.prods = this.productos;
-      this.usersService.obtenerArticulos(this.token).
-      then(articulos=>{
-        this.articulos = articulos;
-        this.articulos = this.articulos.data;
-        this.arts = this.articulos;
-        for (let i = 0; i < this.arts?.length; i++) {
-          this.aparece = false;
-          for (let j = 0; j < this.prods?.length; j++) {
-            if(this.prods[j].article_id === this.arts[i].id){
-              this.aparece = true;
-              break;
-            }
-          }
-          if(this.aparece){
-            this.productosReales.push(this.arts[i]);
-          }
-      });*/
     });
   }
 
-
+  onLogout() {
+    localStorage.removeItem('token');
+    this.loadLogoutUser('Cerrando sesión...');
+  }
   async formAniadirArticulo() {
-    console.log('Formulario añadir producto');
     this.navCtrl.navigateForward('/aniadir-producto');
-
   }
 
   async eliminarProducto(id: string) {
@@ -119,25 +63,12 @@ export class CatalogosPage implements OnInit {
           text: 'SI',
           handler: async () => {
             this.usersService.removeProduct(id);
-            await this.cargandoProducto('Borrando producto');
+            this.productoEliminado();
           }
         }
       ]
     });
     await alert.present();
-  }
-
-  async cargandoProducto(message: string) {
-    const loadingProduct = await this.loadingCtrl.create({
-      message,
-      duration: 1750,
-    });
-
-    await loadingProduct.present();
-
-    const { role, data } = await loadingProduct.onDidDismiss();
-
-    this.productoEliminado();
   }
 
   async productoNoEliminado() {
@@ -181,7 +112,7 @@ export class CatalogosPage implements OnInit {
   async loadLogoutUser(message: string) {
     const loading = await this.loadingCtrl.create({
       message,
-      duration: 850,
+      duration: 1,
     });
 
     await loading.present();

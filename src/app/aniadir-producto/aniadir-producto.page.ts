@@ -18,7 +18,6 @@ export class AniadirProductoPage implements OnInit {
   products: any;
   token: any;
   nombreArticulo: '';
-  //deshabilitado: boolean = false;
   mensajeError: string;
 
   formularioProducto = new FormGroup({
@@ -40,10 +39,7 @@ export class AniadirProductoPage implements OnInit {
     private loadingCtrl: LoadingController, private alertCtrl: AlertController) { }
 
 
-   async ngOnInit() {
-      await this.loadingForm('Cargando formulario...');
-      this.token = localStorage.getItem('token');
-
+  ngOnInit() {
       this.usersService.obtenerProductos().then(productos=>{
         this.productos = productos;
         this.productos = this.productos.data;
@@ -76,45 +72,39 @@ export class AniadirProductoPage implements OnInit {
     }
 
     seleccionarArticulo(articulo) {
-      //this.deshabilitado=true;
       this.descripcionArticulo=articulo;
     }
 
     async aniadirProducto() {
-      this.token = localStorage.getItem('token');
-
       let familyId: number;
       let idArticulo = (this.formularioProducto.controls.article.value)-(1);
-      this.usersService.obtenerArticulos(this.token).
+      this.usersService.obtenerArticulos(localStorage.getItem('token')).
       then(async articulos=>{
         this.articulos = articulos;
         this.articulos=this.articulos.data;
       });
 
-      this.id= this.usersService.compania;
-      this.usersService.obtenerCatalogo(this.id)
+      this.usersService.obtenerCatalogo(localStorage.getItem('id_comp'))
       .then(async data => {
         this.productos = data;
         this.productos = this.productos.data;
-
-        if(this.productos?.length < 75 && (this.formularioProducto.controls.price.value >= this.articulos[idArticulo].price_min &&
+        if(this.productos?.length < 5 && (this.formularioProducto.controls.price.value >= this.articulos[idArticulo].price_min &&
           this.formularioProducto.controls.price.value <= this.articulos[idArticulo].price_max)){
-          await this.loadingAddProduct('Cargando producto...');
           familyId = this.articulos[idArticulo].family_id;
-
           let idFamilia: string;
           idFamilia = familyId.toString();
+          this.productoAniadido();
         }
         else{
 
           if (this.formularioProducto.controls.price.value < this.articulos[idArticulo].price_min) {
-            this.loadingMinimo('Cargando producto...',this.articulos[idArticulo].price_min);
+            this.alertPrecioMinimo(this.articulos[idArticulo].price_min);
           }
           else if (this.formularioProducto.controls.price.value > this.articulos[idArticulo].price_max) {
-            this.loadingMaximo('Cargando producto...',this.articulos[idArticulo].price_max);
+            this.alertPrecioMaximo(this.articulos[idArticulo].price_max);
           }
           else {
-            this.loadingLengthArticles('Cargando producto...',this.productos?.length);
+            this.alertContadorArticulos();
           }
         }
       });
@@ -123,21 +113,10 @@ export class AniadirProductoPage implements OnInit {
     mostrarFamilias() {
       this.usersService.obtenerFamilias()
       .then(data => {
-        console.log(data);
         this.families = data;
         this.families = this.families.data;
       });
     }
-
-    async loadingForm(message: string) {
-      const loadForm = await this.loadingCtrl.create({
-        message,
-        duration: 800
-      });
-
-      await loadForm.present();
-    }
-
     async alertPrecioMinimo(precioMinimo: any) {
       const precio = await this.alertCtrl.create({
         header: 'Mensaje de error',
@@ -155,20 +134,6 @@ export class AniadirProductoPage implements OnInit {
       });
       await precio.present();
     }
-
-    async loadingMinimo(message: string, precioMinimo: any) {
-      const loadForm = await this.loadingCtrl.create({
-        message,
-        duration: 100
-      });
-
-      await loadForm.present();
-
-      const { role, data } = await loadForm.onDidDismiss();
-
-      this.alertPrecioMinimo(precioMinimo);
-    }
-
 
     async alertPrecioMaximo(precioMaximo: any) {
       const maximo = await this.alertCtrl.create({
@@ -188,25 +153,11 @@ export class AniadirProductoPage implements OnInit {
       await maximo.present();
     }
 
-    async loadingMaximo(message: string, precioMaximo: any) {
-      const loadForm = await this.loadingCtrl.create({
-        message,
-        duration: 1
-      });
-
-      await loadForm.present();
-
-      const { role, data } = await loadForm.onDidDismiss();
-
-      this.alertPrecioMaximo(precioMaximo);
-    }
-
-
-    async alertContadorArticulos(numeroArticulos: any) {
+    async alertContadorArticulos() {
       const maximo = await this.alertCtrl.create({
         header: 'Mensaje de error',
         cssClass: 'productCss',
-        message: '<strong>No puedes añadir más de'+numeroArticulos+' artículos.</strong>',
+        message: '<strong>No puedes añadir más de 5 artículos.</strong>',
         buttons: [
           {
             text: 'Aceptar',
@@ -220,42 +171,13 @@ export class AniadirProductoPage implements OnInit {
       await maximo.present();
     }
 
-    async loadingLengthArticles(message: string, numeroArticulos: any) {
-      const loadForm = await this.loadingCtrl.create({
-        message,
-        duration: 1
-      });
-
-      await loadForm.present();
-
-      const { role, data } = await loadForm.onDidDismiss();
-
-      this.alertContadorArticulos(numeroArticulos);
-    }
-
     async presentLoading() {
       const loading = await this.loadingCtrl.create({
-        cssClass: 'my-custom-class',
-        message: 'Cargando',
-        duration: 1100
+        duration: 1
       });
       await loading.present();
-
       const { role, data } = await loading.onDidDismiss();
-      console.log('Producto cargado éxitosamente');
     }
-
-    async loadingAddProduct(message: string) {
-      const formArticle = await this.loadingCtrl.create({
-        message,
-        duration: 100
-      });
-      await formArticle.present();
-
-      const { role, data } = await formArticle.onDidDismiss();
-      this.productoAniadido();
-    }
-
 
     async productoAniadido() {
       const aniadido = await this.alertCtrl.create({
