@@ -20,7 +20,7 @@ export class CatalogosPage implements OnInit {
   id: any;
   token: any;
   tokenEliminado: any;
-
+  maximoArticulos=5;
 
   constructor(private loadingCtrl: LoadingController,private alertCtrl: AlertController,
     private usersService: UsersService, private navCtrl: NavController) { }

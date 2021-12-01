@@ -13,27 +13,21 @@ export class AniadirProductoPage implements OnInit {
   @Input() descripcionArticulo: any;
 
   url = environment.almagestUrl;
-  articles: any;
   families: any;
   products: any;
-  token: any;
   nombreArticulo: '';
-  mensajeError: string;
-
   formularioProducto = new FormGroup({
     article: new FormControl('',[Validators.required]),
     price: new FormControl('', [Validators.required]),
   });
   productos: any;
   articulos: any;
-  company_name: string;
-  longitud: any;
-  id: any;
   id_comp: number;
   arts: any[] = [];
   prods: any[] = [];
   articulosReales: any[] = [];
   aparece: boolean;
+  maximoArticulos= 5;
 
   constructor(private usersService: UsersService, private navCtrl: NavController,
     private loadingCtrl: LoadingController, private alertCtrl: AlertController) { }
@@ -44,7 +38,7 @@ export class AniadirProductoPage implements OnInit {
         this.productos = productos;
         this.productos = this.productos.data;
         this.prods=this.productos;
-        this.usersService.obtenerArticulos(this.token).
+        this.usersService.obtenerArticulos(localStorage.getItem('token')).
         then(articulos=>{
           this.articulos = articulos;
           this.articulos = this.articulos.data;
@@ -157,7 +151,7 @@ export class AniadirProductoPage implements OnInit {
       const maximo = await this.alertCtrl.create({
         header: 'Mensaje de error',
         cssClass: 'productCss',
-        message: '<strong>No puedes añadir más de 5 artículos.</strong>',
+        message: '<strong>No puedes añadir más de '+this.maximoArticulos+' artículos.</strong>',
         buttons: [
           {
             text: 'Aceptar',
@@ -197,7 +191,7 @@ export class AniadirProductoPage implements OnInit {
               let idFamilia: string;
               idFamilia = familyId.toString();
 
-              this.usersService.addProduct(this.token, this.formularioProducto.controls.article.value,
+              this.usersService.addProduct(localStorage.getItem('token'), this.formularioProducto.controls.article.value,
                 localStorage.getItem('id_comp'),this.formularioProducto.controls.price.value,idFamilia)
                 .then(async data => {
                   this.products = data;
