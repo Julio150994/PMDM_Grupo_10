@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { LoadingController, AlertController, NavController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { LoadingController, AlertController, NavController, IonInfiniteScroll } from '@ionic/angular';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -7,11 +8,15 @@ import { LoadingController, AlertController, NavController } from '@ionic/angula
   styleUrls: ['./pedidos.page.scss'],
 })
 export class PedidosPage implements OnInit {
+  @ViewChild(IonInfiniteScroll, {static: true}) loadOrders: IonInfiniteScroll;
+  pedidos: any;
 
   constructor(private loadingCtrl: LoadingController,private alertCtrl: AlertController,
-    private navCtrl: NavController) { }
+    private navCtrl: NavController, private usersService: UsersService) { }
   
   ngOnInit() {
+    console.log('Pestaña de mostrar pedidos.');
+    this.obtenerPedidos();
   }
 
   onLogout() {
@@ -49,6 +54,26 @@ export class PedidosPage implements OnInit {
       ]
     });
     await logout.present();
+  }
+
+  obtenerPedidos() {
+    // En el servicio ya cogemos el id de la compañía del usuario
+    this.usersService.obtenerPedidosUsuario()
+    .then(pedidos => {
+      this.pedidos = pedidos;
+      this.pedidos = this.pedidos.data;
+    });
+  }
+
+  cargaPedidos(eventoPedido) {
+    setTimeout(() => {
+      // Cargamos los pedidos de nuevo
+      const pedidos = this.obtenerPedidos();
+      // this.data.push(pedidos);
+      eventoPedido.target.complete();
+      this.loadOrders.disabled= true;
+      return;
+    }, 1350);
   }
 
 }

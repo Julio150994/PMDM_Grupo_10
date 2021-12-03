@@ -20,6 +20,7 @@ export class UsersService {
   catalogo: any;
   compania: any;
   producto: any;
+  pedido: any;
   familias:any;
   constructor(private alertUserCtrl: AlertController,private httpUser: HttpClient,
     private loadingUserCtrl: LoadingController) {
@@ -299,6 +300,20 @@ export class UsersService {
         resolve(res);
       }, (err) => {
         reject(err);
+      });
+    });
+  }
+
+  obtenerPedidosUsuario() {
+    return new Promise(res => {
+      this.httpUser.get(this.url+'/orders', {
+        headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
+      }).subscribe(data => {
+        this.pedido = data;
+        this.pedido = this.pedido.data;
+        res(data);
+      }, error => {
+        console.log('Error al mostrar los pedidos '+error);
       });
     });
   }

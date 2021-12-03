@@ -11,5 +11,25 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+    <ion-card *ngFor="let pedido of pedidos; let numPedido = index">
+        <ion-card-header>
+            <ion-card-title>Pedido número {{ numPedido+1 }}</ion-card-title>
+        </ion-card-header>
 
+        <ion-card-content>
+          Número de pedido: <ion-label>{{ pedido.num }}</ion-label><br/>
+          Nombre de la empresa: <ion-label>{{ pedido.target_company_id }}</ion-label><br/>
+          Fecha de entrega: <ion-label>{{ pedido.issue_date }}</ion-label><br/>
+          Fecha de creación: <ion-label>{{ pedido.created_at }}</ion-label><br/>
+          <ion-icon name="calculator-outline"></ion-icon> Icono albarán<br/>
+          <ion-icon name="swap-vertical"></ion-icon> Icono factura de pedido
+        </ion-card-content>
+
+      </ion-card>
+
+    <ion-infinite-scroll threshold="160px" (ionInfinite)="cargaPedidos($event)">
+      <ion-infinite-scroll-content loadingSpinner="crescent"
+        loadingText="Cargando pedidos...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
