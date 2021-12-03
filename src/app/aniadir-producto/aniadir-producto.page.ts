@@ -28,6 +28,8 @@ export class AniadirProductoPage implements OnInit {
   articulosReales: any[] = [];
   aparece: boolean;
   maximoArticulos= 5;
+  familias: any;
+  margen: any;
 
   constructor(private usersService: UsersService, private navCtrl: NavController,
     private loadingCtrl: LoadingController, private alertCtrl: AlertController) { }
@@ -82,11 +84,17 @@ export class AniadirProductoPage implements OnInit {
       .then(async data => {
         this.productos = data;
         this.productos = this.productos.data;
-        if(this.productos?.length < 5 && (this.formularioProducto.controls.price.value >= this.articulos[idArticulo].price_min &&
+        familyId = this.articulos[idArticulo].family_id;
+          this.familias=this.usersService.familias;
+          for (let index = 0; index < this.familias.length; index++) {
+            if(this.familias[index].id==familyId) {
+              this.margen=(this.familias[index].profit_margin/100).toFixed(2);
+            }
+            
+          }
+
+        if(this.productos?.length < 5 && (this.formularioProducto.controls.price.value+(this.formularioProducto.controls.price.value*this.margen) >= this.articulos[idArticulo].price_min &&
           this.formularioProducto.controls.price.value <= this.articulos[idArticulo].price_max)){
-          familyId = this.articulos[idArticulo].family_id;
-          let idFamilia: string;
-          idFamilia = familyId.toString();
           this.productoAniadido();
         }
         else{
@@ -133,7 +141,7 @@ export class AniadirProductoPage implements OnInit {
       const maximo = await this.alertCtrl.create({
         header: 'Mensaje de error',
         cssClass: 'productCss',
-        message: '<strong>El precio máximo es '+precioMaximo+'.</strong>',
+        message: '<strong>El precio máximo es '+precioMaximo+'. El elegido con los beneficios es: '+(this.formularioProducto.controls.price.value+(this.formularioProducto.controls.price.value*this.margen))+'.</strong>',
         buttons: [
           {
             text: 'Aceptar',
@@ -192,7 +200,7 @@ export class AniadirProductoPage implements OnInit {
               idFamilia = familyId.toString();
 
               this.usersService.addProduct(localStorage.getItem('token'), this.formularioProducto.controls.article.value,
-                localStorage.getItem('id_comp'),this.formularioProducto.controls.price.value,idFamilia)
+              localStorage.getItem('id_comp'),this.formularioProducto.controls.price.value,idFamilia)
                 .then(async data => {
                   this.products = data;
                   this.products = this.products.data;

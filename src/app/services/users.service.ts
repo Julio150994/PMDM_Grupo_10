@@ -20,7 +20,7 @@ export class UsersService {
   catalogo: any;
   compania: any;
   producto: any;
-
+  familias:any;
   constructor(private alertUserCtrl: AlertController,private httpUser: HttpClient,
     private loadingUserCtrl: LoadingController) {
 
@@ -264,9 +264,9 @@ export class UsersService {
 
   obtenerFamilias() {
     return new Promise(res => {
-      this.httpUser.get(this.url+'/families').subscribe(data => {
-        this.token = data;
-        this.token=this.token.data;
+      this.httpUser.get<any>(this.url+'/families').subscribe(data => {
+        this.familias = data;
+        this.familias=this.familias.data;
         res(data);
       }, error => {
         console.log('Error al mostrar los familias '+error);
