@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PedidosPageRoutingModule } from './pedidos-routing.module';
+import { PedidoPageRoutingModule } from './pedido-routing.module';
 
-import { PedidosPage } from './pedidos.page';
+import { PedidoPage } from './pedido.page';
 import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ComponentsModule } from '../components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    PedidosPageRoutingModule,
+    PedidoPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [PedidosPage]
+  declarations: [PedidoPage]
 })
-export class PedidosPageModule {}
+export class PedidoPageModule {}

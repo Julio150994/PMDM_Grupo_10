@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { ComponentePedido } from '../interfaces/pedidos';
 
 @Injectable({
   providedIn: 'root'
@@ -316,5 +317,9 @@ export class UsersService {
         console.log('Error al mostrar los pedidos '+error);
       });
     });
+  }
+
+  getComponentes() {
+      return this.httpUser.get<ComponentePedido[]>('/assets/data/pedidos.json');
   }
 }

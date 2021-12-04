@@ -57,7 +57,11 @@ const routes: Routes = [
     path: '**',
     redirectTo: '/login-almagest',
     pathMatch: 'full'
+  },  {
+    path: 'pedido',
+    loadChildren: () => import('./pedido/pedido.module').then( m => m.PedidoPageModule)
   },
+
 ];
 @NgModule({
   imports: [
