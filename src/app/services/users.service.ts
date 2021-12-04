@@ -306,10 +306,18 @@ export class UsersService {
   }
 
   obtenerPedidosUsuario() {
+    console.log('Compañía: '+localStorage.getItem('id_comp'));
+    this.obtenerCompanias().then(data => {
+      console.log(data);
+      this.compania = data;
+      this.compania=this.compania.data;
+    });
+
     return new Promise(res => {
-      this.httpUser.get(this.url+'/orders', {
+      this.httpUser.get(this.url+'/orders?id='+localStorage.getItem('id_comp'), {
         headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
       }).subscribe(data => {
+        console.log(data);
         this.pedido = data;
         this.pedido = this.pedido.data;
         res(data);

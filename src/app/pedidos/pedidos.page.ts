@@ -13,7 +13,7 @@ export class PedidosPage implements OnInit {
 
   constructor(private loadingCtrl: LoadingController,private alertCtrl: AlertController,
     private navCtrl: NavController, private usersService: UsersService) { }
-  
+
   ngOnInit() {
     console.log('Pestaña de mostrar pedidos.');
     this.obtenerPedidos();

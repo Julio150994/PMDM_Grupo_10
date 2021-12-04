@@ -8,13 +8,24 @@
     Nombre de la empresa: <ion-label>{{ pedido.target_company_name }}</ion-label><br/>
     Fecha de entrega: <ion-label>{{ pedido.issue_date }}</ion-label><br/>
     Fecha de creación: <ion-label>{{ pedido.created_at }}</ion-label><br/>
-    <ion-button color="danger" (click)="onIconoAlbaran()">
+    <ion-button *ngIf="pedido.delivery_notes === 0" color="danger" (click)="onIconoAlbaran()">
       <ion-icon name="reader"></ion-icon>
-      <ion-label>Icono albarán</ion-label>
+      <ion-label>Albarán</ion-label>
     </ion-button><br/>
-    <ion-button color="danger" (click)="onIconoFactura()">
+
+    <ion-button *ngIf="pedido.delivery_notes === 1" color="success" (click)="onIconoAlbaran()">
+      <ion-icon name="reader"></ion-icon>
+      <ion-label>Albarán</ion-label>
+    </ion-button><br/>
+
+    <ion-button *ngIf="pedido.invoices === 0" color="danger" (click)="onIconoFactura()">
       <ion-icon name="swap-vertical"></ion-icon>
-      <ion-label>Icono factura de pedido</ion-label>
+      <ion-label>Factura de pedido</ion-label>
+    </ion-button>
+
+    <ion-button *ngIf="pedido.invoices === 1" color="success" (click)="onIconoFactura()">
+      <ion-icon name="swap-vertical"></ion-icon>
+      <ion-label>Factura de pedido</ion-label>
     </ion-button>
   </ion-card-content>
 </ion-card>
