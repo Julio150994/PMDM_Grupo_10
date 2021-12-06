@@ -19,6 +19,7 @@ export class PedidosPage implements OnInit {
   companies: any;
   pedidosReales: any[] = [];
   url = environment.almagestUrl;
+  compas: any;
 
   constructor(private loadingCtrl: LoadingController,private alertCtrl: AlertController,
     private navCtrl: NavController, private usersService: UsersService,
@@ -72,24 +73,16 @@ export class PedidosPage implements OnInit {
         this.productos = productos;
         this.productos = this.productos.data;
 
-        this.usersService.obtenerPedidosUsuario()
+        this.usersService.obtenerPedidos()
         .then(data => {
           console.log(data);
           this.pedidos = data;
           this.pedidos = this.pedidos.data;
           this.orders = this.pedidos;
-
-          for (let i = 0; i < this.companies?.length; i++) {
-            this.compania = false;
             for (let j = 0; j < this.orders?.length; j++) {
-              if (this.orders[j].target_company_id === this.companies[i].id) {
-                this.compania = true;
-                break;
+              if (this.orders[j].target_company_name === localStorage.getItem('name_comp')) {
+                this.pedidosReales.push(this.orders[j]);
               }
-            }
-            if (!this.compania) {
-              this.pedidosReales.push(this.companies[i]);
-            }
           }
         });
     });

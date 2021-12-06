@@ -29,7 +29,7 @@ export class ListaPedidosComponent implements OnInit {
 
   obtenerPedidos() {
     // En el servicio ya cogemos el id de la compañía del usuario
-    this.usersService.obtenerPedidosUsuario()
+    this.usersService.obtenerPedidos()
     .then(pedidos => {
       console.log(pedidos);
       this.pedidos = pedidos;

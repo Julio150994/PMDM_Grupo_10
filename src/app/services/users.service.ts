@@ -23,6 +23,7 @@ export class UsersService {
   producto: any;
   pedido: any;
   familias:any;
+  name_comp: any;
   constructor(private alertUserCtrl: AlertController,private httpUser: HttpClient,
     private loadingUserCtrl: LoadingController) {
 
@@ -87,6 +88,8 @@ export class UsersService {
         this.usuario = data;
         this.usuario = this.usuario.data;
         this.compania=this.usuario.company_id;
+        this.name_comp=this.usuario.company;
+        localStorage.setItem('name_comp',this.name_comp)
         localStorage.setItem('id_comp',this.compania);
         res(data);
       }, error => {
@@ -315,20 +318,6 @@ export class UsersService {
         res(data);
       }, error => {
         console.log('Error al mostrar los pedidos '+error);
-      });
-    });
-  }
-
-  obtenerPedidosUsuario() {
-    return new Promise(res => {
-      this.httpUser.get(this.url+'/orders?id='+localStorage.getItem('id'), {
-        headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
-      }).subscribe(data => {
-        console.log(data);
-        this.pedido = data;
-        res(data);
-      }, error => {
-        console.log('Error al mostrar los pedidos de la compañía del usuario '+error);
       });
     });
   }

@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-    <div *ngFor="let pedido of pedidos; let numPedido = index">
+    <div *ngFor="let pedido of pedidosReales; let numPedido = index">
       <ion-card class="card" *ngIf="pedidos.length === 0">
           <ion-item color="warning">
             <ion-label class="encabezado">No se han encontrado pedidos.</ion-label>
