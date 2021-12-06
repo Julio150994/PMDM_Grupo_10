@@ -54,13 +54,14 @@ const routes: Routes = [
     loadChildren: () => import('./aniadir-producto/aniadir-producto.module').then( m => m.AniadirProductoPageModule)
   },
   {
-    path: '**',
-    redirectTo: '/login-almagest',
-    pathMatch: 'full'
-  },  {
     path: 'pedido',
     loadChildren: () => import('./pedido/pedido.module').then( m => m.PedidoPageModule)
   },
+  {
+    path: '**',
+    redirectTo: '/login-almagest',
+    pathMatch: 'full'
+  }
 
 ];
 @NgModule({

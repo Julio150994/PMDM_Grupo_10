@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoadingController, AlertController, NavController, IonInfiniteScroll } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-pedidos',
@@ -10,13 +12,17 @@ import { UsersService } from '../services/users.service';
 export class PedidosPage implements OnInit {
   @ViewChild(IonInfiniteScroll, {static: true}) loadOrders: IonInfiniteScroll;
   pedidos: any;
+  pedido: any;
+  compania: any;
+  url = environment.almagestUrl;
 
   constructor(private loadingCtrl: LoadingController,private alertCtrl: AlertController,
-    private navCtrl: NavController, private usersService: UsersService) { }
+    private navCtrl: NavController, private usersService: UsersService,
+    private http: HttpClient) { }
 
   ngOnInit() {
     console.log('Pestaña de mostrar pedidos.');
-    this.obtenerPedidos();
+    this.getPedidos();
   }
 
   onLogout() {
@@ -56,11 +62,11 @@ export class PedidosPage implements OnInit {
     await logout.present();
   }
 
-  obtenerPedidos() {
-    // En el servicio ya cogemos el id de la compañía del usuario
+  getPedidos() {
     this.usersService.obtenerPedidosUsuario()
-    .then(pedidos => {
-      this.pedidos = pedidos;
+    .then(data => {
+      console.log(data);
+      this.pedidos = data;
       this.pedidos = this.pedidos.data;
     });
   }
@@ -68,12 +74,25 @@ export class PedidosPage implements OnInit {
   cargaPedidos(eventoPedido) {
     setTimeout(() => {
       // Cargamos los pedidos de nuevo
-      const pedidos = this.obtenerPedidos();
+      const cargaPedidos = this.getPedidos();
+
       // this.data.push(pedidos);
       eventoPedido.target.complete();
       this.loadOrders.disabled= true;
       return;
     }, 1350);
+  }
+
+  onIconoAlbaran() {
+    console.log('Icono de Albarán');
+  }
+
+  onIconoFactura() {
+    console.log('Icono de factura del Pedido.');
+  }
+
+  mostrarContenido() {
+    this.navCtrl.navigateForward('/pedido');// mostramos el contenido del pedido (1 ó N productos)
   }
 
 }
