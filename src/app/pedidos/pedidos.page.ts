@@ -79,16 +79,16 @@ export class PedidosPage implements OnInit {
           this.pedidos = this.pedidos.data;
           this.orders = this.pedidos;
 
-          for (let i = 0; i < this.orders?.length; i++) {
+          for (let i = 0; i < this.companies?.length; i++) {
             this.compania = false;
-            for (let j = 0; j < this.companies?.length; j++) {
-              if (this.companies[j].id === this.orders[i].target_company_id) {
+            for (let j = 0; j < this.orders?.length; j++) {
+              if (this.orders[j].target_company_id === this.companies[i].id) {
                 this.compania = true;
                 break;
               }
             }
             if (!this.compania) {
-              this.pedidosReales.push(this.orders[i]);
+              this.pedidosReales.push(this.companies[i]);
             }
           }
         });
