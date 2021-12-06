@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController, AlertController, NavController } from '@ionic/angular';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-pedido',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PedidoPage implements OnInit {
 
-  constructor() { }
+  constructor(private loadingCtrl: LoadingController, private alertCtrl: AlertController,
+    private navCtrl: NavController, private usersService: UsersService) { }
 
   ngOnInit() {
+    console.log('Productos del pedido');
+  }
+
+  toOrdersCompany() {
+    this.navCtrl.navigateForward('/usuarios/pedidos');
   }
 
 }

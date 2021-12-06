@@ -13,13 +13,13 @@ export class ListaPedidosComponent implements OnInit {
   pedidos: any;
 
   componentsPedidos: ComponentePedido[] = [];
-  //componentsPedidos: Observable<ComponentePedido[]>;
 
   constructor( loadingCtrl: LoadingController,private alertCtrl: AlertController,
     private navCtrl: NavController, private usersService: UsersService) { }
 
   ngOnInit() {
     console.log('Componente lista de pedidos');
+    /** Cargamos los pedidos por id de la compañía a la que pertenece el usuario. */
     this.obtenerPedidos();
 
     this.usersService.getComponentes().subscribe(data => {
