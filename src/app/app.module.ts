@@ -19,7 +19,7 @@ import { AuthInterceptorService } from './auth-interceptor.service';
     AppRoutingModule,
     HttpClientModule,
     PipesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     {
