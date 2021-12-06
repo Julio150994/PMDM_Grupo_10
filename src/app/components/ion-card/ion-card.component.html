@@ -1,6 +1,6 @@
-<ion-card>
+<ion-card *ngFor="let pedido of componentsPedidos; let num = index">
   <ion-card-header>
-      <ion-card-title>Pedido número: {{ pedido.num }}</ion-card-title>
+      <ion-card-title>Pedido número: {{ num+1 }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
     Nombre de la empresa: <ion-label>{{ pedido.target_company_name }}</ion-label><br/>

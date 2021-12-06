@@ -319,21 +319,6 @@ export class UsersService {
     });
   }
 
-  /*obtenerPedidosUsuario() {
-    return new Promise(res => {
-      this.httpUser.post(this.url+'/orders?id='+localStorage.getItem('id_comp'),{
-        headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
-      }).subscribe(data => {
-        console.log(data);
-        this.pedido = data;
-        this.pedido = this.pedido.data;
-        res(data);
-      }, error => {
-        console.log('Error al mostrar los pedidos de la compañía del usuario '+error);
-      });
-    });
-  }*/
-
   obtenerPedidosUsuario() {
     return new Promise(res => {
       this.httpUser.get(this.url+'/orders?id='+localStorage.getItem('id'), {

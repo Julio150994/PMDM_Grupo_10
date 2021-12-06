@@ -12,8 +12,7 @@ import { IonCardComponent} from './ion-card/ion-card.component';
     IonCardComponent,
   ],
   imports: [
-    CommonModule,
-    IonCardComponent
+    CommonModule
   ],
   exports: [
     ListaPedidosComponent,
