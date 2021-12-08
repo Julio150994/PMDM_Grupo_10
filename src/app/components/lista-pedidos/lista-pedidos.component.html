@@ -1,13 +1,13 @@
 <div *ngFor="let pedido of pedidosReales; let numPedido = index">
-  <ion-card class="card" *ngIf="pedidos.length === 0">
+  <ion-card class="card" *ngIf="pedidosReales.length === 0">
       <ion-item color="warning">
         <ion-label class="encabezado">No se han encontrado pedidos.</ion-label>
       </ion-item>
   </ion-card>
 
-  <ion-card class="card">
+  <ion-card class="card" *ngIf="pedidosReales.length > 0">
     <ion-card-header (click)="mostrarContenido()">
-        <ion-card-title>Pedido número {{ numPedido+1 }}</ion-card-title>
+        <ion-card-title>Pedido número {{ numPedido + 1 }}</ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
@@ -36,9 +36,10 @@
       </ion-button>
     </ion-card-content>
   </ion-card>
-</div>
-<ion-infinite-scroll threshold="160px" (ionInfinite)="cargaPedidos($event)">
+
+  <ion-infinite-scroll threshold="160px" (ionInfinite)="cargaPedidos($event)">
     <ion-infinite-scroll-content loadingSpinner="crescent"
       loadingText="Cargando pedidos...">
     </ion-infinite-scroll-content>
-</ion-infinite-scroll>
+  </ion-infinite-scroll>
+</div>

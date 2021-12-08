@@ -308,11 +308,12 @@ export class UsersService {
     });
   }
 
-  obtenerPedidos() {
+  obtenerPedidosCompaniaUsuario() {
     return new Promise(res => {
       this.httpUser.get(this.url+'/orders', {
         headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
       }).subscribe(data => {
+        console.log(data);
         this.pedido = data;
         this.pedido = this.pedido.data;
         res(data);
