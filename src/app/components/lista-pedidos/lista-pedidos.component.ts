@@ -58,15 +58,6 @@ export class ListaPedidosComponent implements OnInit {
     }, 1350);
   }
 
-
-  onIconoAlbaran() {
-    console.log('Icono de Albarán');
-  }
-
-  onIconoFactura() {
-    console.log('Icono de factura del Pedido.');
-  }
-
   mostrarContenido() {
     this.navCtrl.navigateForward('/pedido');// mostramos el contenido del pedido (1 ó N productos)
   }
