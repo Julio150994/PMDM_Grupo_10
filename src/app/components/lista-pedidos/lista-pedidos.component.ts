@@ -52,8 +52,9 @@ export class ListaPedidosComponent implements OnInit {
   cargaPedidos(eventoPedido) {
     setTimeout(() => {
       // Cargamos los pedidos de la compañía de usuario nuevamente
+      this.pedidosReales;
       eventoPedido.target.complete();
-      this.obtenerPedidos();
+      
       return;
     }, 1350);
   }
