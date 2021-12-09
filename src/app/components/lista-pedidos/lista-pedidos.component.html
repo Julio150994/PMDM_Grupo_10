@@ -5,38 +5,32 @@
 </ion-card>
 
 <div *ngFor="let pedido of pedidosReales; let numPedido = index">
-  <ion-card class="card">
+  <ion-card class="card" *ngIf="pedidosReales?.length > 0">
     <ion-card-header (click)="mostrarContenido()">
-        <ion-card-title>Pedido número {{ numPedido + 1 }}</ion-card-title>
+        <ion-card-title color="tertiary">Pedido {{ numPedido + 1 }}</ion-card-title>
     </ion-card-header>
-    <ion-item color="warning" *ngIf="pedidosReales?.length == 0">
-      <ion-label class="encabezado">No se han encontrado pedidos.</ion-label>
-    </ion-item>
-  
-    <ion-card-content *ngIf="pedidosReales?.length > 0">
-      Número de pedido: <ion-label>{{ pedido.num }}</ion-label><br/>
-      Nombre de la empresa: <ion-label>{{ pedido.target_company_name }}</ion-label><br/>
-      Fecha de entrega: <ion-label>{{ pedido.issue_date }}</ion-label><br/>
-      Fecha de creación: <ion-label>{{ pedido.created_at }}</ion-label><br/>
-      <ion-button *ngIf="pedido.delivery_notes === 0" color="danger" (click)="onIconoAlbaran()">
-        <ion-icon name="reader"></ion-icon>
-        <ion-label>Albarán</ion-label>
-      </ion-button><br/>
-  
-      <ion-button *ngIf="pedido.delivery_notes === 1" color="success" (click)="onIconoAlbaran()">
-        <ion-icon name="reader"></ion-icon>
-        <ion-label>Albarán</ion-label>
-      </ion-button><br/>
-  
-      <ion-button *ngIf="pedido.invoices === 0" color="danger" (click)="onIconoFactura()">
-        <ion-icon name="swap-vertical"></ion-icon>
-        <ion-label>Factura de pedido</ion-label>
-      </ion-button>
-  
-      <ion-button *ngIf="pedido.invoices === 1" color="success" (click)="onIconoFactura()">
-        <ion-icon name="swap-vertical"></ion-icon>
-        <ion-label>Factura de pedido</ion-label>
-      </ion-button>
+
+    <ion-card-content>
+      <p>Número de pedido: <ion-label>{{ pedido.num }}</ion-label></p>
+      <p>Nombre de la empresa: <ion-label>{{ pedido.target_company_name }}</ion-label></p>
+      <p>Fecha de entrega: <ion-label>{{ pedido.issue_date }}</ion-label></p>
+      <p>Fecha de creación: <ion-label>{{ pedido.created_at }}</ion-label></p>
+      <div *ngIf="pedido.delivery_notes === 0" class="icono">
+        <ion-icon name="reader" color="danger"></ion-icon>
+        <ion-label color="danger">Albarán</ion-label>
+      </div>
+      <div *ngIf="pedido.delivery_notes === 1" class="icono">
+        <ion-icon name="reader" color="success"></ion-icon>
+        <ion-label color="success">Albarán</ion-label>
+      </div>
+      <div *ngIf="pedido.invoices === 0" class="icono">
+        <ion-icon name="swap-vertical" color="danger"></ion-icon>
+        <ion-label color="danger">Factura de pedido</ion-label>
+      </div>
+      <div *ngIf="pedido.invoices === 1" class="icono">
+        <ion-icon name="swap-vertical" color="success"></ion-icon>
+        <ion-label color="success">Factura de pedido</ion-label>
+      </div>
     </ion-card-content>
   </ion-card>
 
