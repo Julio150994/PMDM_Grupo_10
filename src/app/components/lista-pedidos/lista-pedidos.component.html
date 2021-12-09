@@ -16,19 +16,19 @@
       <p>Fecha de entrega: <ion-label>{{ pedido.issue_date }}</ion-label></p>
       <p>Fecha de creación: <ion-label>{{ pedido.created_at }}</ion-label></p>
       <div *ngIf="pedido.delivery_notes === 0" class="icono">
-        <ion-icon name="reader" color="danger"></ion-icon>
+        <ion-icon name="radio-button-on" color="danger"></ion-icon>
         <ion-label color="danger">Albarán</ion-label>
       </div>
       <div *ngIf="pedido.delivery_notes === 1" class="icono">
-        <ion-icon name="reader" color="success"></ion-icon>
+        <ion-icon name="radio-button-on" color="success"></ion-icon>
         <ion-label color="success">Albarán</ion-label>
       </div>
       <div *ngIf="pedido.invoices === 0" class="icono">
-        <ion-icon name="swap-vertical" color="danger"></ion-icon>
+        <ion-icon name="radio-button-on" color="danger"></ion-icon>
         <ion-label color="danger">Factura de pedido</ion-label>
       </div>
       <div *ngIf="pedido.invoices === 1" class="icono">
-        <ion-icon name="swap-vertical" color="success"></ion-icon>
+        <ion-icon name="radio-button-on" color="success"></ion-icon>
         <ion-label color="success">Factura de pedido</ion-label>
       </div>
     </ion-card-content>
