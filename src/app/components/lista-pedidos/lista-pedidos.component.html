@@ -1,5 +1,6 @@
-<app-contenido-pedido [pedidos]="pedidos" [pedido] = "pedido" [productos]="productos"
-    [orders]="orders" [pedidosReales]="pedidosReales"
+<app-contenido-pedido *ngFor="let pedido of pedidosReales; let numPedido = index"
+    [pedidos]="pedidos" [pedido] = "pedido" [productos]="productos"
+    [orders]="orders" [pedidosReales]="pedidosReales" [numPedido]="numPedido"
     titulo="Contenido de pedido"></app-contenido-pedido>
 
 <ion-infinite-scroll threshold="160px" (ionInfinite)="cargaPedidos($event)">
