@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { ComponentePedido } from '../interfaces/pedidos';
 
 @Injectable({
   providedIn: 'root'
@@ -217,7 +216,7 @@ export class UsersService {
         headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
       }).subscribe(data => {
         this.catalogo = data;
-        this.catalogo=this.catalogo.data;
+        this.catalogo = this.catalogo.data;
         res(data);
       }, error => {
         console.log('Error al mostrar el contador de artículos '+error);
@@ -321,9 +320,5 @@ export class UsersService {
         console.log('Error al mostrar los pedidos '+error);
       });
     });
-  }
-
-  getComponentes() {
-      return this.httpUser.get<ComponentePedido[]>('/assets/data/pedidos.json');
   }
 }

@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { IonInfiniteScroll, NavController } from '@ionic/angular';
 import { UsersService } from '../../services/users.service';
-import { ComponentePedido } from '../../interfaces/pedidos';
 
 @Component({
   selector: 'app-lista-pedidos',
@@ -10,21 +9,17 @@ import { ComponentePedido } from '../../interfaces/pedidos';
 })
 export class ListaPedidosComponent implements OnInit {
   @ViewChild(IonInfiniteScroll, {static: true}) loadOrders: IonInfiniteScroll;
-  pedidos: any;
-  pedido: any;
-  compania: any;
-  productos: any;
-  orders: any;
-  pedidosReales: any[] = [];
-  compas: any;
-  componentsPedidos: ComponentePedido[] = [];
+  @Input() pedidos: any;
+  @Input() pedido: any;
+  @Input() productos: any;
+  @Input() orders: any;
+  @Input() pedidosReales: any[] = [];
 
 
   constructor(private navCtrl: NavController, private usersService: UsersService) { }
 
   ngOnInit() {
-    console.log('Componente de pestaña lista de pedidos');
-    this.obtenerPedidos();
+    console.log('Componente de lista-pedidos');
   }
 
   obtenerPedidos() {
@@ -38,23 +33,14 @@ export class ListaPedidosComponent implements OnInit {
           this.pedidos = data;
           this.pedidos = this.pedidos.data;
           this.orders = this.pedidos;
-
-          for (let j = 0; j < this.orders?.length; j++) {
-            if (this.orders[j].target_company_name === localStorage.getItem('name_comp')) {
-              console.log(this.pedidosReales);
-              this.pedidosReales.push(this.orders[j]);
-            }
-          }
         });
     });
   }
 
   cargaPedidos(eventoPedido) {
     setTimeout(() => {
-      // Cargamos los pedidos de la compañía de usuario nuevamente
-      this.pedidosReales;
+      this.obtenerPedidos();
       eventoPedido.target.complete();
-      
       return;
     }, 1350);
   }

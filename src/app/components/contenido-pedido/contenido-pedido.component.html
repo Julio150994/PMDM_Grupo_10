@@ -1,3 +1,34 @@
-<div>
-    <h3>Prueba</h3>
-</div>
+<ion-card class="card" *ngIf="pedidosReales?.length === 0">
+  <ion-item color="warning">
+    <ion-label class="encabezado">No se han encontrado pedidos.</ion-label>
+  </ion-item>
+</ion-card>
+
+<ion-card class="card" *ngIf="pedidosReales?.length > 0">
+  <ion-card-header>
+      <ion-card-title color="tertiary">Pedido {{ numPedido + 1 }}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <p>Número de pedido: <ion-label>{{ pedido.num }}</ion-label></p>
+    <p>Nombre de la empresa: <ion-label>{{ pedido.target_company_name }}</ion-label></p>
+    <p>Fecha de entrega: <ion-label>{{ pedido.issue_date }}</ion-label></p>
+    <p>Fecha de creación: <ion-label>{{ pedido.created_at }}</ion-label></p>
+    <div *ngIf="pedido.delivery_notes === 0" class="icono">
+      <ion-icon name="radio-button-on" color="danger"></ion-icon>
+      <ion-label color="danger">Albarán</ion-label>
+    </div>
+    <div *ngIf="pedido.delivery_notes === 1" class="icono">
+      <ion-icon name="radio-button-on" color="success"></ion-icon>
+      <ion-label color="success">Albarán</ion-label>
+    </div>
+    <div *ngIf="pedido.invoices === 0" class="icono">
+      <ion-icon name="radio-button-on" color="danger"></ion-icon>
+      <ion-label color="danger">Factura de pedido</ion-label>
+    </div>
+    <div *ngIf="pedido.invoices === 1" class="icono">
+      <ion-icon name="radio-button-on" color="success"></ion-icon>
+      <ion-label color="success">Factura de pedido</ion-label>
+    </div>
+  </ion-card-content>
+</ion-card>

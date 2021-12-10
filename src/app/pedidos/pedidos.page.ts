@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, AlertController, NavController } from '@ionic/angular';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -7,12 +8,19 @@ import { LoadingController, AlertController, NavController } from '@ionic/angula
   styleUrls: ['./pedidos.page.scss'],
 })
 export class PedidosPage implements OnInit {
+  pedidos: any;
+  pedido: any;
+  productos: any;
+  orders: any;
+  pedidosReales: any[] = [];
+  compas: any;
 
   constructor(private loadingCtrl: LoadingController,private alertCtrl: AlertController,
-    private navCtrl: NavController) { }
+    private navCtrl: NavController, private usersService: UsersService) { }
 
   ngOnInit() {
     console.log('Pestaña de mostrar pedidos.');
+    this.obtenerPedidos();
   }
 
   onLogout() {
@@ -50,5 +58,28 @@ export class PedidosPage implements OnInit {
       ]
     });
     await logout.present();
+  }
+
+  obtenerPedidos() {
+    this.usersService.obtenerProductos()
+    .then(productos => {
+        this.productos = productos;
+        this.productos = this.productos.data;
+
+        this.usersService.obtenerPedidosCompaniaUsuario()
+        .then(data => {
+          this.pedidos = data;
+          this.pedidos = this.pedidos.data;
+          this.orders = this.pedidos;
+
+          console.log('Pedidos del usuario de la compañía mostrados:');
+          for (let j = 0; j < this.orders?.length; j++) {
+            if (this.orders[j].target_company_name === localStorage.getItem('name_comp')) {
+              console.log(this.pedidosReales);
+              this.pedidosReales.push(this.orders[j]);
+            }
+          }
+        });
+    });
   }
 }
