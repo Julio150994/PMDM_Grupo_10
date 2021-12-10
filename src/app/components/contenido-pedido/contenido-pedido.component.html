@@ -1,14 +1,7 @@
-<ion-card class="card" *ngIf="pedidosReales?.length === 0">
-  <ion-item color="warning">
-    <ion-label class="encabezado">No se han encontrado pedidos.</ion-label>
-  </ion-item>
-</ion-card>
-
-<ion-card class="card" *ngIf="pedidosReales?.length > 0">
+<ion-card class="card">
   <ion-card-header>
       <ion-card-title color="tertiary">Pedido de usuario número {{ numPedido + 1 }}</ion-card-title>
   </ion-card-header>
-
   <ion-card-content>
     <p>Número de pedido: <ion-label>{{ pedido.num }}</ion-label></p>
     <p>Nombre de la empresa: <ion-label>{{ pedido.target_company_name }}</ion-label></p>
