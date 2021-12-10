@@ -14,7 +14,7 @@ export class ListaPedidosComponent implements OnInit {
   @Input() productos: any;
   @Input() orders: any;
   @Input() pedidosReales: any[] = [];
-
+  @Input() numPedido: number;
 
   constructor(private navCtrl: NavController, private usersService: UsersService) { }
 

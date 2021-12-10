@@ -12,6 +12,7 @@ export class ContenidoPedidoComponent implements OnInit {
   @Input() productos: any;
   @Input() orders: any;
   @Input() pedidosReales: any[] = [];
+  @Input() numPedido: number;
 
   constructor() { }
 
