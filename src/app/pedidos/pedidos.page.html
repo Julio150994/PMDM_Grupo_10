@@ -11,10 +11,9 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-    <div *ngFor="let pedido of pedidosReales; let numPedido = index">
-      
+    <div *ngFor="let pedido of pedidosReales;">
       <app-lista-pedidos [pedidos]="pedidos" [pedido] = "pedido" [productos]="productos"
-        [orders]="orders" [pedidosReales]="pedidosReales" [numPedido] = "numPedido"
+        [orders]="orders" [pedidosReales]="pedidosReales"
         titulo="Listar pedidos"></app-lista-pedidos>
     </div>
 </ion-content>
