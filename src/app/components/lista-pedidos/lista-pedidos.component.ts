@@ -38,7 +38,7 @@ export class ListaPedidosComponent implements OnInit {
 
   cargaPedidos(eventoPedido) {
     setTimeout(() => {
-      this.obtenerPedidos();
+      this,this.pedidosReales
       eventoPedido.target.complete();
       return;
     }, 1350);

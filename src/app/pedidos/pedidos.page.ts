@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { LoadingController, AlertController, NavController } from '@ionic/angular';
+import { Component,ViewChild, OnInit } from '@angular/core';
+import { IonInfiniteScroll,LoadingController, AlertController, NavController } from '@ionic/angular';
 import { UsersService } from '../services/users.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { UsersService } from '../services/users.service';
   styleUrls: ['./pedidos.page.scss'],
 })
 export class PedidosPage implements OnInit {
+  @ViewChild(IonInfiniteScroll, {static: true}) loadOrders: IonInfiniteScroll;
   pedidos: any;
   pedido: any;
   productos: any;
@@ -40,6 +41,14 @@ export class PedidosPage implements OnInit {
 
     this.navCtrl.navigateForward('/login-almagest');
     this.alertLogoutUser();
+  }
+
+  cargaPedidos(eventoPedido) {
+    setTimeout(() => {
+      this.pedidosReales;
+      eventoPedido.target.complete();
+      return;
+    }, 1350);
   }
 
   async alertLogoutUser() {
