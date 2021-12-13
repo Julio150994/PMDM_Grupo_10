@@ -8,3 +8,8 @@
     text-align: center;
     line-height:1.8;
 }
+ion-header {
+    &.header-md:after {
+      background: none;
+    }
+  }

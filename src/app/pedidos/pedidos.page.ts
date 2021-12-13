@@ -38,7 +38,6 @@ export class PedidosPage implements OnInit {
           }
           else{
             document.getElementById("enca").style.display="none";
-            document.getElementById("enca").style.visibility="hidden";
 
           }
         });
