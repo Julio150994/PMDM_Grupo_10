@@ -36,6 +36,11 @@ export class PedidosPage implements OnInit {
             console.log(this.pedidosReales.length);
             document.getElementById("enca").innerHTML="No se han encontrado pedidos";
           }
+          else{
+            document.getElementById("enca").style.display="none";
+            document.getElementById("enca").style.visibility="hidden";
+
+          }
         });
     console.log('Pestaña de mostrar pedidos.');
   }
