@@ -22,25 +22,27 @@ export class PedidosPage implements OnInit {
   ngOnInit() {
     console.log(this.pedidosReales);
     this.usersService.obtenerPedidosCompaniaUsuario()
-        .then(data => {
-          this.pedidos = data;
-          this.pedidos = this.pedidos.data;
-          this.orders = this.pedidos;
+    .then(data => {
+      this.pedidos = data;
+      this.pedidos = this.pedidos.data;
+      this.orders = this.pedidos;
 
-          for (let j = 0; j < this.orders?.length; j++) {
-            if (this.orders[j].target_company_name === localStorage.getItem('name_comp')) {
-              this.pedidosReales.push(this.orders[j]);
-            }
-          }
-          if(this.pedidosReales.length === 0) {
-            console.log(this.pedidosReales.length);
-            document.getElementById("enca").innerHTML="No se han encontrado pedidos";
-          }
-          else{
-            document.getElementById("enca").style.display="none";
+      for (let j = 0; j < this.orders?.length; j++) {
+        if (this.orders[j].target_company_name === localStorage.getItem('name_comp')) {
+          this.pedidosReales.push(this.orders[j]);
+          console.log(this.pedidosReales);
+        }
+      }
 
-          }
-        });
+      if(this.pedidosReales.length === 0) {
+        document.getElementById("enca").innerHTML="No se han encontrado pedidos";
+      }
+      else{
+        console.log(this.pedidosReales);
+        document.getElementById("enca").style.display="none";
+      }
+    });
+
     console.log('Pestaña de mostrar pedidos.');
   }
 

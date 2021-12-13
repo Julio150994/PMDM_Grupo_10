@@ -36,8 +36,4 @@ export class ListaPedidosComponent implements OnInit {
     });
   }
 
-  mostrarContenido() {
-    this.navCtrl.navigateForward('/pedido');// mostramos el contenido del pedido (1 ó N productos)
-  }
-
 }
