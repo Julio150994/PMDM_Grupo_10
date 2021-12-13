@@ -1,16 +1,4 @@
-<ion-card class="card" *ngIf="pedidosReales?.length === 0">
-  <ion-item color="warning">
-    <ion-label class="encabezado">No se han encontrado pedidos.</ion-label>
-  </ion-item>
-</ion-card>
-
 <app-contenido-pedido *ngFor="let pedido of pedidosReales; let numPedido = index"
     [pedidos]="pedidos" [pedido] = "pedido" [productos]="productos"
     [orders]="orders" [pedidosReales]="pedidosReales" [numPedido]="numPedido"
     titulo="Contenido de pedido"></app-contenido-pedido>
-
-<ion-infinite-scroll threshold="160px" (ionInfinite)="cargaPedidos($event)">
-  <ion-infinite-scroll-content loadingSpinner="crescent"
-    loadingText="Cargando pedidos...">
-  </ion-infinite-scroll-content>
-</ion-infinite-scroll>

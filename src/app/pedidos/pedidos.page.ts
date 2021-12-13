@@ -43,14 +43,6 @@ export class PedidosPage implements OnInit {
     this.alertLogoutUser();
   }
 
-  cargaPedidos(eventoPedido) {
-    setTimeout(() => {
-      this.pedidosReales;
-      eventoPedido.target.complete();
-      return;
-    }, 1350);
-  }
-
   async alertLogoutUser() {
     const logout = await this.alertCtrl.create({
       header: 'Logout',
@@ -82,13 +74,23 @@ export class PedidosPage implements OnInit {
           this.orders = this.pedidos;
 
           console.log('Pedidos del usuario de la compañía mostrados:');
+          console.log('Pedidos reales');
+          console.log(this.pedidosReales);
+          console.log('Pedidos reales');
           for (let j = 0; j < this.orders?.length; j++) {
             if (this.orders[j].target_company_name === localStorage.getItem('name_comp')) {
-              console.log(this.pedidosReales);
               this.pedidosReales.push(this.orders[j]);
+              console.log(this.pedidosReales);
             }
           }
         });
     });
+  }
+
+  cargaPedidos(eventoPedido) {
+    console.log('Cargando pedidos...');
+    setTimeout(() => {
+      eventoPedido.target.complete();
+    }, 1350);
   }
 }

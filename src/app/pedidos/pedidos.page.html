@@ -14,9 +14,10 @@
   <app-lista-pedidos [pedidos]="pedidos" [pedido] = "pedido" [productos]="productos"
     [orders]="orders" [pedidosReales]="pedidosReales" titulo="Listar pedidos">
   </app-lista-pedidos>
+
   <ion-infinite-scroll threshold="160px" (ionInfinite)="cargaPedidos($event)">
-  <ion-infinite-scroll-content loadingSpinner="crescent"
-    loadingText="Cargando pedidos...">
-  </ion-infinite-scroll-content>
-</ion-infinite-scroll>
+    <ion-infinite-scroll-content loadingSpinner="bubbles"
+      loadingText="Cargando pedidos...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

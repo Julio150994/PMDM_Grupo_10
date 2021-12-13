@@ -36,14 +36,6 @@ export class ListaPedidosComponent implements OnInit {
     });
   }
 
-  cargaPedidos(eventoPedido) {
-    setTimeout(() => {
-      this,this.pedidosReales
-      eventoPedido.target.complete();
-      return;
-    }, 1350);
-  }
-
   mostrarContenido() {
     this.navCtrl.navigateForward('/pedido');// mostramos el contenido del pedido (1 ó N productos)
   }
