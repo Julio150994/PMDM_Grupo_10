@@ -37,8 +37,7 @@ export class PedidosPage implements OnInit {
       if(this.pedidosReales.length === 0) {
         document.getElementById("enca").innerHTML="No se han encontrado pedidos";
       }
-      else{
-        console.log(this.pedidosReales);
+      else {
         document.getElementById("enca").style.display="none";
       }
     });
