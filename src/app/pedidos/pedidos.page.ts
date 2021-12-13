@@ -20,8 +20,24 @@ export class PedidosPage implements OnInit {
     private navCtrl: NavController, private usersService: UsersService) { }
 
   ngOnInit() {
+    console.log(this.pedidosReales);
+    this.usersService.obtenerPedidosCompaniaUsuario()
+        .then(data => {
+          this.pedidos = data;
+          this.pedidos = this.pedidos.data;
+          this.orders = this.pedidos;
+
+          for (let j = 0; j < this.orders?.length; j++) {
+            if (this.orders[j].target_company_name === localStorage.getItem('name_comp')) {
+              this.pedidosReales.push(this.orders[j]);
+            }
+          }
+          if(this.pedidosReales.length === 0) {
+            console.log(this.pedidosReales.length);
+            document.getElementById("enca").innerHTML="No se han encontrado pedidos";
+          }
+        });
     console.log('Pestaña de mostrar pedidos.');
-    this.obtenerPedidos();
   }
 
   onLogout() {
@@ -66,24 +82,7 @@ export class PedidosPage implements OnInit {
     .then(productos => {
         this.productos = productos;
         this.productos = this.productos.data;
-
-        this.usersService.obtenerPedidosCompaniaUsuario()
-        .then(data => {
-          this.pedidos = data;
-          this.pedidos = this.pedidos.data;
-          this.orders = this.pedidos;
-
-          console.log('Pedidos del usuario de la compañía mostrados:');
-          console.log('Pedidos reales');
-          console.log(this.pedidosReales);
-          console.log('Pedidos reales');
-          for (let j = 0; j < this.orders?.length; j++) {
-            if (this.orders[j].target_company_name === localStorage.getItem('name_comp')) {
-              this.pedidosReales.push(this.orders[j]);
-              console.log(this.pedidosReales);
-            }
-          }
-        });
+        
     });
   }
 

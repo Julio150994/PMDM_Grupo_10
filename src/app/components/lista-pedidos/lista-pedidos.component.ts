@@ -13,7 +13,7 @@ export class ListaPedidosComponent implements OnInit {
   @Input() pedido: any;
   @Input() productos: any;
   @Input() orders: any;
-  @Input() pedidosReales: any[] = [];
+  @Input() pedidosReales: any[] =[];
 
   constructor(private navCtrl: NavController, private usersService: UsersService) { }
 
