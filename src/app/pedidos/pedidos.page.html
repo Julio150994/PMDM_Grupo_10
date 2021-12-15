@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary" no-border> 
+  <ion-toolbar color="primary" no-border>
     <ion-buttons slot="start">
       <ion-button (click)="onLogout()">
         <ion-icon name="log-out-outline"></ion-icon>
@@ -16,7 +16,7 @@
   <app-lista-pedidos [pedidos]="pedidos" [pedido] = "pedido" [productos]="productos"
     [orders]="orders" [pedidosReales]="pedidosReales" titulo="Listar pedidos">
   </app-lista-pedidos>
-  
+
   <ion-infinite-scroll threshold="160px" (ionInfinite)="cargaPedidos($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles"
       loadingText="Cargando pedidos...">
