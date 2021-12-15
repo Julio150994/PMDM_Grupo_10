@@ -93,9 +93,12 @@ export class AniadirProductoPage implements OnInit {
             
           }
 
+          console.log(this.formularioProducto.controls.price.value+(this.formularioProducto.controls.price.value*this.margen));
+
         if(this.productos?.length < 5 && (this.formularioProducto.controls.price.value+(this.formularioProducto.controls.price.value*this.margen) >= this.articulos[idArticulo].price_min &&
           this.formularioProducto.controls.price.value <= this.articulos[idArticulo].price_max)){
-          this.productoAniadido();
+          this.productoAniadido(this.formularioProducto.controls.price.value+(this.formularioProducto.controls.price.value*this.margen));
+      
         }
         else{
 
@@ -181,11 +184,11 @@ export class AniadirProductoPage implements OnInit {
       const { role, data } = await loading.onDidDismiss();
     }
 
-    async productoAniadido() {
+    async productoAniadido(margen) {
       const aniadido = await this.alertCtrl.create({
         header: 'Mensaje',
         cssClass: 'productCss',
-        message: '<strong>Producto añadido correctamente.</strong>',
+        message: '<strong>Producto añadido correctamente.Se sumará el margen de beneficio y el produto añadido asciende a '+margen+'€</strong>',
         buttons: [
           {
             text: 'Aceptar',
@@ -200,7 +203,7 @@ export class AniadirProductoPage implements OnInit {
               idFamilia = familyId.toString();
 
               this.usersService.addProduct(localStorage.getItem('token'), this.formularioProducto.controls.article.value,
-              localStorage.getItem('id_comp'),this.formularioProducto.controls.price.value,idFamilia)
+              localStorage.getItem('id_comp'),margen,idFamilia)
                 .then(async data => {
                   this.products = data;
                   this.products = this.products.data;
