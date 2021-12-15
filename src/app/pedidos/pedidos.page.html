@@ -12,12 +12,12 @@
   <h3 id="enca" no-border></h3>
 </ion-header>
 
-<ion-content class="ion-padding" >
+<ion-content class="ion-padding">
   <app-lista-pedidos [pedidos]="pedidos" [pedido] = "pedido" [productos]="productos"
     [orders]="orders" [pedidosReales]="pedidosReales" titulo="Listar pedidos">
   </app-lista-pedidos>
 
-  <ion-infinite-scroll threshold="160px" (ionInfinite)="cargaPedidos($event)">
+  <ion-infinite-scroll threshold="150px" id="loading" (ionInfinite)="cargarPedidos($event)" id="loading">
     <ion-infinite-scroll-content loadingSpinner="bubbles"
       loadingText="Cargando pedidos...">
     </ion-infinite-scroll-content>

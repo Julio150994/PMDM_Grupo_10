@@ -8,7 +8,7 @@ import { UsersService } from '../services/users.service';
   styleUrls: ['./pedidos.page.scss'],
 })
 export class PedidosPage implements OnInit {
-  @ViewChild(IonInfiniteScroll, {static: true}) loadOrders: IonInfiniteScroll;
+  @ViewChild(IonInfiniteScroll, {static: true}) cargaPedidos: IonInfiniteScroll;
   pedidos: any;
   pedido: any;
   productos: any;
@@ -17,6 +17,7 @@ export class PedidosPage implements OnInit {
   compas: any;
   contadorPedidos: number;
   eventoPedido: any;
+  dataPedido: any[] = Array(1);// para cargar un pedido a la vez
 
   constructor(private loadingCtrl: LoadingController,private alertCtrl: AlertController,
     private navCtrl: NavController, private usersService: UsersService) { }
@@ -37,10 +38,13 @@ export class PedidosPage implements OnInit {
       console.log(this.pedidosReales);
 
       if(this.pedidosReales.length === 0) {
-        document.getElementById("enca").innerHTML="No se han encontrado pedidos";
+        document.getElementById('enca').innerHTML='No se han encontrado pedidos';
+      }
+      else if (this.pedidos.length === 1) {
+        this.cargarPedidos(this.eventoPedido);
       }
       else {
-        document.getElementById("enca").style.display="none";
+        document.getElementById('enca').style.display='none';
       }
     });
 
@@ -92,13 +96,19 @@ export class PedidosPage implements OnInit {
     });
   }
 
-  cargaPedidos(eventoPedido) {
+  cargarPedidos(eventoPedido) {
     console.log('Cargando pedidos...');
+
     setTimeout(() => {
-      eventoPedido.target.complete();
-      if (this.pedidosReales.length === 1) {
-        eventoPedido.disabled = true;
+      if (this.dataPedido.length > this.pedidosReales.length) {
+        eventoPedido.target.complete();
+        this.cargaPedidos.disabled = true;
+        return;
       }
+
+      const pedido = Array(1);
+      this.dataPedido.push(...pedido);
+      eventoPedido.target.complete();
     }, 1350);
   }
 }
