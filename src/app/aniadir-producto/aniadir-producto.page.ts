@@ -96,7 +96,7 @@ export class AniadirProductoPage implements OnInit {
           console.log(this.formularioProducto.controls.price.value+(this.formularioProducto.controls.price.value*this.margen));
 
         if(this.productos?.length < 5 && (this.formularioProducto.controls.price.value+(this.formularioProducto.controls.price.value*this.margen) >= this.articulos[idArticulo].price_min &&
-          this.formularioProducto.controls.price.value <= this.articulos[idArticulo].price_max)){
+          this.formularioProducto.controls.price.value+(this.formularioProducto.controls.price.value*this.margen) <= this.articulos[idArticulo].price_max)){
           this.productoAniadido(this.formularioProducto.controls.price.value+(this.formularioProducto.controls.price.value*this.margen));
       
         }
@@ -106,6 +106,9 @@ export class AniadirProductoPage implements OnInit {
             this.alertPrecioMinimo(this.articulos[idArticulo].price_min);
           }
           else if (this.formularioProducto.controls.price.value > this.articulos[idArticulo].price_max) {
+            this.alertPrecioMaximo(this.articulos[idArticulo].price_max);
+          }
+          else if(this.formularioProducto.controls.price.value+(this.formularioProducto.controls.price.value*this.margen)>this.articulos[idArticulo].price_max){
             this.alertPrecioMaximo(this.articulos[idArticulo].price_max);
           }
           else {
