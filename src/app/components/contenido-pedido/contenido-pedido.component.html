@@ -1,10 +1,10 @@
 <ion-card class="card">
   <ion-card-header>
-      <ion-card-title color="tertiary">Pedido de la compañía {{ numPedido + 1 }}</ion-card-title>
+      <ion-card-title color="tertiary">Pedido: {{ numPedido + 1 }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
     <p>Número de pedido: <ion-label>{{ pedido.num }}</ion-label></p>
-    <p>Nombre de la empresa: <ion-label>{{ pedido.target_company_name }}</ion-label></p>
+    <p>Nombre de la compañía: <ion-label>{{ pedido.target_company_name }}</ion-label></p>
     <p>Fecha de entrega: <ion-label>{{ pedido.issue_date }}</ion-label></p>
     <p>Fecha de creación: <ion-label>{{ pedido.created_at }}</ion-label></p>
     <div *ngIf="pedido.delivery_notes === 0" class="icono">
