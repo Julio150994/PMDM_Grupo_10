@@ -15,6 +15,8 @@ export class PedidosPage implements OnInit {
   orders: any;
   pedidosReales: any[] = [];
   compas: any;
+  contadorPedidos: number;
+  eventoPedido: any;
 
   constructor(private loadingCtrl: LoadingController,private alertCtrl: AlertController,
     private navCtrl: NavController, private usersService: UsersService) { }
@@ -30,9 +32,9 @@ export class PedidosPage implements OnInit {
       for (let j = 0; j < this.orders?.length; j++) {
         if (this.orders[j].target_company_name === localStorage.getItem('name_comp')) {
           this.pedidosReales.push(this.orders[j]);
-          console.log(this.pedidosReales);
         }
       }
+      console.log(this.pedidosReales);
 
       if(this.pedidosReales.length === 0) {
         document.getElementById("enca").innerHTML="No se han encontrado pedidos";
@@ -87,7 +89,6 @@ export class PedidosPage implements OnInit {
     .then(productos => {
         this.productos = productos;
         this.productos = this.productos.data;
-        
     });
   }
 
@@ -95,6 +96,9 @@ export class PedidosPage implements OnInit {
     console.log('Cargando pedidos...');
     setTimeout(() => {
       eventoPedido.target.complete();
+      if (this.pedidosReales.length === 1) {
+        eventoPedido.disabled = true;
+      }
     }, 1350);
   }
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-contenido-pedido',
@@ -14,11 +13,11 @@ export class ContenidoPedidoComponent implements OnInit {
   @Input() pedidosReales: any[] = [];
   @Input() numPedido: number;
 
-  constructor(private loadingCtrl: LoadingController) { }
+  constructor() { }
 
   ngOnInit() {
     console.log('Componente de contenido-pedido');
-    
+
   }
 
 }
