@@ -83,13 +83,4 @@ export class PedidosPage implements OnInit {
     });
     await logout.present();
   }
-
-  obtenerPedidos() {
-    this.usersService.obtenerProductos()
-    .then(productos => {
-        this.productos = productos;
-        this.productos = this.productos.data;
-    });
-  }
-  
 }
