@@ -40,15 +40,6 @@ export class ListaPedidosComponent implements OnInit {
   cargarPedidos(event) {
     console.log('hola');
     setTimeout(() => {
-        this.usersService.obtenerPedidosCompaniaUsuario()
-        .then(pedidos => {
-            this.pedidos = pedidos;
-            this.pedidos = this.pedidos.data;
-        });
-        for(let pedido of this.pedidos){
-          console.log(pedido);
-         this.pedidosReales.push(pedido);
-       }
       this.slice += 1;
       event.target.complete();
     }, 200);
