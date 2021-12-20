@@ -8,7 +8,7 @@ import { UsersService } from '../../services/users.service';
   styleUrls: ['./lista-pedidos.component.scss'],
 })
 export class ListaPedidosComponent implements OnInit {
-  @ViewChild(IonInfiniteScroll, {static: true}) loadOrders: IonInfiniteScroll;
+  @ViewChild(IonInfiniteScroll, {static: true}) infiniteScroll: IonInfiniteScroll;
   @Input() pedidos: any;
   @Input() pedido: any;
   @Input() productos: any;
@@ -38,11 +38,11 @@ export class ListaPedidosComponent implements OnInit {
 
   slice: number=2
   cargarPedidos(event) {
-    console.log('hola');
     setTimeout(() => {
       this.slice += 1;
       event.target.complete();
-    }, 200);
+      this.infiniteScroll.disabled = true;
+    }, 400);
     
   }
 
