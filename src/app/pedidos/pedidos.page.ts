@@ -83,5 +83,4 @@ export class PedidosPage implements OnInit {
     });
     await logout.present();
   }
-
 }

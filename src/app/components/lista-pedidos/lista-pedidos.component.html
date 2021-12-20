@@ -3,9 +3,9 @@
     [orders]="orders" [pedidosReales]="pedidosReales" [numPedido]="numPedido"
     titulo="Contenido de pedido">
 </app-contenido-pedido>
-<ion-infinite-scroll threshold="100px" 
-                      (ionInfinite)="cargarPedidos($event)">
+
+<ion-infinite-scroll threshold="100px" (ionInfinite)="cargarPedidos($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles"
       loadingText="Cargando pedidos...">
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+</ion-infinite-scroll>
