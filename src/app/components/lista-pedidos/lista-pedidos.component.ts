@@ -41,7 +41,9 @@ export class ListaPedidosComponent implements OnInit {
     setTimeout(() => {
       this.slice += 1;
       event.target.complete();
-      this.infiniteScroll.disabled = true;
+      if (this.pedidosReales.length == this.pedidosReales.length) {
+        event.target.disabled = true;
+      }
     }, 400);
     
   }
