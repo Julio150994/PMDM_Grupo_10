@@ -41,6 +41,7 @@ export class CatalogosPage implements OnInit {
     localStorage.removeItem('token');
     this.loadLogoutUser('Cerrando sesión...');
   }
+
   async formAniadirArticulo() {
     this.navCtrl.navigateForward('/aniadir-producto');
   }

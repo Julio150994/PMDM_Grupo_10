@@ -83,4 +83,8 @@ export class PedidosPage implements OnInit {
     });
     await logout.present();
   }
+
+  async formCrearPedido() {
+    this.navCtrl.navigateForward('/crear-pedido');
+  }
 }

@@ -90,7 +90,7 @@ export class AniadirProductoPage implements OnInit {
             if(this.familias[index].id==familyId) {
               this.margen=(this.familias[index].profit_margin/100).toFixed(2);
             }
-            
+
           }
 
           console.log(this.formularioProducto.controls.price.value+(this.formularioProducto.controls.price.value*this.margen));
@@ -98,7 +98,7 @@ export class AniadirProductoPage implements OnInit {
         if(this.productos?.length < 5 && (this.formularioProducto.controls.price.value+(this.formularioProducto.controls.price.value*this.margen) >= this.articulos[idArticulo].price_min &&
           this.formularioProducto.controls.price.value+(this.formularioProducto.controls.price.value*this.margen) <= this.articulos[idArticulo].price_max)){
           this.productoAniadido(this.formularioProducto.controls.price.value+(this.formularioProducto.controls.price.value*this.margen));
-      
+
         }
         else{
 

@@ -45,7 +45,6 @@ export class ListaPedidosComponent implements OnInit {
         event.target.disabled = true;
       }
     }, 400);
-    
-  }
 
+  }
 }
