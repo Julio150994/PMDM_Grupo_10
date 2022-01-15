@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment.prod';
 import { FormGroup } from '@angular/forms';
 import { PedidosService } from '../services/pedidos.service';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-crear-pedido',
@@ -13,14 +14,16 @@ export class CrearPedidoPage implements OnInit {
   orders: any;
   nombrePedido: '';
 
-  constructor(private pedidosService: PedidosService) { }
+  constructor(private pedidosService: PedidosService, private modalPedido: ModalController) { }
 
   ngOnInit() {
     console.log('Formulario de crear pedido.');
   }
 
-  aniadirPedido() {
-
+  cancelar() {
+    this.modalPedido.dismiss();
   }
+
+  aniadirPedido() {}
 
 }
