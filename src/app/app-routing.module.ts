@@ -54,6 +54,10 @@ const routes: Routes = [
     loadChildren: () => import('./aniadir-producto/aniadir-producto.module').then( m => m.AniadirProductoPageModule)
   },
   {
+    path: 'modal',
+    loadChildren: () => import('./modal/modal.module').then( m => m.ModalPageModule)
+  },
+  {
     path: 'crear-pedido',
     loadChildren: () => import('./crear-pedido/crear-pedido.module').then( m => m.CrearPedidoPageModule)
   },
@@ -61,9 +65,7 @@ const routes: Routes = [
     path: '**',
     redirectTo: '/login-almagest',
     pathMatch: 'full'
-  }
-
-
+  },
 ];
 @NgModule({
   imports: [

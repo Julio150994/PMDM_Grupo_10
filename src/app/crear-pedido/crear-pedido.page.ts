@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { environment } from '../../environments/environment.prod';
 import { PedidosService } from '../services/pedidos.service';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-crear-pedido',
@@ -12,8 +13,7 @@ export class CrearPedidoPage implements OnInit {
   url = environment.almagestUrl;
   nombrePedido: '';
   empresas:any;
-  constructor(private pedidosService: PedidosService,private loadingCtrl: LoadingController) { }
-  
+  constructor(private pedidosService: PedidosService,private loadingCtrl: LoadingController,private modalPedido: ModalController) { }
 
   ngOnInit() {
     this.pedidosService.obtenerCompanias();
@@ -31,8 +31,10 @@ export class CrearPedidoPage implements OnInit {
     const { role, data } = await loading.onDidDismiss();
   }
 
-  aniadirPedido() {
-
+  cancelar() {
+    this.modalPedido.dismiss();
   }
+
+  aniadirPedido() {}
 
 }

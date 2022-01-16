@@ -1,11 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/">
-        Cancelar
-      </ion-back-button>
-    </ion-buttons>
-    <ion-title>Formulario crear pedido</ion-title>
+    <ion-title class="text-center">Formulario crear pedido</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -25,9 +20,15 @@
     </ion-item>
   
   </ion-list>
-  <ion-button color="success" expand="full" type="submit">
+
+  <ion-button color="danger" expand="full" (click)="cancelar()" id="cancelarPedido">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+    Cancelar
+  </ion-button>
+
+  <ion-button color="success" expand="full" type="submit" id="btnAniadir">
     <ion-icon name="add-circle"></ion-icon>
-    Crear pedido
+    Añadir
   </ion-button>
 
   <!--<form [formGroup]="formularioPedido" (ngSubmit)="aniadirPedido()" method="post">

@@ -1,0 +1,16 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button (click)="cerrarModal()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <!-- Creación del modal -->
+    <ion-button expand="full" (click)="formPedidos()">
+      <ion-icon name="cart"></ion-icon>
+      Abrir formulario
+    </ion-button>
+</ion-content>
