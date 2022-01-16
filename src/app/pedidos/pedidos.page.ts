@@ -84,8 +84,7 @@ export class PedidosPage implements OnInit {
     await logout.present();
   }
 
-  getModal() {
-    this.navCtrl.navigateForward('/modal');
-    //this.navCtrl.navigateForward('/crear-pedido'); <---- enlace para el formulario de crear pedido
+  toFormPedidos() {
+    this.navCtrl.navigateForward('/crear-pedido');
   }
 }

@@ -17,7 +17,6 @@ export class ModalPage implements OnInit {
     console.log('Modal para los pedidos.');
   }
 
-  /** Acceder al formulario mediante modal */
   async formPedidos() {
     const pedido = await this.modalPedido.create({
         component: CrearPedidoPage,
@@ -34,7 +33,7 @@ export class ModalPage implements OnInit {
     console.log('Devolvemos el formulario de crear pedido.', data);
   }
 
-  cerrarModal() {
+  backToFormPedidos() {
     this.navCtrl.navigateForward('/usuarios/pedidos');
   }
 

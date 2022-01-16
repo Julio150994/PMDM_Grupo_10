@@ -1,19 +1,16 @@
 <ion-header [translucent]="true">
-  <!--<ion-buttons slot="start">
-    <ion-back-button (click)="cerrarModal()"></ion-back-button>
-  </ion-buttons>-->
   <ion-toolbar color="primary">
-    <ion-title>Crear pedido</ion-title>
+    <ion-title class="text-center">Crear pedido</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-    <ion-button expand="full" color="warning" (click)="cerrarModal()">
-      <ion-icon name="cart"></ion-icon>
+    <ion-button expand="full" color="warning" (click)="backToFormPedidos()">
+      <ion-icon name="arrow-back-circle"></ion-icon>
       Volver a Pedidos
     </ion-button>
 
-    <ion-button expand="full" (click)="formPedidos()">
+    <ion-button expand="full" color="tertiary" (click)="formPedidos()" id="btnForm">
       <ion-icon name="cart"></ion-icon>
       Abrir formulario
     </ion-button>

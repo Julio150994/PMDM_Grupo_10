@@ -32,9 +32,13 @@ export class CrearPedidoPage implements OnInit {
     const { role, data } = await loading.onDidDismiss();
   }
 
-  cancelarPedido() {
-    this.modalPedido.dismiss();
+  abrirModal() {
+    this.navCtrl.navigateForward('/modal');
   }
+
+  /*cancelarPedido() {
+    this.modalPedido.dismiss();
+  }*/
 
   aniadirPedido() {}
 
