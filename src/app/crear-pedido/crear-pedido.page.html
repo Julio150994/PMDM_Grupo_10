@@ -8,20 +8,21 @@
   <ion-list>
     <ion-list-header>
       <ion-label>
-        Selecciona empresa:
+        Selecciona una empresa:
       </ion-label>
     </ion-list-header>
-  
+    
     <ion-item>
       <ion-label>Empresa</ion-label>
-      <ion-select *ngFor="let empresa of empresas">
-        <ion-select-option value="empresa">{{empresa.name}}</ion-select-option>
+      <ion-select>
+        <ion-select-option *ngFor="let empresa of empresas" value="empresa">{{empresa.name}}</ion-select-option>
       </ion-select>
     </ion-item>
-  
+
   </ion-list>
 
-  <ion-button color="danger" expand="full" (click)="cancelar()" id="cancelarPedido">
+
+  <ion-button color="danger" expand="full" (click)="cancelarPedido()" id="cancelarPedido">
     <ion-icon name="arrow-back-outline"></ion-icon>
     Cancelar
   </ion-button>
