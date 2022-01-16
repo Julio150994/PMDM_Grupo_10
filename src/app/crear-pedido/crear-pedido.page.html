@@ -10,6 +10,21 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-list>
+    <ion-list-header>
+      <ion-label>
+        Selecciona empresa:
+      </ion-label>
+    </ion-list-header>
+  
+    <ion-item>
+      <ion-label>Empresa</ion-label>
+      <ion-select *ngFor="let empresa of empresas">
+        <ion-select-option value="empresa">{{empresa.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  
+  </ion-list>
   <ion-button color="success" expand="full" type="submit">
     <ion-icon name="add-circle"></ion-icon>
     Crear pedido
