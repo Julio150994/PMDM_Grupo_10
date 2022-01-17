@@ -13,7 +13,7 @@ import { PedidosService } from '../services/pedidos.service';
 export class ModalPage implements OnInit {
   url = environment.almagestUrl;
   productos:any
-  total: number;
+  idPproducto: number;
   constructor(private navCtrl: NavController, private loadingCtrl: LoadingController, private pedidosService: PedidosService, private modalPedido: ModalController) { }
 
   ngOnInit() {
@@ -51,14 +51,13 @@ export class ModalPage implements OnInit {
     console.log('Devolvemos el formulario de crear pedido.', data);
   }
 
-  public click(item){
-    item.cantidad++;
-    const mostrar: number = JSON.parse(localStorage.getItem('precio'))
-    this.total = item.cantidad * mostrar;
-    }
 
   backToFormPedidos() {
     this.navCtrl.navigateForward('/usuarios/pedidos');
+  }
+
+  select(idProducto) {
+   
   }
 
 }

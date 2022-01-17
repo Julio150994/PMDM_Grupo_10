@@ -9,10 +9,16 @@
       <ion-icon name="arrow-back-circle"></ion-icon>
       Volver a Pedidos
     </ion-button>
-    <ion-item>
+    <ion-list>
       <ion-label>Productos</ion-label>
-      <ion-select multiple="true">
-        <ion-select-option *ngFor="let producto of productos">{{producto.compamy_description}} </ion-select-option>
-      </ion-select>
-    </ion-item>
+      <ion-item *ngFor="let producto of productos">
+      <ion-label>
+       <h3>{{producto.compamy_description}}</h3>
+      </ion-label>
+      <ion-item>
+        <ion-button shape="round">-</ion-button> <ion-label>0</ion-label><ion-button shape="round" (click) = "select(producto.id)">+</ion-button>
+      </ion-item>
+  </ion-item>
+  
+  </ion-list>
 </ion-content>
