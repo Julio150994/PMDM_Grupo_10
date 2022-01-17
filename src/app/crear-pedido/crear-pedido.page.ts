@@ -17,7 +17,13 @@ export class CrearPedidoPage implements OnInit {
       private modalPedido: ModalController) { }
 
   ngOnInit() {
-    this.pedidosService.obtenerCompanias();
+    this.pedidosService.obtenerCompanias()
+      .then(data => {
+        this.empresas = data;
+        this.empresas = this.empresas.data;
+      }
+    );
+
     this.presentLoading();
     console.log('Formulario de crear pedido.');
     this.empresas=this.pedidosService.empresas;
@@ -32,13 +38,15 @@ export class CrearPedidoPage implements OnInit {
     const { role, data } = await loading.onDidDismiss();
   }
 
-  abrirModal() {
+  abrirModal(id) {
+    console.log('Empresa: '+id);
     this.navCtrl.navigateForward('/modal');
   }
 
-  /*cancelarPedido() {
-    this.modalPedido.dismiss();
-  }*/
+  cancelarPedido() {
+    this.navCtrl.navigateForward('/usuarios/pedidos');
+    //this.modalPedido.dismiss();
+  }
 
   aniadirPedido() {}
 
