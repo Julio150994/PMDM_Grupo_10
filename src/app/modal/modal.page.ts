@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController, NavController,LoadingController } from '@ionic/angular';
 import { CrearPedidoPage } from '../crear-pedido/crear-pedido.page';
 import { environment } from '../../environments/environment.prod';
+import { PedidosService } from '../services/pedidos.service';
+
 
 @Component({
   selector: 'app-modal',
@@ -10,11 +12,27 @@ import { environment } from '../../environments/environment.prod';
 })
 export class ModalPage implements OnInit {
   url = environment.almagestUrl;
-
-  constructor(private navCtrl: NavController, private modalPedido: ModalController) { }
+  productos:any
+  total: number;
+  constructor(private navCtrl: NavController, private loadingCtrl: LoadingController, private pedidosService: PedidosService, private modalPedido: ModalController) { }
 
   ngOnInit() {
     console.log('Modal para los pedidos.');
+    this.pedidosService.obtenerCatalogo()
+      .then(data => {
+        this.productos = data;
+        this.productos = this.productos.data;
+      }
+    );
+    this.presentLoading();
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingCtrl.create({
+      duration: 1
+    });
+    await loading.present();
+    const { role, data } = await loading.onDidDismiss();
   }
 
   async formPedidos() {
@@ -32,6 +50,12 @@ export class ModalPage implements OnInit {
     const { data } = await pedido.onDidDismiss();
     console.log('Devolvemos el formulario de crear pedido.', data);
   }
+
+  public click(item){
+    item.cantidad++;
+    const mostrar: number = JSON.parse(localStorage.getItem('precio'))
+    this.total = item.cantidad * mostrar;
+    }
 
   backToFormPedidos() {
     this.navCtrl.navigateForward('/usuarios/pedidos');

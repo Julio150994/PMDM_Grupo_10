@@ -14,8 +14,8 @@
 
     <ion-item>
       <ion-label>Empresa</ion-label>
-      <ion-select (ionChange)="abrirModal($event)">
-        <ion-select-option *ngFor="let empresa of empresas" value="{{ empresa.name }}" (ionSelect)="abrirModal(empresa)">{{empresa.name}}</ion-select-option>
+      <ion-select (ionChange)="abrirModal()">
+        <ion-select-option *ngFor="let empresa of empresas" value="{{ empresa.name }}" (ionSelect)="abrirModal()">{{empresa.name}}</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>

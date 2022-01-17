@@ -26,8 +26,6 @@ export class CrearPedidoPage implements OnInit {
 
     this.presentLoading();
     console.log('Formulario de crear pedido.');
-    this.empresas=this.pedidosService.empresas;
-    console.log(this.empresas);
   }
 
   async presentLoading() {
@@ -38,8 +36,7 @@ export class CrearPedidoPage implements OnInit {
     const { role, data } = await loading.onDidDismiss();
   }
 
-  abrirModal(id) {
-    console.log('Empresa: '+id);
+  abrirModal() {
     this.navCtrl.navigateForward('/modal');
   }
 

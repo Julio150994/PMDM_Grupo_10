@@ -9,9 +9,10 @@
       <ion-icon name="arrow-back-circle"></ion-icon>
       Volver a Pedidos
     </ion-button>
-
-    <ion-button expand="full" color="tertiary" (click)="formPedidos()" id="btnForm">
-      <ion-icon name="cart"></ion-icon>
-      Abrir formulario
-    </ion-button>
+    <ion-item>
+      <ion-label>Productos</ion-label>
+      <ion-select multiple="true">
+        <ion-select-option *ngFor="let producto of productos">{{producto.compamy_description}} </ion-select-option>
+      </ion-select>
+    </ion-item>
 </ion-content>
