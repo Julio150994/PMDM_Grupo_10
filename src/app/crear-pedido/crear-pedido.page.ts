@@ -14,6 +14,7 @@ export class CrearPedidoPage implements OnInit {
   url = environment.almagestUrl;
   nombrePedido: '';
   id: number;
+  idCompania: number;
   empresas: any;
   empresaLogueada: any;
   empresaLog: number;
@@ -36,26 +37,19 @@ export class CrearPedidoPage implements OnInit {
       }
     );
 
-    console.log('Empresa logueada');
-    console.log(localStorage.getItem('id_comp'));
-    console.log('Empresa logueada');
     this.empresaLogueada = localStorage.getItem('id_comp');
     this.empresaLog = this.empresaLogueada;
-    console.log('Prueba: '+this.empresaLog);
+    console.log('Empresa logueada: '+this.empresaLog);
 
-    
-
-    for(let i=0;i<this.empresas?.length;i++){
+    for(let i = 0;i < this.empresas?.length; i++) {
       console.log(this.empresas[i].id);
       if(this.empresas[i].id != this.empresaLog){
-        
         this.empresasReales.push(this.empresas[i]);
       }
     }
+
     this.presentLoading();
-    
     console.log('Formulario de crear pedido.');
-    
   }
 
   async presentLoading() {
@@ -66,7 +60,18 @@ export class CrearPedidoPage implements OnInit {
     const { role, data } = await loading.onDidDismiss();
   }
 
-  abrirModal() {
+  abrirModal(idCompania) {
+    idCompania = localStorage.getItem('id_comp');
+    this.empresaLog = idCompania;
+
+    for(let i = 0; i < this.empresas?.length; i++) {
+      if(this.empresas[i].id != this.empresaLog) {
+        //console.log('Empresa seleccionada: '+this.empresas[i].id);
+        this.empresasReales.push(this.empresas[i]);
+        console.log('Empresa seleccionada: '+this.empresasReales);
+      }
+    }
+
     this.navCtrl.navigateForward('/modal');
   }
 

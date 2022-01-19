@@ -14,8 +14,10 @@
 
     <ion-item>
       <ion-label>Empresa</ion-label>
-      <ion-select (ionChange)="abrirModal()">
-        <ion-select-option *ngFor="let empresa of empresasReales | ordenar:'id'" value="{{ empresa.name }}" (ionSelect)="abrirModal()">{{empresa.name}}</ion-select-option>
+      <ion-select (ionChange)="abrirModal($event)">
+        <ion-select-option *ngFor="let empresa of empresasReales | ordenar:'id'" value="{{ empresa.id }}">
+          {{empresa.name}}
+        </ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>
@@ -24,11 +26,4 @@
     <ion-icon name="arrow-back-outline"></ion-icon>
     Cancelar
   </ion-button>
-
-  <ion-button color="success" expand="full" type="submit" id="btnAniadir">
-    <ion-icon name="add-circle"></ion-icon>
-    Añadir
-  </ion-button>
-
-  <!--<form [formGroup]="formularioPedido" (ngSubmit)="aniadirPedido()" method="post"></form>-->
 </ion-content>
