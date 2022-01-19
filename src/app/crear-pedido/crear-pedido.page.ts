@@ -56,7 +56,7 @@ export class CrearPedidoPage implements OnInit {
 
   async presentLoading() {
     const loading = await this.loadingCtrl.create({
-      duration: 1
+      duration: 0.5
     });
     await loading.present();
     const { role, data } = await loading.onDidDismiss();
@@ -67,9 +67,11 @@ export class CrearPedidoPage implements OnInit {
     this.verSeleccion = this.opcionSeleccionado;
   }
 
-  abrirModal(idCompania) {
-    
-    console.log(this.opcionSeleccionado);
+  
+
+  async abrirModal() {
+    localStorage.setItem('empresaPedido',this.opcionSeleccionado);
+    console.log('Empresa pedido: '+localStorage.getItem('empresaPedido'));
     this.navCtrl.navigateForward('/modal');
   }
 

@@ -3,7 +3,7 @@ import { ModalController, NavController,LoadingController } from '@ionic/angular
 import { CrearPedidoPage } from '../crear-pedido/crear-pedido.page';
 import { environment } from '../../environments/environment.prod';
 import { PedidosService } from '../services/pedidos.service';
-import { UsersService } from '../services/users.service';
+
 
 
 @Component({
@@ -14,32 +14,77 @@ import { UsersService } from '../services/users.service';
 export class ModalPage implements OnInit {
   url = environment.almagestUrl;
   productos: any;
-  articulos: any;
   contadorArticulos: number;
   contArticulo = 0;
+  catalogoEmpresaEmisora: any;
+  catalogoEmpresaReceptora: any;
+  catalogoPedido: any[]=[];
 
   constructor(private navCtrl: NavController, private loadingCtrl: LoadingController,
     private pedidosService: PedidosService, private modalPedido: ModalController) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+
     console.log('Modal para los pedidos.');
 
+    this.catalogo1();
+
+    this.catalogo2();
+
+    console.log('Catalogo empresa emmisora');
+    
+    await this.presentLoading();
+
+    console.log(this.catalogoEmpresaEmisora);
+
+    console.log('Catalogo empresa emmisora');
+
+    console.log('Catalogo empresa receptora');
+
+    await this.presentLoading();
+
+    console.log(this.catalogoEmpresaReceptora);
+
+    console.log('Catalogo empresa receptora');
+
+    for(let i = 0; i < this.catalogoEmpresaEmisora?.length; i++){
+      for(let j = 0; j < this.catalogoEmpresaReceptora?.length; j++){
+        if(this.catalogoEmpresaEmisora[i].article_id==this.catalogoEmpresaReceptora[j].article_id){
+          this.catalogoPedido.push(this.catalogoEmpresaEmisora[i]);
+        }
+      }
+    }
+    
+    console.log(this.catalogoPedido);
+    
+  }
+
+  async catalogo1() {
+    const loading = await this.loadingCtrl.create({
+      duration: 1000
+    });
     this.pedidosService.obtenerCatalogo()
       .then(data => {
-        this.productos = data;
-        this.productos = this.productos.data;
+        this.catalogoEmpresaEmisora = data;
+        this.catalogoEmpresaEmisora = this.catalogoEmpresaEmisora.data;
       }
     );
+    await loading.present();
+    const { role, data } = await loading.onDidDismiss();
+  }
 
-    this.pedidosService.obtenerArticulosUsuario()
-    .then(data => {
-      console.log(data);
-      this.articulos = data;
-      this.articulos = this.articulos.data;
+  async catalogo2() {
+    const loading = await this.loadingCtrl.create({
+      duration: 1000
     });
-
-    this.presentLoading();
-    
+    this.pedidosService.obtenerCatalogo2()
+      .then(data => {
+        this.catalogoEmpresaReceptora = data;
+        this.catalogoEmpresaReceptora = this.catalogoEmpresaReceptora.data;
+      }
+    );
+    await loading.present();
+    const { role, data } = await loading.onDidDismiss();
   }
 
   async presentLoading() {

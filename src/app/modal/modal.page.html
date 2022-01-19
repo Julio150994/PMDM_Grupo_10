@@ -13,11 +13,11 @@
     <ion-list id="listaArticulos">
       <ion-label color="primary" id="titulo"><h1>Lista de Artículos</h1></ion-label>
       <!-- *ngFor="let producto of productos" -->
-      <ion-item *ngFor="let articulo of articulos">
+      <ion-item *ngFor="let articulo of catalogoPedido">
       <ion-checkbox color="success" checked="false" (click)="selectProductos(articulo.id)"></ion-checkbox>
       <ion-label>
         <!-- producto.compamy_description -->
-       <h3 id="compamy">{{articulo.description}}</h3>
+       <h3 id="compamy">{{articulo.compamy_name}}</h3>
       </ion-label>
       <ion-item>
 
