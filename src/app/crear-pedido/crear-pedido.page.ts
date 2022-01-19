@@ -15,17 +15,36 @@ export class CrearPedidoPage implements OnInit {
   nombrePedido: '';
   id: number;
   empresas: any;
+  empresaLogueada: any;
+  empresaLog: number;
+  empresasReales: any;
 
   constructor(private navCtrl: NavController, private pedidosService: PedidosService, private loadingCtrl: LoadingController,
       private modalPedido: ModalController, private usersService: UsersService) { }
 
   ngOnInit() {
+
     this.pedidosService.obtenerCompanias()
       .then(data => {
         this.empresas = data;
         this.empresas = this.empresas.data;
+
+        for (let i = 0; i < this.empresas?.length; i++) {
+          if (this.empresas[i].id != this.empresaLog) {
+            this.empresasReales = this.empresas[i];
+            //this.empresasReales.push(this.empresas[i]);
+            console.log('T: '+this.empresas[i].id);
+          }
+        }
       }
     );
+
+    console.log('Empresa logueada');
+    console.log(localStorage.getItem('id_comp'));
+    console.log('Empresa logueada');
+    this.empresaLogueada = localStorage.getItem('id_comp');
+    this.empresaLog = this.empresaLogueada;
+    console.log('Prueba: '+this.empresaLog);
 
     this.presentLoading();
     console.log('Formulario de crear pedido.');

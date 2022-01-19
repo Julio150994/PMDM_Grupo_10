@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CrearPedidoPageRoutingModule } from './crear-pedido-routing.module';
 
 import { CrearPedidoPage } from './crear-pedido.page';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { CrearPedidoPage } from './crear-pedido.page';
     FormsModule,
     IonicModule,
     CrearPedidoPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipesModule
   ],
   declarations: [CrearPedidoPage]
 })

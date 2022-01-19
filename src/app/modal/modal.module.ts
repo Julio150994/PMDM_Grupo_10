@@ -18,7 +18,7 @@ import { CrearPedidoPageModule } from '../crear-pedido/crear-pedido.module';
     FormsModule,
     IonicModule,
     ModalPageRoutingModule,
-    CrearPedidoPageModule
+    CrearPedidoPageModule,
   ],
   declarations: [ModalPage]
 })
