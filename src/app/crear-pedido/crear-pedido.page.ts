@@ -3,6 +3,7 @@ import { LoadingController, NavController } from '@ionic/angular';
 import { environment } from '../../environments/environment.prod';
 import { PedidosService } from '../services/pedidos.service';
 import { ModalController } from '@ionic/angular';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-crear-pedido',
@@ -12,9 +13,11 @@ import { ModalController } from '@ionic/angular';
 export class CrearPedidoPage implements OnInit {
   url = environment.almagestUrl;
   nombrePedido: '';
+  id: number;
   empresas: any;
+
   constructor(private navCtrl: NavController, private pedidosService: PedidosService, private loadingCtrl: LoadingController,
-      private modalPedido: ModalController) { }
+      private modalPedido: ModalController, private usersService: UsersService) { }
 
   ngOnInit() {
     this.pedidosService.obtenerCompanias()
@@ -42,7 +45,6 @@ export class CrearPedidoPage implements OnInit {
 
   cancelarPedido() {
     this.navCtrl.navigateForward('/usuarios/pedidos');
-    //this.modalPedido.dismiss();
   }
 
   aniadirPedido() {}

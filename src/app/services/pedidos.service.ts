@@ -10,6 +10,8 @@ export class PedidosService {
   url = environment.almagestUrl;
   empresas: any;
   productos: any;
+  articulos: any;
+  name_comp: any;
 
   constructor(private httpUser: HttpClient,
     private loadingUserCtrl: LoadingController) { }
@@ -37,6 +39,24 @@ export class PedidosService {
         res(data);
       }, error => {
         console.log('Error al mostrar los productos '+error);
+      });
+    });
+  }
+
+  // get<any>
+
+  obtenerArticulosUsuario() {
+    return new Promise(res => {
+      // localStorage.getItem('id_comp')
+
+      this.httpUser.get<any>(this.url+'/articles',{
+        headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
+      }).subscribe(data => {
+        this.articulos = data;
+        this.articulos = this.articulos.data;
+        res(data);
+      }, error => {
+        console.log('Error al mostrar los artículos de la compañía '+error);
       });
     });
   }

@@ -157,7 +157,7 @@ export class LoginAlmagestPage implements OnInit {
     await loadingUser.present();
 
     const { role, data } = await loadingUser.onDidDismiss();
-    
+
     this.usuarioLogueado();// después de cargar el usuario
   }
 
