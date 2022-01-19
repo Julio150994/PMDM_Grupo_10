@@ -19,6 +19,8 @@ export class CrearPedidoPage implements OnInit {
   empresaLogueada: any;
   empresaLog: number;
   empresasReales: any[]=[];
+  opcionSeleccionado: string  = '0'; // Iniciamos
+  verSeleccion: string        = '';
 
   constructor(private navCtrl: NavController, private pedidosService: PedidosService, private loadingCtrl: LoadingController,
       private modalPedido: ModalController, private usersService: UsersService) { }
@@ -60,18 +62,14 @@ export class CrearPedidoPage implements OnInit {
     const { role, data } = await loading.onDidDismiss();
   }
 
+  capturar() {
+
+    this.verSeleccion = this.opcionSeleccionado;
+  }
+
   abrirModal(idCompania) {
-    idCompania = localStorage.getItem('id_comp');
-    this.empresaLog = idCompania;
-
-    for(let i = 0; i < this.empresas?.length; i++) {
-      if(this.empresas[i].id != this.empresaLog) {
-        //console.log('Empresa seleccionada: '+this.empresas[i].id);
-        this.empresasReales.push(this.empresas[i]);
-        console.log('Empresa seleccionada: '+this.empresasReales);
-      }
-    }
-
+    
+    console.log(this.opcionSeleccionado);
     this.navCtrl.navigateForward('/modal');
   }
 

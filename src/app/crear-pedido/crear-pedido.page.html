@@ -14,7 +14,7 @@
 
     <ion-item>
       <ion-label>Empresa</ion-label>
-      <ion-select (ionChange)="abrirModal($event)">
+      <ion-select (ionChange)="abrirModal($event)" [(ngModel)]="opcionSeleccionado" (change)="capturar()">
         <ion-select-option *ngFor="let empresa of empresasReales | ordenar:'id'" value="{{ empresa.id }}">
           {{empresa.name}}
         </ion-select-option>
