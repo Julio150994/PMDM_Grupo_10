@@ -39,6 +39,7 @@ export class ModalPage implements OnInit {
     });
 
     this.presentLoading();
+    
   }
 
   async presentLoading() {

@@ -17,13 +17,12 @@ export class CrearPedidoPage implements OnInit {
   empresas: any;
   empresaLogueada: any;
   empresaLog: number;
-  empresasReales: any;
+  empresasReales: any[]=[];
 
   constructor(private navCtrl: NavController, private pedidosService: PedidosService, private loadingCtrl: LoadingController,
       private modalPedido: ModalController, private usersService: UsersService) { }
 
   ngOnInit() {
-
     this.pedidosService.obtenerCompanias()
       .then(data => {
         this.empresas = data;
@@ -31,9 +30,7 @@ export class CrearPedidoPage implements OnInit {
 
         for (let i = 0; i < this.empresas?.length; i++) {
           if (this.empresas[i].id != this.empresaLog) {
-            this.empresasReales = this.empresas[i];
-            //this.empresasReales.push(this.empresas[i]);
-            console.log('T: '+this.empresas[i].id);
+            this.empresasReales.push(this.empresas[i]);
           }
         }
       }
@@ -46,8 +43,19 @@ export class CrearPedidoPage implements OnInit {
     this.empresaLog = this.empresaLogueada;
     console.log('Prueba: '+this.empresaLog);
 
+    
+
+    for(let i=0;i<this.empresas?.length;i++){
+      console.log(this.empresas[i].id);
+      if(this.empresas[i].id != this.empresaLog){
+        
+        this.empresasReales.push(this.empresas[i]);
+      }
+    }
     this.presentLoading();
+    
     console.log('Formulario de crear pedido.');
+    
   }
 
   async presentLoading() {
