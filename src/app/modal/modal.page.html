@@ -12,17 +12,14 @@
 
     <ion-list id="listaArticulos">
       <ion-label color="primary" id="titulo"><h1>Lista de Artículos</h1></ion-label>
-      <!-- *ngFor="let producto of productos" -->
-      <ion-item *ngFor="let articulo of catalogoPedido">
-      <ion-checkbox color="success" checked="false" (click)="selectProductos(articulo.id)"></ion-checkbox>
-      <ion-label>
-        <!-- producto.compamy_description -->
-       <h3 id="compamy">{{articulo.compamy_name}}</h3>
-      </ion-label>
-      <ion-item>
-
-        <ion-button shape="round" (click)="restarProductos(contArticulo)">-</ion-button> <ion-label>{{ contArticulo }}</ion-label><ion-button shape="round" (click) = "sumarProductos(contArticulo)">+</ion-button>
-      </ion-item>
+      <ion-item *ngFor="let cantidad of cantidades;let i = index">
+        <ion-checkbox color="success" checked="false" (click)="selectProductos(cantidad.id)"></ion-checkbox>
+          <ion-label>
+          <h3 id="compamy">{{cantidad[i].compamy_name}}</h3>
+          </ion-label>
+          <ion-item>
+            <ion-button shape="round" (click)="restarProductos(cantidad)">-</ion-button> <ion-label>{{cantidad[0][i]}}</ion-label><ion-button shape="round" (click) = "sumarProductos(cantidad)">+</ion-button>
+          </ion-item>
       </ion-item>
   </ion-list>
 

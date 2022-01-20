@@ -21,7 +21,6 @@ export class CrearPedidoPage implements OnInit {
   empresasReales: any[]=[];
   opcionSeleccionado: string  = '0'; // Iniciamos
   verSeleccion: string        = '';
-
   constructor(private navCtrl: NavController, private pedidosService: PedidosService, private loadingCtrl: LoadingController,
       private modalPedido: ModalController, private usersService: UsersService) { }
 

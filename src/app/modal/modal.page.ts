@@ -19,6 +19,7 @@ export class ModalPage implements OnInit {
   catalogoEmpresaEmisora: any;
   catalogoEmpresaReceptora: any;
   catalogoPedido: any[]=[];
+  cantidades: any[]=[];
 
   constructor(private navCtrl: NavController, private loadingCtrl: LoadingController,
     private pedidosService: PedidosService, private modalPedido: ModalController) { }
@@ -56,12 +57,21 @@ export class ModalPage implements OnInit {
     }
     
     console.log(this.catalogoPedido);
+
+    for(let i = 0; i < this.catalogoPedido?.length; i++){
+      this.cantidades.push([this.catalogoPedido[i],0]);
+    }
+
+    console.log(this.cantidades[0][0].compamy_name);
+    console.log(this.cantidades[0][1]);
+    console.log(this.cantidades[1][0].compamy_name);
+    console.log(this.cantidades[1][1]);
     
   }
 
   async catalogo1() {
     const loading = await this.loadingCtrl.create({
-      duration: 1000
+      duration: 10
     });
     this.pedidosService.obtenerCatalogo()
       .then(data => {
@@ -75,7 +85,7 @@ export class ModalPage implements OnInit {
 
   async catalogo2() {
     const loading = await this.loadingCtrl.create({
-      duration: 1000
+      duration: 10
     });
     this.pedidosService.obtenerCatalogo2()
       .then(data => {
@@ -120,14 +130,14 @@ export class ModalPage implements OnInit {
     console.log('Articulo seleccionado: '+idArticulo);
   }
 
-  sumarProductos(idArticulo) {
-    this.contArticulo += idArticulo;
-    console.log('SUMA Id de artículo: '+this.contArticulo);
+  sumarProductos(cantidad) {
+    cantidad++;
+    console.log('SUMA Id de artículo: '+cantidad);
   }
 
-  restarProductos(idArticulo) {
-    this.contArticulo -= idArticulo;
-    console.log('RESTA Id de artículo: '+this.contArticulo);
+  restarProductos(cantidad) {
+    cantidad--;
+    console.log('RESTA Id de artículo: '+cantidad);
   }
 
   aniadirPedido() {
