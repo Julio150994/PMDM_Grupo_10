@@ -20,6 +20,7 @@ export class ModalPage implements OnInit {
   catalogoEmpresaReceptora: any;
   catalogoPedido: any[]=[];
   cantidades: any[]=[];
+  seleccionado: boolean;
 
   constructor(private navCtrl: NavController, private loadingCtrl: LoadingController,
     private pedidosService: PedidosService, private modalPedido: ModalController) { }
@@ -123,14 +124,24 @@ export class ModalPage implements OnInit {
     this.navCtrl.navigateForward('/usuarios/pedidos');
   }
 
-  selectProductos(idArticulo) {
-    console.log('Articulo seleccionado: '+idArticulo);
+  selectProductos(articulo) {
+    articulo.articleSelected = true;
+    console.log('Articulo seleccionado: '+articulo.articleSelected);
+
+    /*if (articulo.articleSelected === false) {
+      articulo.articleSelected = true;
+      console.log('Articulo seleccionado: '+articulo.articleSelected);
+    }
+    else {
+      articulo.articleSelected = false;
+      console.log('Articulo seleccionado: '+articulo.articleSelected);
+    }*/
   }
 
   sumarProductos(cantidad:number,id:number) {
     console.log(cantidad);
     console.log(id);
-    if(this.cantidades[id][1]>=0&&this.cantidades[id][1]<=39){
+    if(this.cantidades[id][1]>=0 && this.cantidades[id][1]<=39){
       this.cantidades[id][1]++;
     }
     
@@ -140,7 +151,7 @@ export class ModalPage implements OnInit {
   restarProductos(cantidad:number,id:number) {
     console.log(cantidad);
     console.log(id);
-    if(this.cantidades[id][1]>0&&this.cantidades[id][1]<=40){
+    if(this.cantidades[id][1]>0 && this.cantidades[id][1]<=40){
       this.cantidades[id][1]--;
     }
     console.log('RESTA Id de artículo: '+this.cantidades[id][1]);
