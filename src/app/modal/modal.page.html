@@ -12,13 +12,13 @@
 
     <ion-list id="listaArticulos">
       <ion-label color="primary" id="titulo"><h1>Lista de Artículos</h1></ion-label>
-      <ion-item *ngFor="let cantidad of cantidades;let i = index">
-        <ion-checkbox color="success" checked="false" (click)="selectProductos(cantidad.id)"></ion-checkbox>
+      <ion-item *ngFor="let producto of cantidades;let i = index">
+        <ion-checkbox color="success" checked="false" (click)="selectProductos(producto.id)"></ion-checkbox>
           <ion-label>
-          <h3 id="compamy">{{cantidad[i].compamy_name}}</h3>
+          <h3 id="compamy">{{producto[0].compamy_name}}</h3>
           </ion-label>
           <ion-item>
-            <ion-button shape="round" (click)="restarProductos(cantidad)">-</ion-button> <ion-label>{{cantidad[0][i]}}</ion-label><ion-button shape="round" (click) = "sumarProductos(cantidad)">+</ion-button>
+            <ion-button shape="round" (click)="restarProductos(producto[1],i)">-</ion-button> <ion-label>{{producto[1]}}</ion-label><ion-button shape="round" (click) = "sumarProductos(producto[1],i)">+</ion-button>
           </ion-item>
       </ion-item>
   </ion-list>
