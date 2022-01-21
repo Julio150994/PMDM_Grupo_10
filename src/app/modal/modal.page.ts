@@ -130,14 +130,19 @@ export class ModalPage implements OnInit {
   sumarProductos(cantidad:number,id:number) {
     console.log(cantidad);
     console.log(id);
-    this.cantidades[id][1]++;
+    if(this.cantidades[id][1]>=0&&this.cantidades[id][1]<=39){
+      this.cantidades[id][1]++;
+    }
+    
     console.log('SUMA Id de artículo: '+this.cantidades[id][1]);
   }
 
   restarProductos(cantidad:number,id:number) {
     console.log(cantidad);
     console.log(id);
-    this.cantidades[id][1]--;
+    if(this.cantidades[id][1]>0&&this.cantidades[id][1]<=40){
+      this.cantidades[id][1]--;
+    }
     console.log('RESTA Id de artículo: '+this.cantidades[id][1]);
   }
 
