@@ -34,7 +34,7 @@ export class ModalPage implements OnInit {
     this.catalogo2();
 
     console.log('Catalogo empresa emmisora');
-    
+
     await this.presentLoading();
 
     console.log(this.catalogoEmpresaEmisora);
@@ -51,12 +51,12 @@ export class ModalPage implements OnInit {
 
     for(let i = 0; i < this.catalogoEmpresaEmisora?.length; i++){
       for(let j = 0; j < this.catalogoEmpresaReceptora?.length; j++){
-        if(this.catalogoEmpresaEmisora[i].article_id==this.catalogoEmpresaReceptora[j].article_id){
+        if(this.catalogoEmpresaEmisora[i].article_id == this.catalogoEmpresaReceptora[j].article_id){
           this.catalogoPedido.push(this.catalogoEmpresaEmisora[i]);
         }
       }
     }
-    
+
     console.log(this.catalogoPedido);
 
     for(let i = 0; i < this.catalogoPedido?.length; i++){
@@ -64,7 +64,7 @@ export class ModalPage implements OnInit {
     }
 
     console.log(this.cantidades);
-    
+
   }
 
   async catalogo1() {
@@ -103,48 +103,26 @@ export class ModalPage implements OnInit {
     const { role, data } = await loading.onDidDismiss();
   }
 
-  async formPedidos() {
-    const pedido = await this.modalPedido.create({
-        component: CrearPedidoPage,
-        componentProps: {
-          num: 2,
-          issueDate: '15/01/2022',
-          originCompanyId: 3,
-          targetCompanyId: 2,
-        }
-    });
-    await pedido.present();
-
-    const { data } = await pedido.onDidDismiss();
-    console.log('Devolvemos el formulario de crear pedido.', data);
-  }
-
-
   backToFormPedidos() {
     this.navCtrl.navigateForward('/usuarios/pedidos');
   }
 
   selectProductos(articulo) {
-    articulo.articleSelected = true;
-    console.log('Articulo seleccionado: '+articulo.articleSelected);
-
-    /*if (articulo.articleSelected === false) {
-      articulo.articleSelected = true;
-      console.log('Articulo seleccionado: '+articulo.articleSelected);
+    if (articulo.target.checked === false) {
+      console.log('Artículo seleccionado: '+articulo.target.checked);
     }
     else {
-      articulo.articleSelected = false;
-      console.log('Articulo seleccionado: '+articulo.articleSelected);
-    }*/
+      console.log('Artículo seleccionado: '+articulo.target.checked);
+    }
   }
 
-  sumarProductos(cantidad:number,id:number) {
+  sumarProductos(cantidad: number,id: number) {
     console.log(cantidad);
     console.log(id);
     if(this.cantidades[id][1]>=0 && this.cantidades[id][1]<=39){
       this.cantidades[id][1]++;
     }
-    
+
     console.log('SUMA Id de artículo: '+this.cantidades[id][1]);
   }
 
