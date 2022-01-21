@@ -20,8 +20,6 @@ export class ModalPage implements OnInit {
   catalogoEmpresaReceptora: any;
   catalogoPedido: any[]=[];
   cantidades: any[]=[];
-  can:number;
-  number: number;
 
   constructor(private navCtrl: NavController, private loadingCtrl: LoadingController,
     private pedidosService: PedidosService, private modalPedido: ModalController) { }
