@@ -107,12 +107,14 @@ export class ModalPage implements OnInit {
     this.navCtrl.navigateForward('/usuarios/pedidos');
   }
 
-  selectProductos(articulo) {
-    if (articulo.target.checked === false) {
+  selectProductos(articulo, idArticulo) {
+    if (articulo.target.checked === false && idArticulo !== null) {
       console.log('Artículo seleccionado: '+articulo.target.checked);
+      console.log('Id del artículo deseleccionado: '+idArticulo);
     }
     else {
       console.log('Artículo seleccionado: '+articulo.target.checked);
+      console.log('Id del artículo seleccionado: '+idArticulo);
     }
   }
 
