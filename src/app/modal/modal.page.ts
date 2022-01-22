@@ -111,10 +111,18 @@ export class ModalPage implements OnInit {
     if (articulo.target.checked === false && idArticulo !== null) {
       console.log('Artículo seleccionado: '+articulo.target.checked);
       console.log('Id del artículo deseleccionado: '+idArticulo);
+
+      this.seleccionado = articulo.target.value;
+      console.log('Select: '+this.seleccionado);
+      this.seleccionado = false;
     }
     else {
       console.log('Artículo seleccionado: '+articulo.target.checked);
       console.log('Id del artículo seleccionado: '+idArticulo);
+
+      this.seleccionado = articulo.target.value;
+      console.log('Select: '+this.seleccionado);
+      this.seleccionado = true;
     }
   }
 
@@ -128,12 +136,13 @@ export class ModalPage implements OnInit {
     console.log('SUMA Id de artículo: '+this.cantidades[id][1]);
   }
 
-  restarProductos(cantidad:number,id:number) {
+  restarProductos(cantidad: number,id: number) {
     console.log(cantidad);
     console.log(id);
     if(this.cantidades[id][1]>0 && this.cantidades[id][1]<=40){
       this.cantidades[id][1]--;
     }
+
     console.log('RESTA Id de artículo: '+this.cantidades[id][1]);
   }
 

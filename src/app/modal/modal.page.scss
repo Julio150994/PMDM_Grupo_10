@@ -1,20 +1,24 @@
 #btnForm {
-  margin-top: 6.5%;
+    margin-top: 6.5%;
 }
 
 #listaArticulos {
-  margin-top: 2.45%;
+    margin-top: 2.45%;
 }
 
 #titulo {
-  text-align: center;
-  margin-left: 13%;
+    text-align: center;
+    margin-left: 13%;
 }
 
 #btnCrearPedido {
-  margin-top: 4em;
+    margin-top: 4em;
 }
 
 #compamy {
-  margin-left: 6.5%;
+    margin-left: 6.5%;
+}
+
+ion-button[disabled] {
+    --ion-color-base: #b34d5a !important;
 }
