@@ -13,6 +13,7 @@ export class PedidosService {
   articulos: any;
   name_comp: any;
   productos2: any;
+  pedido: any;
 
   constructor(private httpUser: HttpClient,
     private loadingUserCtrl: LoadingController) { }
@@ -74,5 +75,21 @@ export class PedidosService {
       });
     });
   }
+
+  async addOrder(tok: any, article_id, company_id) {
+    return new Promise(res => {
+      this.httpUser.post<any>(this.url+'/orders?article_id='+article_id+'&company_id='+company_id,{
+          headers: new HttpHeaders().set('Authorization','Bearer '+tok)
+        }).subscribe(datoPedido => {
+            console.log(datoPedido);
+            this.pedido = datoPedido;
+            res(this.pedido);
+            console.log('Pedido añadido correctamente');
+        }, error => {
+          console.log('Error al añadir este pedido. '+error);
+        });
+    });
+  }
+
 
 }

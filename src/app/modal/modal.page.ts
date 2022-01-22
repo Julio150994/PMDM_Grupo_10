@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavController,LoadingController } from '@ionic/angular';
+import { ModalController, NavController, LoadingController, AlertController } from '@ionic/angular';
 import { CrearPedidoPage } from '../crear-pedido/crear-pedido.page';
 import { environment } from '../../environments/environment.prod';
 import { PedidosService } from '../services/pedidos.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 
@@ -13,6 +14,16 @@ import { PedidosService } from '../services/pedidos.service';
 })
 export class ModalPage implements OnInit {
   url = environment.almagestUrl;
+  families: any;
+  products: any;
+  orders: any;
+  nombreArticulo: '';
+  formularioPedido = new FormGroup({
+    article: new FormControl('',[Validators.required]),
+  });
+  familias: any;
+  articulos: any;
+
   productos: any;
   contadorArticulos: number;
   contArticulo = 0;
@@ -23,7 +34,7 @@ export class ModalPage implements OnInit {
   seleccionado=false;
   idArticulo: any;
 
-  constructor(private navCtrl: NavController, private loadingCtrl: LoadingController,
+  constructor(private alertCtrl: AlertController, private navCtrl: NavController, private loadingCtrl: LoadingController,
     private pedidosService: PedidosService, private modalPedido: ModalController) { }
 
   async ngOnInit() {
@@ -109,6 +120,9 @@ export class ModalPage implements OnInit {
   }
 
   selectProductos(articulo, idArticulo) {
+    for (let i = 0; i < this.catalogoEmpresaReceptora?.length; i++) {
+      console.log('Artículo seleccionado: '+this.idArticulo);
+    }
 
     if (articulo.target.checked === false && idArticulo !== null) {
       this.seleccionado = articulo.target.value;
@@ -117,7 +131,6 @@ export class ModalPage implements OnInit {
       console.log('Id del artículo deseleccionado: '+idArticulo);
       console.log('Select: '+this.seleccionado);
       this.seleccionado = false;
-      
     }
     else {
       this.idArticulo=idArticulo;
@@ -149,8 +162,48 @@ export class ModalPage implements OnInit {
     console.log('RESTA Id de artículo: '+this.cantidades[id][1]);
   }
 
-  aniadirPedido() {
-    console.log('Valor mostrado');
+  async aniadirPedido(article_id: number, cantidad: number) {
+    //let idArticulo = (this.formularioPedido.controls.article.value);
+    //let familiyId: number;
+    //familiyId = this.articulos[idArticulo].family_id;
+
+    //let idFamilia: string;
+    //idFamilia = familiyId.toString();
+    //this.formularioPedido.controls.article.value
+
+    this.pedidosService.addOrder(localStorage.getItem('token'), article_id, localStorage.getItem('id_comp'))
+    .then(async data => {
+      this.orders = data;
+      this.orders = this.orders.data;
+    });
+
+    console.log('Cantidad: '+cantidad);
+
+    console.log('Pedido añadido correctamente');
+    this.navCtrl.navigateForward('/usuarios/pedidos');
+    await this.pedidoAniadido();
   }
+
+  async pedidoAniadido() {
+    const pedido = await this.alertCtrl.create({
+      header: 'Mensaje',
+      cssClass: 'orderCss',
+      message: '<strong>Pedido añadido correctamente</strong>',
+      buttons: [
+        {
+          text: 'Aceptar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: async() => {
+            await this.presentLoading();
+            window.location.reload();
+          }
+        }
+      ]
+    });
+
+    await pedido.present();
+  }
+
 
 }

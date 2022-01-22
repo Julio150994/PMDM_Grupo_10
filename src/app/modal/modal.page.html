@@ -11,24 +11,32 @@
     </ion-button>
 
     <ion-list id="listaArticulos">
-      <ion-label color="primary" id="titulo"><h1>Lista de Artículos</h1></ion-label>      
+      <ion-label color="primary" id="titulo"><h1>Lista de Artículos</h1></ion-label>
       <ion-item *ngFor="let producto of cantidades; let i = index">
         <ion-checkbox color="tertiary" value="{{ producto[0].compamy_name }}"
-          (ionChange)="selectProductos($event, producto[0].article_id)" name="{{ producto[0].compamy_name }}"></ion-checkbox>
+          (ionChange)="selectProductos($event, producto[0].article_id)" name="{{ producto[0].compamy_name }}" checked></ion-checkbox>
           <ion-label>
           <h3 id="compamy">{{producto[0].compamy_name}}</h3>
           </ion-label>
           <ion-item>
-            <ion-button shape="round" color="primary" [disabled]="(!seleccionado || producto[0].article_id!=idArticulo)" (click)="restarProductos(producto[1],i)">-</ion-button>
+            <ion-button shape="round" color="primary" [disabled]="((!seleccionado || seleccionado ==='') && producto[0].article_id===idArticulo)" (click)="restarProductos(producto[1],i)">-</ion-button>
             <ion-label>{{producto[1]}}</ion-label>
-            <ion-button shape="round" color="primary" [disabled]="(!seleccionado || producto[0].article_id!=idArticulo)" (click)="sumarProductos(producto[1],i)">+</ion-button>
+            <ion-button shape="round" color="primary" [disabled]="((!seleccionado || seleccionado ==='') && producto[0].article_id===idArticulo)" (click)="sumarProductos(producto[1],i)">+</ion-button>
           </ion-item>
       </ion-item>
   </ion-list>
 
-  <ion-button expand="full" [disabled]="(!seleccionado)" color="success" id="btnCrearPedido" (click)="aniadirPedido()">
+  <ion-item *ngFor="let producto of cantidades; let i = index">
+     <!-- producto[0].compamy_name, producto[1] -->
+     <ion-button expand="full" [disabled]="(!seleccionado || seleccionado=='')" color="success" id="btnCrearPedido" (click)="aniadirPedido(producto[0].article_id, producto[1])">
+      <ion-icon name="add-circle"></ion-icon>
+      <span>Añadir pedido</span>
+    </ion-button>
+  </ion-item>
+
+  <!--<ion-button expand="full" [disabled]="(!seleccionado || seleccionado=='')" color="success" id="btnCrearPedido" (click)="aniadirPedido(producto[0].article_id, producto[1])">
     <ion-icon name="add-circle"></ion-icon>
     <span>Añadir pedido</span>
-  </ion-button>
+  </ion-button>-->
 
 </ion-content>
