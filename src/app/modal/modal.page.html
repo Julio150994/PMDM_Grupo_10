@@ -19,14 +19,14 @@
           <h3 id="compamy">{{producto[0].compamy_name}}</h3>
           </ion-label>
           <ion-item>
-            <ion-button shape="round" color="primary" [disabled]="(!seleccionado || seleccionado === '')" (click)="restarProductos(producto[1],i)">-</ion-button>
+            <ion-button shape="round" color="primary" [disabled]="((!seleccionado || seleccionado ==='') && producto[0].article_id===idArticulo)" (click)="restarProductos(producto[1],i)">-</ion-button>
             <ion-label>{{producto[1]}}</ion-label>
-            <ion-button shape="round" color="primary" [disabled]="(!seleccionado || seleccionado === '')" (click)="sumarProductos(producto[1],i)">+</ion-button>
+            <ion-button shape="round" color="primary" [disabled]="((!seleccionado || seleccionado ==='') && producto[0].article_id===idArticulo)" (click)="sumarProductos(producto[1],i)">+</ion-button>
           </ion-item>
       </ion-item>
   </ion-list>
 
-  <ion-button expand="full" [disabled]="(!seleccionado || seleccionado === '')" color="success" id="btnCrearPedido" (click)="aniadirPedido()">
+  <ion-button expand="full" [disabled]="(!seleccionado || seleccionado=='')" color="success" id="btnCrearPedido" (click)="aniadirPedido()">
     <ion-icon name="add-circle"></ion-icon>
     <span>Añadir pedido</span>
   </ion-button>
