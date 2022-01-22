@@ -124,21 +124,21 @@ export class ModalPage implements OnInit {
       console.log('Artículo seleccionado: '+this.idArticulo);
     }
 
-    if (articulo.target.checked === false && idArticulo !== null) {
-      this.seleccionado = articulo.target.value;
+    if (articulo.target.checked === true) {
+      this.seleccionado = articulo.detail.checked;
       this.idArticulo=idArticulo;
-      console.log('Artículo seleccionado: '+articulo.target.checked);
+      console.log('Artículo seleccionado: '+articulo.detail.value);
       console.log('Id del artículo deseleccionado: '+idArticulo);
       console.log('Select: '+this.seleccionado);
-      this.seleccionado = false;
+      
     }
     else {
       this.idArticulo=idArticulo;
-      this.seleccionado = articulo.target.value;
-      console.log('Artículo seleccionado: '+articulo.target.checked);
+      this.seleccionado = articulo.detail.checked;
+      console.log('Artículo deseleccionado: '+articulo.detail.value);
       console.log('Id del artículo seleccionado: '+idArticulo);
       console.log('Select: '+this.seleccionado);
-      this.seleccionado = true;
+      
     }
   }
 
@@ -162,22 +162,13 @@ export class ModalPage implements OnInit {
     console.log('RESTA Id de artículo: '+this.cantidades[id][1]);
   }
 
-  async aniadirPedido(article_id: number, cantidad: number) {
-    //let idArticulo = (this.formularioPedido.controls.article.value);
-    //let familiyId: number;
-    //familiyId = this.articulos[idArticulo].family_id;
-
-    //let idFamilia: string;
-    //idFamilia = familiyId.toString();
-    //this.formularioPedido.controls.article.value
-
-    this.pedidosService.addOrder(localStorage.getItem('token'), article_id, localStorage.getItem('id_comp'))
+  async aniadirPedido() {
+    this.pedidosService.addOrder()
     .then(async data => {
       this.orders = data;
       this.orders = this.orders.data;
     });
 
-    console.log('Cantidad: '+cantidad);
 
     console.log('Pedido añadido correctamente');
     this.navCtrl.navigateForward('/usuarios/pedidos');

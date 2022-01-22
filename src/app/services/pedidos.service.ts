@@ -76,10 +76,10 @@ export class PedidosService {
     });
   }
 
-  async addOrder(tok: any, article_id, company_id) {
+  async addOrder() {
     return new Promise(res => {
-      this.httpUser.post<any>(this.url+'/orders?article_id='+article_id+'&company_id='+company_id,{
-          headers: new HttpHeaders().set('Authorization','Bearer '+tok)
+      this.httpUser.post<any>(this.url+'/orders?num=00001&issue_date=2022-01-01&origin_company_id=3&target_company_id=2&products=5,3',{
+          headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
         }).subscribe(datoPedido => {
             console.log(datoPedido);
             this.pedido = datoPedido;
