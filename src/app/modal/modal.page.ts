@@ -20,7 +20,7 @@ export class ModalPage implements OnInit {
   catalogoEmpresaReceptora: any;
   catalogoPedido: any[]=[];
   cantidades: any[]=[];
-  seleccionado:boolean;
+  seleccionado=false;
   idArticulo: any;
 
   constructor(private navCtrl: NavController, private loadingCtrl: LoadingController,
@@ -111,20 +111,19 @@ export class ModalPage implements OnInit {
   selectProductos(articulo, idArticulo) {
 
     if (articulo.target.checked === false && idArticulo !== null) {
+      this.seleccionado = articulo.target.value;
       this.idArticulo=idArticulo;
       console.log('Artículo seleccionado: '+articulo.target.checked);
       console.log('Id del artículo deseleccionado: '+idArticulo);
-      //this.seleccionado = articulo.target.value;
       console.log('Select: '+this.seleccionado);
       this.seleccionado = false;
       
     }
     else {
       this.idArticulo=idArticulo;
+      this.seleccionado = articulo.target.value;
       console.log('Artículo seleccionado: '+articulo.target.checked);
       console.log('Id del artículo seleccionado: '+idArticulo);
-
-      //this.seleccionado = articulo.target.value;
       console.log('Select: '+this.seleccionado);
       this.seleccionado = true;
     }
