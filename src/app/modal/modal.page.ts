@@ -128,10 +128,10 @@ export class ModalPage implements OnInit {
       console.log(indice);
       this.idArticulo=idArticulo;
       console.log(this.idArticulo);
-      this.cantidades[indice][2]=this.seleccionado;
+      this.cantidades[indice][2]=this.seleccionado;// aquí está la clave de todo el asunto
       console.log('Artículo seleccionado: '+articulo.detail.value);
       console.log('Id del artículo deseleccionado: '+idArticulo);
-      console.log('Select: '+this.cantidades[indice][2]);
+      console.log('Select: '+this.cantidades[indice][2]);// para imprimir el select de la condición
       for (let i = 0; i < this.cantidades?.length; i++){
         if(this.cantidades[i][2]==true){
           this.seleccionado=true;
@@ -159,36 +159,70 @@ export class ModalPage implements OnInit {
   }
 
   sumarProductos(cantidad: number,id: number) {
-    console.log(cantidad);
-    console.log(id);
+    //console.log(cantidad);
+    //console.log(id);
     if(this.cantidades[id][1]>=0 && this.cantidades[id][1]<=39){
       this.cantidades[id][1]++;
     }
 
-    console.log('SUMA Id de artículo: '+this.cantidades[id][1]);
+    //console.log('SUMA Id de artículo: '+this.cantidades[id][1]);
   }
 
   restarProductos(cantidad: number,id: number) {
-    console.log(cantidad);
-    console.log(id);
+    //console.log(cantidad);
+    //console.log(id);
     if(this.cantidades[id][1]>0 && this.cantidades[id][1]<=40){
       this.cantidades[id][1]--;
     }
 
-    console.log('RESTA Id de artículo: '+this.cantidades[id][1]);
+    //console.log('RESTA Id de artículo: '+this.cantidades[id][1]);
   }
 
   async aniadirPedido() {
-    this.pedidosService.addOrder()
+    console.log('Pulsado el botón añadir pedido');
+    console.log(this.cantidades);
+    console.log(this.cantidades.toString());
+
+    console.log('Factura generada: '+Math.floor((Math.random() * (100 - 1 + 1)) + 1).toFixed(2));
+    //const facturaPedido = Math.floor((Math.random() * (100 - 1 + 1)) + 1).toFixed(2);
+
+    //const fechaFactura = new Date();
+    const fechaActual = new Date();
+    //const fecha = new Date(fechaFactura+ Math.random() * (int(fechaFactura) - int(fechaActual)));
+    console.log('Fecha generada: '+fechaActual);
+
+    //console.log('Fecha generada: '+fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear());
+    //const fechaPedido = fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear()
+
+    for (let i=0;i<this.cantidades?.length;i++){
+      if(this.cantidades[i][2] == true){
+        console.log(this.cantidades[i][0].article_id);
+        console.log(this.cantidades[i][1]);
+      }
+    }
+
+    //console.log('Pedido añadido correctamente');
+    //await this.pedidoAniadido();
+    //this.navCtrl.navigateForward('/usuarios/pedidos');
+
+
+    /*for(let i = 0; i < this.catalogoEmpresaEmisora?.length; i++){
+      for(let j = 0; j < this.catalogoEmpresaReceptora?.length; j++){
+        if(this.catalogoEmpresaEmisora[i].article_id == this.catalogoEmpresaReceptora[j].article_id){
+            console.log(this.catalogoEmpresaReceptora[j].compamy_name+' '+this.cantidades.toString());
+        }
+      }
+    }*/
+
+    /*this.pedidosService.addOrder()
     .then(async data => {
       this.orders = data;
       this.orders = this.orders.data;
     });
 
-
     console.log('Pedido añadido correctamente');
     await this.pedidoAniadido();
-    this.navCtrl.navigateForward('/usuarios/pedidos');
+    this.navCtrl.navigateForward('/usuarios/pedidos');*/
   }
 
   async pedidoAniadido() {

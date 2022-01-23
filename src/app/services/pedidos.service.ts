@@ -75,7 +75,8 @@ export class PedidosService {
       });
     });
   }
-
+  
+  //num, issue_date, origin_company_id, target_company_id. products <------ variables a utilizar para el servicio
   async addOrder() {
     return new Promise(res => {
       this.httpUser.post<any>(this.url+'/orders?num=00011&issue_date=2022-11-03&origin_company_id=3&target_company_id=2&products=6,3',{
