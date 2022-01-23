@@ -132,7 +132,11 @@ export class ModalPage implements OnInit {
       console.log('Artículo seleccionado: '+articulo.detail.value);
       console.log('Id del artículo deseleccionado: '+idArticulo);
       console.log('Select: '+this.cantidades[indice][2]);
-      
+      for (let i = 0; i < this.cantidades?.length; i++){
+        if(this.cantidades[i][2]==true){
+          this.seleccionado=true;
+        }
+      }      
     }
     else {
       console.log(productoSeleccion);
@@ -145,6 +149,11 @@ export class ModalPage implements OnInit {
       console.log('Artículo deseleccionado: '+articulo.detail.value);
       console.log('Id del artículo seleccionado: '+idArticulo);
       console.log('Select: '+this.cantidades[indice][2]);
+      for (let i = 0; i < this.cantidades?.length; i++){
+        if(this.cantidades[i][2]==true){
+          this.seleccionado=true;
+        }
+      } 
       
     }
   }
