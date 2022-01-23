@@ -26,16 +26,9 @@
       </ion-item>
   </ion-list>
 
-  <ion-item>
-     <ion-button expand="full" [disabled]="(!seleccionado)" color="success" id="btnCrearPedido" (click)="aniadirPedido()">
-      <ion-icon name="add-circle"></ion-icon>
-      <span>Añadir pedido</span>
-    </ion-button>
-  </ion-item>
-
-  <!--<ion-button expand="full" [disabled]="(!seleccionado || seleccionado=='')" color="success" id="btnCrearPedido" (click)="aniadirPedido(producto[0].article_id, producto[1])">
+  <ion-button expand="full" [disabled]="(!seleccionado)" color="success" id="btnCrearPedido" (click)="aniadirPedido()">
     <ion-icon name="add-circle"></ion-icon>
     <span>Añadir pedido</span>
-  </ion-button>-->
+  </ion-button>
 
 </ion-content>

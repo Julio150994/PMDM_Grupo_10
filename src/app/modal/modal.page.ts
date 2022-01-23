@@ -171,8 +171,8 @@ export class ModalPage implements OnInit {
 
 
     console.log('Pedido añadido correctamente');
-    this.navCtrl.navigateForward('/usuarios/pedidos');
     await this.pedidoAniadido();
+    this.navCtrl.navigateForward('/usuarios/pedidos');
   }
 
   async pedidoAniadido() {
