@@ -72,7 +72,7 @@ export class ModalPage implements OnInit {
     console.log(this.catalogoPedido);
 
     for(let i = 0; i < this.catalogoPedido?.length; i++){
-      this.cantidades.push([this.catalogoPedido[i],0]);
+      this.cantidades.push([this.catalogoPedido[i],0,false]);
     }
 
     console.log(this.cantidades);
@@ -119,25 +119,32 @@ export class ModalPage implements OnInit {
     this.navCtrl.navigateForward('/usuarios/pedidos');
   }
 
-  selectProductos(articulo, idArticulo) {
-    for (let i = 0; i < this.catalogoEmpresaReceptora?.length; i++) {
-      console.log('Artículo seleccionado: '+this.idArticulo);
-    }
+  selectProductos(articulo, idArticulo,productoSeleccion,indice) {
 
     if (articulo.target.checked === true) {
-      this.seleccionado = articulo.detail.checked;
+      console.log(productoSeleccion);
+      this.seleccionado=articulo.detail.checked;
+      console.log(this.seleccionado);
+      console.log(indice);
       this.idArticulo=idArticulo;
+      console.log(this.idArticulo);
+      this.cantidades[indice][2]=this.seleccionado;
       console.log('Artículo seleccionado: '+articulo.detail.value);
       console.log('Id del artículo deseleccionado: '+idArticulo);
-      console.log('Select: '+this.seleccionado);
+      console.log('Select: '+this.cantidades[indice][2]);
       
     }
     else {
+      console.log(productoSeleccion);
+      this.seleccionado=articulo.detail.checked;
+      console.log(this.seleccionado);
+      console.log(indice);
+      this.cantidades[indice][2]=this.seleccionado;
       this.idArticulo=idArticulo;
       this.seleccionado = articulo.detail.checked;
       console.log('Artículo deseleccionado: '+articulo.detail.value);
       console.log('Id del artículo seleccionado: '+idArticulo);
-      console.log('Select: '+this.seleccionado);
+      console.log('Select: '+this.cantidades[indice][2]);
       
     }
   }
