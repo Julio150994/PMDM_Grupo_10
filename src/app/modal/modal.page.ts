@@ -187,7 +187,7 @@ export class ModalPage implements OnInit {
 
     console.log('Factura de pedido generada: '+Math.floor((Math.random() * (100 - 1 + 1)) + 1).toFixed(2));
     const facturaPedido = Math.floor((Math.random() * (100 - 1 + 1)) + 1).toFixed(2);
-
+    localStorage.setItem('numFac',facturaPedido);
 
     let date = new Date()
 
@@ -197,8 +197,10 @@ export class ModalPage implements OnInit {
 
     if(month < 10){
       console.log(`${year}-0${month}-${day}`)
+      localStorage.setItem('fecha',`${year}-0${month}-${day}`);
     }else{
       console.log(`${year}-${month}-${day}`)
+      localStorage.setItem('fecha',`${year}-${month}-${day}`);
     }
 
 
@@ -212,28 +214,21 @@ export class ModalPage implements OnInit {
 
     this.pedidoReal="";
     for (let i=0;i<this.cantidades?.length;i++){
-      if(this.cantidades[i][2] == true) {
+      if(this.cantidades[i][2] == true && this.cantidades[i][1]>0) {
         this.pedidoReal+=this.cantidades[i][0].article_id+",";
         this.pedidoReal+=this.cantidades[i][1]+",";
       }
     }
     this.pedidoReal=this.pedidoReal.substring(0,this.pedidoReal.length-1);
     console.log(this.pedidoReal);
+    localStorage.setItem('pedidoReal',this.pedidoReal);
 
     //console.log('Pedido añadido correctamente');
     //await this.pedidoAniadido();
     //this.navCtrl.navigateForward('/usuarios/pedidos');
 
 
-    /*for(let i = 0; i < this.catalogoEmpresaEmisora?.length; i++){
-      for(let j = 0; j < this.catalogoEmpresaReceptora?.length; j++){
-        if(this.catalogoEmpresaEmisora[i].article_id == this.catalogoEmpresaReceptora[j].article_id){
-            console.log(this.catalogoEmpresaReceptora[j].compamy_name+' '+this.cantidades.toString());
-        }
-      }
-    }*/
-
-    /*this.pedidosService.addOrder()
+    this.pedidosService.addOrder()
     .then(async data => {
       this.orders = data;
       this.orders = this.orders.data;
@@ -241,7 +236,7 @@ export class ModalPage implements OnInit {
 
     console.log('Pedido añadido correctamente');
     await this.pedidoAniadido();
-    this.navCtrl.navigateForward('/usuarios/pedidos');*/
+    this.navCtrl.navigateForward('/usuarios/pedidos');
   }
 
   getDateFormat(aux) {

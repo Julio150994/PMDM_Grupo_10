@@ -79,7 +79,7 @@ export class PedidosService {
   //num, issue_date, origin_company_id, target_company_id. products <------ variables a utilizar para el servicio
   async addOrder() {
     return new Promise(res => {
-      this.httpUser.post<any>(this.url+'/orders?num=00011&issue_date=2022-11-03&origin_company_id=3&target_company_id=2&products=6,3',{
+      this.httpUser.post<any>(this.url+'/orders?num='+localStorage.getItem('numFac')+'&issue_date='+localStorage.getItem('fecha')+'&origin_company_id='+localStorage.getItem('id_comp')+'&target_company_id='+localStorage.getItem('empresaPedido')+'&products='+localStorage.getItem('pedidoReal'),{
           headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
         }).subscribe(datoPedido => {
             console.log(datoPedido);
