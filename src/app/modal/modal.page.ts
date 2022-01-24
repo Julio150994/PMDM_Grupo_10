@@ -23,7 +23,7 @@ export class ModalPage implements OnInit {
   });
   familias: any;
   articulos: any;
-
+  
   productos: any;
   contadorArticulos: number;
   contArticulo = 0;
@@ -183,16 +183,15 @@ export class ModalPage implements OnInit {
     console.log(this.cantidades);
     console.log(this.cantidades.toString());
 
-    console.log('Factura generada: '+Math.floor((Math.random() * (100 - 1 + 1)) + 1).toFixed(2));
-    //const facturaPedido = Math.floor((Math.random() * (100 - 1 + 1)) + 1).toFixed(2);
+    console.log('Factura de pedido generada: '+Math.floor((Math.random() * (100 - 1 + 1)) + 1).toFixed(2));
+    const facturaPedido = Math.floor((Math.random() * (100 - 1 + 1)) + 1).toFixed(2);
 
-    //const fechaFactura = new Date();
     const fechaActual = new Date();
-    //const fecha = new Date(fechaFactura+ Math.random() * (int(fechaFactura) - int(fechaActual)));
-    console.log('Fecha generada: '+fechaActual);
+    const fechaFactura = new Date(2021,0,1);
 
-    //console.log('Fecha generada: '+fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear());
-    //const fechaPedido = fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear()
+    console.log('Fecha de pedido generada: '+this.generarFecha(fechaFactura, fechaActual));
+    const fechaPedido = this.generarFecha(fechaFactura, fechaActual);
+    
 
     for (let i=0;i<this.cantidades?.length;i++){
       if(this.cantidades[i][2] == true){
@@ -225,6 +224,12 @@ export class ModalPage implements OnInit {
     this.navCtrl.navigateForward('/usuarios/pedidos');*/
   }
 
+  generarFecha(fechaFactura, fechaActual) {
+    const fecha = new Date(fechaFactura.getTime() + Math.random() * (fechaActual.getTime() - fechaFactura.getTime()));
+    const formatoFecha = fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear();
+    return formatoFecha; 
+  }
+
   async pedidoAniadido() {
     const pedido = await this.alertCtrl.create({
       header: 'Mensaje',
@@ -245,6 +250,4 @@ export class ModalPage implements OnInit {
 
     await pedido.present();
   }
-
-
 }
