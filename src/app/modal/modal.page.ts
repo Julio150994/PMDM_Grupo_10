@@ -4,6 +4,7 @@ import { CrearPedidoPage } from '../crear-pedido/crear-pedido.page';
 import { environment } from '../../environments/environment.prod';
 import { PedidosService } from '../services/pedidos.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { format } from 'url';
 
 
 
@@ -187,16 +188,16 @@ export class ModalPage implements OnInit {
     const facturaPedido = Math.floor((Math.random() * (100 - 1 + 1)) + 1).toFixed(2);
 
     const fechaActual = new Date();
-    const fechaFactura = new Date(2021,0,1);
+    const anio = Math.floor((Math.random() * (2021 - 2000 + 1)) + 2000);
+    const fechaFactura = new Date(anio,0,1);
 
     const fecha = new Date(fechaFactura.getTime() + Math.random() * (fechaActual.getTime() - fechaFactura.getTime()));
-    const formatoFecha = fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear();
-
+    const formatoFecha = fecha.getFullYear()+"-"+(fecha.getMonth()+1)+"-"+(fecha.getDate());
     console.log('Fecha de pedido generada: '+formatoFecha);
     
 
     for (let i=0;i<this.cantidades?.length;i++){
-      if(this.cantidades[i][2] == true){
+      if(this.cantidades[i][2] == true) {
         console.log(this.cantidades[i][0].article_id);
         console.log(this.cantidades[i][1]);
       }
