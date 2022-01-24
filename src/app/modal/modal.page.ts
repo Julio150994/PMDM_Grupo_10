@@ -192,7 +192,7 @@ export class ModalPage implements OnInit {
     const fechaFactura = new Date(anio,0,1);
 
     const fecha = new Date(fechaFactura.getTime() + Math.random() * (fechaActual.getTime() - fechaFactura.getTime()));
-    const formatoFecha = fecha.getFullYear()+"-"+(fecha.getMonth()+1)+"-"+(fecha.getDate());
+    const formatoFecha = fecha.getFullYear()+"-"+this.getDateFormat(fecha.getMonth()+1)+"-"+this.getDateFormat(fecha.getDate());
     console.log('Fecha de pedido generada: '+formatoFecha);
     
 
@@ -225,6 +225,10 @@ export class ModalPage implements OnInit {
     console.log('Pedido añadido correctamente');
     await this.pedidoAniadido();
     this.navCtrl.navigateForward('/usuarios/pedidos');*/
+  }
+
+  getDateFormat(aux) {
+    return aux < 10 ? '0'+aux: aux;
   }
 
   async pedidoAniadido() {
