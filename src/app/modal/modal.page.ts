@@ -34,6 +34,7 @@ export class ModalPage implements OnInit {
   cantidades: any[]=[];
   seleccionado=false;
   idArticulo: any;
+  pedidoReal: string;
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController, private loadingCtrl: LoadingController,
     private pedidosService: PedidosService, private modalPedido: ModalController) { }
@@ -187,6 +188,20 @@ export class ModalPage implements OnInit {
     console.log('Factura de pedido generada: '+Math.floor((Math.random() * (100 - 1 + 1)) + 1).toFixed(2));
     const facturaPedido = Math.floor((Math.random() * (100 - 1 + 1)) + 1).toFixed(2);
 
+
+    let date = new Date()
+
+    let day = date.getDate()
+    let month = date.getMonth() + 1
+    let year = date.getFullYear()
+
+    if(month < 10){
+      console.log(`${year}-0${month}-${day}`)
+    }else{
+      console.log(`${year}-${month}-${day}`)
+    }
+
+
     const fechaActual = new Date();
     const anio = Math.floor((Math.random() * (2021 - 2000 + 1)) + 2000);
     const fechaFactura = new Date(anio,0,1);
@@ -195,13 +210,15 @@ export class ModalPage implements OnInit {
     const formatoFecha = fecha.getFullYear()+'-'+this.getDateFormat(fecha.getMonth()+1)+'-'+this.getDateFormat(fecha.getDate());
     console.log('Fecha de pedido generada: '+formatoFecha);
 
-    
+    this.pedidoReal="";
     for (let i=0;i<this.cantidades?.length;i++){
       if(this.cantidades[i][2] == true) {
-        console.log(this.cantidades[i][0].article_id);
-        console.log(this.cantidades[i][1]);
+        this.pedidoReal+=this.cantidades[i][0].article_id+",";
+        this.pedidoReal+=this.cantidades[i][1]+",";
       }
     }
+    this.pedidoReal=this.pedidoReal.substring(0,this.pedidoReal.length-1);
+    console.log(this.pedidoReal);
 
     //console.log('Pedido añadido correctamente');
     //await this.pedidoAniadido();
