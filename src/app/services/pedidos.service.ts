@@ -75,7 +75,7 @@ export class PedidosService {
       });
     });
   }
-  
+
   //num, issue_date, origin_company_id, target_company_id. products <------ variables a utilizar para el servicio
   async addOrder() {
     return new Promise(res => {
