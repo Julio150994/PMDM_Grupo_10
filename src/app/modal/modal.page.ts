@@ -192,10 +192,10 @@ export class ModalPage implements OnInit {
     const fechaFactura = new Date(anio,0,1);
 
     const fecha = new Date(fechaFactura.getTime() + Math.random() * (fechaActual.getTime() - fechaFactura.getTime()));
-    const formatoFecha = fecha.getFullYear()+"-"+this.getDateFormat(fecha.getMonth()+1)+"-"+this.getDateFormat(fecha.getDate());
+    const formatoFecha = fecha.getFullYear()+'-'+this.getDateFormat(fecha.getMonth()+1)+'-'+this.getDateFormat(fecha.getDate());
     console.log('Fecha de pedido generada: '+formatoFecha);
-    
 
+    
     for (let i=0;i<this.cantidades?.length;i++){
       if(this.cantidades[i][2] == true) {
         console.log(this.cantidades[i][0].article_id);
