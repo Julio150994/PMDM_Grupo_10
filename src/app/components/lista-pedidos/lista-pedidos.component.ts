@@ -36,10 +36,10 @@ export class ListaPedidosComponent implements OnInit {
     });
   }
 
-  slice: number=10
+  slice: number=15
   cargarPedidos(event) {
     setTimeout(() => {
-      this.slice += 10;
+      this.slice += 20;
       event.target.complete();
       if (this.pedidosReales.length == this.pedidosReales.length) {
         event.target.disabled = true;

@@ -5,7 +5,10 @@ import { environment } from '../../environments/environment.prod';
 import { PedidosService } from '../services/pedidos.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { format } from 'url';
-
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+import htmlToPdfmake from "html-to-pdfmake"
 
 
 @Component({
@@ -24,6 +27,7 @@ export class ModalPage implements OnInit {
   });
   familias: any;
   articulos: any;
+  prueba="Raul";
   
   productos: any;
   contadorArticulos: number;
@@ -35,6 +39,7 @@ export class ModalPage implements OnInit {
   seleccionado=false;
   idArticulo: any;
   pedidoReal: string;
+  pdfCreado: any;
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController, private loadingCtrl: LoadingController,
     private pedidosService: PedidosService, private modalPedido: ModalController) { }
@@ -78,7 +83,6 @@ export class ModalPage implements OnInit {
     }
 
     console.log(this.cantidades);
-
   }
 
   async catalogo1() {
@@ -176,7 +180,7 @@ export class ModalPage implements OnInit {
     if(this.cantidades[id][1]>0 && this.cantidades[id][1]<=40){
       this.cantidades[id][1]--;
     }
-
+    
     //console.log('RESTA Id de artículo: '+this.cantidades[id][1]);
   }
 
@@ -237,10 +241,66 @@ export class ModalPage implements OnInit {
     console.log('Pedido añadido correctamente');
     await this.pedidoAniadido();
     this.navCtrl.navigateForward('/usuarios/pedidos');
+    this.generarPdf();
   }
 
   getDateFormat(aux) {
     return aux < 10 ? '0'+aux: aux;
+  }
+
+  generarPdf(){
+    var pdfContenido = {
+      content: [
+        {
+          table: {
+            body:[
+              [
+                {text: this.prueba+'1', colSpan: 2},
+                {},
+                {text: 'celda 2', colSpan: 4},
+                {},
+                {},
+                {},
+              ],
+              [
+                {text: 'celda 3', colSpan: 2},
+                {},
+                {text: 'celda 4', colSpan: 4},
+                {},
+                {},
+                {},
+              ],
+              [
+                {text: 'celda 5'},
+                {text: 'celda 6'},
+                {text: 'celda 7'},
+                {text: 'celda 8', colSpan: 2},
+                {},
+                {text: 'celda 9'},
+              ],
+              [
+                {text: 'celda 10',colSpan: 4},
+                {},
+                {},
+                {},
+                {text: 'celda 11', colSpan: 2},
+                {},
+              ],
+              [
+                {text: 'celda 12',colSpan: 6},
+                {},
+                {},
+                {},
+                {},
+                {},
+              ],
+            ]
+          }
+        }
+      ]
+    };
+this.pdfCreado=pdfMake.createPdf(pdfContenido);
+this.pdfCreado.download();
   }
 
   async pedidoAniadido() {
@@ -264,3 +324,5 @@ export class ModalPage implements OnInit {
     await pedido.present();
   }
 }
+
+
