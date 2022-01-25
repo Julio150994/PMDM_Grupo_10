@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController, LoadingController, AlertController } from '@ionic/angular';
-import { CrearPedidoPage } from '../crear-pedido/crear-pedido.page';
 import { environment } from '../../environments/environment.prod';
 import { PedidosService } from '../services/pedidos.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -8,7 +7,6 @@ import { format } from 'url';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
-import htmlToPdfmake from "html-to-pdfmake"
 
 
 @Component({
