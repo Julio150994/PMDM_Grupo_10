@@ -41,6 +41,7 @@ export class ModalPage implements OnInit {
   datosEmpresaReceptora: any[]=[];
   empresaEmisora: any;
   empresaReceptora: any;
+  pedidoPdf: any[]=[];
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController, private loadingCtrl: LoadingController,
     private pedidosService: PedidosService, private modalPedido: ModalController) { }
@@ -107,6 +108,8 @@ export class ModalPage implements OnInit {
     this.empresaReceptora=this.datosEmpresaReceptora[0];
     console.log(this.empresaReceptora);
     console.log('Empresa Receptora');
+
+    
 
   }
 
@@ -210,6 +213,7 @@ export class ModalPage implements OnInit {
   }
 
   async aniadirPedido() {
+    
     console.log('Pulsado el botón añadir pedido');
     console.log(this.cantidades);
     console.log(this.cantidades.toString());
@@ -245,6 +249,11 @@ export class ModalPage implements OnInit {
       if(this.cantidades[i][2] == true && this.cantidades[i][1]>0) {
         this.pedidoReal+=this.cantidades[i][0].article_id+",";
         this.pedidoReal+=this.cantidades[i][1]+",";
+        this.pedidoPdf.push(this.cantidades[i][0].article_id);
+        this.pedidoPdf.push(this.cantidades[i][0].compamy_name);
+        this.pedidoPdf.push(this.cantidades[i][1]);
+        this.pedidoPdf.push(this.cantidades[i][0].price);
+        this.pedidoPdf.push((this.cantidades[i][0].price)*(this.cantidades[i][1]));
       }
     }
     this.pedidoReal=this.pedidoReal.substring(0,this.pedidoReal.length-1);
@@ -260,7 +269,10 @@ export class ModalPage implements OnInit {
     console.log('Pedido añadido correctamente');
     await this.pedidoAniadido();
     this.navCtrl.navigateForward('/usuarios/pedidos');
+    console.log(this.pedidoPdf);
     this.generarPdf();
+    
+
   }
 
   getDateFormat(aux) {
@@ -298,12 +310,13 @@ export class ModalPage implements OnInit {
                       {text: '\n Importe\n '},
                     ],
                     [
-                      {text: '\ncelda 10\n '},
-                      {text: '\ncelda 11\n '},
-                      {text: '\ncelda 12\n '},
-                      {text: '\n celda 13\n ', colSpan: 2},
+                     
+                      {text: '\n'+this.pedidoPdf.slice(0,1)+'\n'+this.pedidoPdf.slice(5,6)+'\n '},
+                      {text: '\n'+this.pedidoPdf.slice(1,2)+'\n'+this.pedidoPdf.slice(6,7)+'\n '},
+                      {text: '\n'+this.pedidoPdf.slice(2,3)+'\n'+this.pedidoPdf.slice(7,8)+'\n '},
+                      {text: '\n'+this.pedidoPdf.slice(3,4)+'\n'+this.pedidoPdf.slice(8,9)+'\n ', colSpan: 2},
                       {},
-                      {text: '\ncelda 14\n '},
+                      {text: '\n'+this.pedidoPdf.slice(4,5)+'\n'+this.pedidoPdf.slice(9,10)+'\n '},
                     ],
                     [
                       {text: '\nTOTAL\n ',colSpan: 4},
