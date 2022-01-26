@@ -311,12 +311,12 @@ export class ModalPage implements OnInit {
                     ],
                     [
                      
-                      {text: '\n'+this.pedidoPdf.slice(0,1)+'\n'+this.pedidoPdf.slice(5,6)+'\n '},
-                      {text: '\n'+this.pedidoPdf.slice(1,2)+'\n'+this.pedidoPdf.slice(6,7)+'\n '},
-                      {text: '\n'+this.pedidoPdf.slice(2,3)+'\n'+this.pedidoPdf.slice(7,8)+'\n '},
-                      {text: '\n'+this.pedidoPdf.slice(3,4)+'\n'+this.pedidoPdf.slice(8,9)+'\n ', colSpan: 2},
+                      {text: '\n'+this.pedidoPdf.slice(0,1)+'\n'+this.pedidoPdf.slice(5,6)+'\n'+this.pedidoPdf.slice(10,11)+'\n'+this.pedidoPdf.slice(15,16)+'\n'+this.pedidoPdf.slice(20,21)+'\n '},
+                      {text: '\n'+this.pedidoPdf.slice(1,2)+'\n'+this.pedidoPdf.slice(6,7)+'\n'+this.pedidoPdf.slice(11,12)+'\n'+this.pedidoPdf.slice(16,17)+'\n'+this.pedidoPdf.slice(21,22)+'\n '},
+                      {text: '\n'+this.pedidoPdf.slice(2,3)+'\n'+this.pedidoPdf.slice(7,8)+'\n'+this.pedidoPdf.slice(12,13)+'\n'+this.pedidoPdf.slice(17,18)+'\n'+this.pedidoPdf.slice(22,23)+'\n '},
+                      {text: '\n'+this.pedidoPdf.slice(3,4)+'\n'+this.pedidoPdf.slice(8,9)+'\n'+this.pedidoPdf.slice(13,14)+'\n'+this.pedidoPdf.slice(18,19)+'\n'+this.pedidoPdf.slice(23,24)+'\n ', colSpan: 2},
                       {},
-                      {text: '\n'+this.pedidoPdf.slice(4,5)+'\n'+this.pedidoPdf.slice(9,10)+'\n '},
+                      {text: '\n'+this.pedidoPdf.slice(4,5)+'\n'+this.pedidoPdf.slice(9,10)+'\n'+this.pedidoPdf.slice(14,15)+'\n'+this.pedidoPdf.slice(19,20)+'\n'+this.pedidoPdf.slice(24,25)+'\n '},
                     ],
                     [
                       {text: '\nTOTAL\n ',colSpan: 4},
