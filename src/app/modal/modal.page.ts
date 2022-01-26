@@ -214,21 +214,20 @@ export class ModalPage implements OnInit {
     console.log(this.cantidades);
     console.log(this.cantidades.toString());
 
-    console.log('Factura de pedido generada: '+Math.floor((Math.random() * (100 - 1 + 1)) + 1).toFixed(2));
-    const facturaPedido = Math.floor((Math.random() * (100 - 1 + 1)) + 1).toFixed(2);
+    const facturaPedido = Math.floor((Math.random() * (100 - 1 + 1)) + 1).toFixed(0);
     localStorage.setItem('numFac',facturaPedido);
 
-    let date = new Date()
+    let date = new Date();
 
-    let day = date.getDate()
-    let month = date.getMonth() + 1
-    let year = date.getFullYear()
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
 
     if(month < 10){
-      console.log(`${year}-0${month}-${day}`)
+      console.log(`${year}-0${month}-${day}`);
       localStorage.setItem('fecha',`${year}-0${month}-${day}`);
     }else{
-      console.log(`${year}-${month}-${day}`)
+      console.log(`${year}-${month}-${day}`);
       localStorage.setItem('fecha',`${year}-${month}-${day}`);
     }
 
