@@ -38,6 +38,11 @@ export class ModalPage implements OnInit {
   idArticulo: any;
   pedidoReal: string;
   pdfCreado: any;
+  empresas: any;
+  datosEmpresaEmisora: any[]=[];
+  datosEmpresaReceptora: any[]=[];
+  empresaEmisora: any;
+  empresaReceptora: any;
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController, private loadingCtrl: LoadingController,
     private pedidosService: PedidosService, private modalPedido: ModalController) { }
@@ -45,6 +50,12 @@ export class ModalPage implements OnInit {
   async ngOnInit() {
 
     console.log('Modal para los pedidos.');
+
+    this.pedidosService.obtenerCompanias().then(data => {
+      console.log(data);
+      this.empresas=data.data;
+    });
+
 
     this.catalogo1();
 
@@ -56,7 +67,7 @@ export class ModalPage implements OnInit {
 
     console.log(this.catalogoEmpresaEmisora);
 
-    console.log('Catalogo empresa emmisora');
+    console.log('Catalogo empresa emisora');
 
     console.log('Catalogo empresa receptora');
 
@@ -81,6 +92,24 @@ export class ModalPage implements OnInit {
     }
 
     console.log(this.cantidades);
+    console.log(this.empresas);
+    for(let i = 0; i < this.empresas?.length; i++){
+      if(this.empresas[i].id == localStorage.getItem('id_comp')){
+        this.datosEmpresaEmisora.push(this.empresas[i]);
+      }
+      if(this.empresas[i].id == localStorage.getItem('empresaPedido')){
+        this.datosEmpresaReceptora.push(this.empresas[i]);
+      }
+    }
+    console.log('Empresa Emisora');
+    this.empresaEmisora=this.datosEmpresaEmisora[0];
+    console.log(this.empresaEmisora);
+    console.log('Empresa Emisora');
+    console.log('Empresa Receptora');
+    this.empresaReceptora=this.datosEmpresaReceptora[0];
+    console.log(this.empresaReceptora);
+    console.log('Empresa Receptora');
+
   }
 
   async catalogo1() {
@@ -248,7 +277,7 @@ export class ModalPage implements OnInit {
                 table: {
                   body:[
                     [
-                      {text: '\t\t\t\t\tNombre empresa\n   LOGO\t\t\t\t\tDirección\nEMPRESA\t\t\t\t\tempresa\n \t\t\t\t\tProvincia\n \t\t\t\t\tempresa\n \t\t\tCIF empresa', colSpan: 2},
+                      {text: '\nLOGO EMPRESA\n\nNombre empresa: '+this.empresaEmisora.name+'\n\nDirección empresa: '+this.empresaEmisora.address+' \n\nProvincia empresa: '+this.empresaEmisora.city+'\n\nCIF empresa: '+this.empresaEmisora.cif+'\n\nEmail empresa: '+this.empresaEmisora.email, colSpan: 2},
                       {},
                       {text: 'PEDIDO	Nº\nFECHA', colSpan: 4},
                       {},
@@ -256,7 +285,7 @@ export class ModalPage implements OnInit {
                       {},
                     ],
                     [
-                      {text: 'Dirección de envío:\nFecha de entrega:\nTransporte:\t\t\t\t\tA nuestro cargo\nForma de pago:\nCondiciones de\nentrega:', colSpan: 2},
+                      {text: 'Dirección de envío: '+this.empresaReceptora.address+'\nFecha de entrega: \nTransporte: A nuestro cargo\nForma de pago: A elegir\nCondiciones de entrega: '+this.empresaReceptora.payment_term_id, colSpan: 2},
                       {},
                       {text: 'celda 4', colSpan: 4},
                       {},
