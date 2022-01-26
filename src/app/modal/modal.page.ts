@@ -244,16 +244,11 @@ export class ModalPage implements OnInit {
   generarPdf(){
     var pdfContenido = {
       content: [
-		    {
-			    style: 'tableExample',
-			    table: {
-				    widths: [300, '*', 145, '*'],
-				    body: [
 					    {
                 table: {
                   body:[
                     [
-                      {text: this.prueba+'1', colSpan: 2},
+                      {text: '\t\t\t\t\tNombre empresa\n   LOGO\t\t\t\t\tDirección\nEMPRESA\t\t\t\t\tempresa\n \t\t\t\t\tProvincia\n \t\t\t\t\tempresa\n \t\t\tCIF empresa', colSpan: 2},
                       {},
                       {text: 'celda 2', colSpan: 4},
                       {},
@@ -261,7 +256,7 @@ export class ModalPage implements OnInit {
                       {},
                     ],
                     [
-                      {text: 'celda 3', colSpan: 2},
+                      {text: 'Dirección de envío:\nFecha de entrega:\nTransporte:\t\t\t\t\tA nuestro cargo\nForma de pago:\nCondiciones de\nentrega:', colSpan: 2},
                       {},
                       {text: 'celda 4', colSpan: 4},
                       {},
@@ -304,9 +299,6 @@ export class ModalPage implements OnInit {
                 }
               }
 				    ]
-			    }
-		    },
-      ]
     };
     this.pdfCreado=pdfMake.createPdf(pdfContenido);
     this.pdfCreado.download();
