@@ -25,8 +25,6 @@ export class ModalPage implements OnInit {
   });
   familias: any;
   articulos: any;
-  prueba="Raul";
-  
   productos: any;
   contadorArticulos: number;
   contArticulo = 0;
@@ -277,17 +275,17 @@ export class ModalPage implements OnInit {
                 table: {
                   body:[
                     [
-                      {text: '\nLOGO EMPRESA\n\nNombre empresa: '+this.empresaEmisora.name+'\n\nDirección empresa: '+this.empresaEmisora.address+' \n\nProvincia empresa: '+this.empresaEmisora.city+'\n\nCIF empresa: '+this.empresaEmisora.cif+'\n\nEmail empresa: '+this.empresaEmisora.email, colSpan: 2},
+                      {text: '\nLOGO EMPRESA\n\nNombre empresa: '+this.empresaEmisora.name+'\n\nDirección empresa: '+this.empresaEmisora.address+' \n\nProvincia empresa: '+this.empresaEmisora.city+'\n\nCIF empresa: '+this.empresaEmisora.cif+'\n\nEmail empresa: '+this.empresaEmisora.email+'\n ', colSpan: 2},
                       {},
-                      {text: 'PEDIDO	Nº\nFECHA', colSpan: 4},
+                      {text: '\nPEDIDO Nº:'+localStorage.getItem('numFac')+'\n\nFECHA: '+localStorage.getItem('fecha'), colSpan: 4},
                       {},
                       {},
                       {},
                     ],
                     [
-                      {text: 'Dirección de envío: '+this.empresaReceptora.address+'\nFecha de entrega: \nTransporte: A nuestro cargo\nForma de pago: A elegir\nCondiciones de entrega: '+this.empresaReceptora.payment_term_id, colSpan: 2},
+                      {text: 'Dirección de envío: '+this.empresaReceptora.address+'\nFecha de entrega: '+localStorage.getItem('fecha')+'\nTransporte: A nuestro cargo\nForma de pago: A elegir\nCondiciones de entrega: '+this.empresaReceptora.payment_term_id, colSpan: 2},
                       {},
-                      {text: 'celda 4', colSpan: 4},
+                      {text: '', colSpan: 4},
                       {},
                       {},
                       {},
