@@ -225,11 +225,6 @@ export class ModalPage implements OnInit {
     console.log(this.pedidoReal);
     localStorage.setItem('pedidoReal',this.pedidoReal);
 
-    //console.log('Pedido añadido correctamente');
-    //await this.pedidoAniadido();
-    //this.navCtrl.navigateForward('/usuarios/pedidos');
-
-
     this.pedidosService.addOrder()
     .then(async data => {
       this.orders = data;
@@ -249,56 +244,20 @@ export class ModalPage implements OnInit {
   generarPdf(){
     var pdfContenido = {
       content: [
-        {
-          table: {
-            body:[
-              [
-                {text: this.prueba+'1', colSpan: 2},
-                {},
-                {text: 'celda 2', colSpan: 4},
-                {},
-                {},
-                {},
-              ],
-              [
-                {text: 'celda 3', colSpan: 2},
-                {},
-                {text: 'celda 4', colSpan: 4},
-                {},
-                {},
-                {},
-              ],
-              [
-                {text: 'celda 5'},
-                {text: 'celda 6'},
-                {text: 'celda 7'},
-                {text: 'celda 8', colSpan: 2},
-                {},
-                {text: 'celda 9'},
-              ],
-              [
-                {text: 'celda 10',colSpan: 4},
-                {},
-                {},
-                {},
-                {text: 'celda 11', colSpan: 2},
-                {},
-              ],
-              [
-                {text: 'celda 12',colSpan: 6},
-                {},
-                {},
-                {},
-                {},
-                {},
-              ],
-            ]
-          }
-        }
+		    {
+			    style: 'tableExample',
+			    table: {
+				    widths: [300, '*', 145, '*'],
+				    body: [
+					    ['\t\t\t\t\tNombre empresa\n   LOGO\t\t\t\t\tDirección\nEMPRESA\t\t\t\t\tempresa\n \t\t\t\t\tProvincia\n \t\t\t\t\tempresa\n \t\t\tCIF empresa'],
+					    ['Dirección de envío:\nFecha de entrega:\nTransporte:\t\t\t\t\tA nuestro cargo\nForma de pago:\nCondiciones de\nentrega:']
+				    ]
+			    }
+		    },
       ]
     };
-this.pdfCreado=pdfMake.createPdf(pdfContenido);
-this.pdfCreado.download();
+    this.pdfCreado=pdfMake.createPdf(pdfContenido);
+    this.pdfCreado.download();
   }
 
   async pedidoAniadido() {
