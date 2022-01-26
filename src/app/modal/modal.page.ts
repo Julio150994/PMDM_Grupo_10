@@ -7,6 +7,7 @@ import { format } from 'url';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+//import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 
 
 @Component({
@@ -45,7 +46,9 @@ export class ModalPage implements OnInit {
   totalPedido: number;
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController, private loadingCtrl: LoadingController,
-    private pedidosService: PedidosService, private modalPedido: ModalController) { }
+    private pedidosService: PedidosService) { }
+
+    // private mailComposer: EmailComposer
 
   async ngOnInit() {
 
@@ -276,8 +279,7 @@ export class ModalPage implements OnInit {
     this.navCtrl.navigateForward('/usuarios/pedidos');
     console.log(this.pedidoPdf);
     this.generarPdf();
-    
-
+    this.enviarInformePedido();
   }
 
   getDateFormat(aux) {
@@ -346,6 +348,18 @@ export class ModalPage implements OnInit {
     };
     this.pdfCreado=pdfMake.createPdf(pdfContenido);
     this.pdfCreado.download();
+  }
+
+  enviarInformePedido() {
+    let gmailPedido = {
+      app: 'gmail',
+      to: 'munoz.chjul20@cadiz.salesianos.edu',
+      cc: 'marianojota95@gmail.com',
+      subject: 'Pedido',
+      body: '¡¡Ya puedes descargar el informe de tu pedido!!',
+      isHtml: true
+    };
+    //this.mailComposer.open(gmailPedido);
   }
 
   async pedidoAniadido() {
