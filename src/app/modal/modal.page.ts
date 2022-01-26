@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavController, LoadingController, AlertController } from '@ionic/angular';
+import { NavController, LoadingController, AlertController, Platform } from '@ionic/angular';
 import { environment } from '../../environments/environment.prod';
 import { PedidosService } from '../services/pedidos.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { format } from 'url';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 //import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
+import { File } from '@awesome-cordova-plugins/file/ngx';
+import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
 
 
 @Component({
@@ -44,9 +45,10 @@ export class ModalPage implements OnInit {
   empresaReceptora: any;
   pedidoPdf: any[]=[];
   totalPedido: number;
+  docDefinition: any;
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController, private loadingCtrl: LoadingController,
-    private pedidosService: PedidosService) { }
+    private pedidosService: PedidosService,public file:File,public fileOpener:FileOpener,public platform:Platform) { }
 
     // private mailComposer: EmailComposer
 
@@ -286,8 +288,42 @@ export class ModalPage implements OnInit {
     return aux < 10 ? '0'+aux: aux;
   }
 
+  abrirArchivo(){
+    /*if(this.platform.is('cordova')){
+      this.pdfCreado.getBuffer((buffer) => {
+        var blob= new Blob([buffer],{type: 'application/pdf'});
+        this.file.writeFile(this.file.dataDirectory,'pedidoAlmagest.pdf',blob,{ replace: true }).then(fileEntry =>{
+        this.fileOpener.open(this.file.dataDirectory+'pedidoAlmagest.pdf','application/pdf');
+        });
+      });
+
+      return true;
+    }
+    this.pdfCreado.download();*/
+    this.pdfCreado = pdfMake.createPdf(this.docDefinition);
+    if(this.platform.is('cordova')){
+      pdfMake.createPdf(this.docDefinition).getBlob(buffer => {
+        this.file.resolveDirectoryUrl(this.file.cacheDirectory)
+        .then(dirEntry => {
+          this.file.getFile(dirEntry, 'pedidoAlmagest.pdf', { create: true})
+            .then(fileEntry => {
+              fileEntry.createWriter(writer => {
+                writer.onwrite = () => {
+                  this.fileOpener.open(fileEntry.toURL(), 'application/pdf');
+                }
+                writer.write(buffer);
+              })
+            })
+        });
+
+      });
+  }else{
+    this.pdfCreado.download();
+  }
+}
+
   generarPdf(){
-    var pdfContenido = {
+     this.docDefinition = {
       content: [
 					    {
                 table: {
@@ -346,8 +382,8 @@ export class ModalPage implements OnInit {
               }
 				    ]
     };
-    this.pdfCreado=pdfMake.createPdf(pdfContenido);
-    this.pdfCreado.download();
+    this.pdfCreado=pdfMake.createPdf(this.docDefinition);
+    this.abrirArchivo();
   }
 
   enviarInformePedido() {
@@ -383,5 +419,3 @@ export class ModalPage implements OnInit {
     await pedido.present();
   }
 }
-
-
