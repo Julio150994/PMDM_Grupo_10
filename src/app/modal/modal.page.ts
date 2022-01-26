@@ -42,6 +42,7 @@ export class ModalPage implements OnInit {
   empresaEmisora: any;
   empresaReceptora: any;
   pedidoPdf: any[]=[];
+  totalPedido: number;
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController, private loadingCtrl: LoadingController,
     private pedidosService: PedidosService, private modalPedido: ModalController) { }
@@ -245,6 +246,7 @@ export class ModalPage implements OnInit {
     console.log('Fecha de pedido generada: '+formatoFecha);
 
     this.pedidoReal="";
+    this.totalPedido=0;
     for (let i=0;i<this.cantidades?.length;i++){
       if(this.cantidades[i][2] == true && this.cantidades[i][1]>0) {
         this.pedidoReal+=this.cantidades[i][0].article_id+",";
@@ -254,8 +256,11 @@ export class ModalPage implements OnInit {
         this.pedidoPdf.push(this.cantidades[i][1]);
         this.pedidoPdf.push(this.cantidades[i][0].price);
         this.pedidoPdf.push((this.cantidades[i][0].price)*(this.cantidades[i][1]));
+        this.totalPedido=(this.totalPedido+(this.cantidades[i][0].price)*(this.cantidades[i][1]));
+        console.log(this.totalPedido);
       }
     }
+    console.log(this.totalPedido);
     this.pedidoReal=this.pedidoReal.substring(0,this.pedidoReal.length-1);
     console.log(this.pedidoReal);
     localStorage.setItem('pedidoReal',this.pedidoReal);
@@ -323,7 +328,7 @@ export class ModalPage implements OnInit {
                       {},
                       {},
                       {},
-                      {text: '\n-€\n ', colSpan: 2},
+                      {text: '\n'+(this.totalPedido)+'€\n ', colSpan: 2},
                       {},
                     ],
                     [
