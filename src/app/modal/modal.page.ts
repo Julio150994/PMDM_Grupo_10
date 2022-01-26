@@ -249,8 +249,60 @@ export class ModalPage implements OnInit {
 			    table: {
 				    widths: [300, '*', 145, '*'],
 				    body: [
-					    ['\t\t\t\t\tNombre empresa\n   LOGO\t\t\t\t\tDirección\nEMPRESA\t\t\t\t\tempresa\n \t\t\t\t\tProvincia\n \t\t\t\t\tempresa\n \t\t\tCIF empresa'],
-					    ['Dirección de envío:\nFecha de entrega:\nTransporte:\t\t\t\t\tA nuestro cargo\nForma de pago:\nCondiciones de\nentrega:']
+					    {
+                table: {
+                  body:[
+                    [
+                      {text: this.prueba+'1', colSpan: 2},
+                      {},
+                      {text: 'celda 2', colSpan: 4},
+                      {},
+                      {},
+                      {},
+                    ],
+                    [
+                      {text: 'celda 3', colSpan: 2},
+                      {},
+                      {text: 'celda 4', colSpan: 4},
+                      {},
+                      {},
+                      {},
+                    ],
+                    [
+                      {text: 'celda 5'},
+                      {text: 'celda 6'},
+                      {text: 'celda 7'},
+                      {text: 'celda 8', colSpan: 2},
+                      {},
+                      {text: 'celda 9'},
+                    ],
+                    [
+                      {text: 'celda 10'},
+                      {text: 'celda 11'},
+                      {text: 'celda 12'},
+                      {text: 'celda 13', colSpan: 2},
+                      {},
+                      {text: 'celda 14'},
+                    ],
+                    [
+                      {text: 'celda 15',colSpan: 4},
+                      {},
+                      {},
+                      {},
+                      {text: 'celda 16', colSpan: 2},
+                      {},
+                    ],
+                    [
+                      {text: 'celda 17',colSpan: 6},
+                      {},
+                      {},
+                      {},
+                      {},
+                      {},
+                    ],
+                  ]
+                }
+              }
 				    ]
 			    }
 		    },
