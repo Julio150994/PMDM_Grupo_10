@@ -6,7 +6,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
-//import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 import { File } from '@awesome-cordova-plugins/file/ngx';
 import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
 
@@ -48,7 +48,7 @@ export class ModalPage implements OnInit {
   docDefinition: any;
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController, private loadingCtrl: LoadingController,
-    private pedidosService: PedidosService,public file:File,public fileOpener:FileOpener,public platform:Platform) { }
+    private pedidosService: PedidosService,public file:File,public fileOpener:FileOpener,public platform:Platform,public composer:EmailComposer) { }
 
     // private mailComposer: EmailComposer
 
@@ -168,10 +168,10 @@ export class ModalPage implements OnInit {
       console.log(indice);
       this.idArticulo=idArticulo;
       console.log(this.idArticulo);
-      this.cantidades[indice][2]=this.seleccionado;// aquí está la clave de todo el asunto
+      this.cantidades[indice][2]=this.seleccionado;
       console.log('Artículo seleccionado: '+articulo.detail.value);
       console.log('Id del artículo deseleccionado: '+idArticulo);
-      console.log('Select: '+this.cantidades[indice][2]);// para imprimir el select de la condición
+      console.log('Select: '+this.cantidades[indice][2]);
       for (let i = 0; i < this.cantidades?.length; i++){
         if(this.cantidades[i][2]==true){
           this.seleccionado=true;
@@ -384,18 +384,18 @@ export class ModalPage implements OnInit {
     };
     this.pdfCreado=pdfMake.createPdf(this.docDefinition);
     this.abrirArchivo();
+    this.enviarInformePedido();
   }
 
   enviarInformePedido() {
     let gmailPedido = {
       app: 'gmail',
-      to: 'munoz.chjul20@cadiz.salesianos.edu',
-      cc: 'marianojota95@gmail.com',
+      to: 'diaz.heant21@cadiz.salesianos.edu',
       subject: 'Pedido',
       body: '¡¡Ya puedes descargar el informe de tu pedido!!',
       isHtml: true
     };
-    //this.mailComposer.open(gmailPedido);
+    this.composer.open(gmailPedido);
   }
 
   async pedidoAniadido() {
@@ -419,3 +419,4 @@ export class ModalPage implements OnInit {
     await pedido.present();
   }
 }
+

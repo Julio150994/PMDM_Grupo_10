@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import { HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { PipesModule } from './pipes/pipes.module';
 import { AuthInterceptorService } from './auth-interceptor.service';
+import { File } from '@awesome-cordova-plugins/file/ngx';
+import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,8 +34,10 @@ import { AuthInterceptorService } from './auth-interceptor.service';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
-
+    },
+    File,
+    FileOpener,
+    EmailComposer,
   ],
   bootstrap: [AppComponent],
 })

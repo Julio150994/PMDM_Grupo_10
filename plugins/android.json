@@ -28,11 +28,20 @@
     },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "io.ionic.starter"
-    }
-  },
-  "dependent_plugins": {
+    },
+    "cordova-plugin-file-opener2": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
     "cordova-plugin-file": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-email-composer": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-androidx-adapter": {
+      "PACKAGE_NAME": "io.ionic.starter"
     }
-  }
+  },
+  "dependent_plugins": {}
 }
