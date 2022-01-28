@@ -79786,7 +79786,40 @@ let ModalPage = class ModalPage {
         if (this.cantidades[id][1] >= 0 && this.cantidades[id][1] <= 39) {
             this.cantidades[id][1]++;
         }
-        //console.log('SUMA Id de artículo: '+this.cantidades[id][1]);
+    }
+    encontrarEmailContacto() {
+        var _a, _b;
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
+            this.email_confirmed = "";
+            yield this.encontrarEmail();
+            for (let i = 0; i < ((_a = this.usuarios) === null || _a === void 0 ? void 0 : _a.length); i++) {
+                if (this.usuarios[i].isContact && this.usuarios[i].company_id == localStorage.getItem('empresaPedido')) {
+                    this.email_confirmed = this.usuarios[i].email;
+                }
+            }
+            if (this.email_confirmed == "") {
+                for (let i = 0; i < ((_b = this.empresas) === null || _b === void 0 ? void 0 : _b.length); i++) {
+                    if (this.empresas[i].id == localStorage.getItem('empresaPedido')) {
+                        this.email_confirmed = this.empresas[i].email;
+                    }
+                }
+            }
+            console.log(this.email_confirmed);
+        });
+    }
+    encontrarEmail() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
+            const loading = yield this.loadingCtrl.create({
+                duration: 1000
+            });
+            yield loading.present();
+            this.pedidosService.obtenerUsuarios()
+                .then(data => {
+                this.usuarios = data;
+                this.usuarios = this.usuarios.data;
+            });
+            const { role, data } = yield loading.onDidDismiss();
+        });
     }
     restarProductos(cantidad, id) {
         //console.log(cantidad);
@@ -79794,11 +79827,12 @@ let ModalPage = class ModalPage {
         if (this.cantidades[id][1] > 0 && this.cantidades[id][1] <= 40) {
             this.cantidades[id][1]--;
         }
-        //console.log('RESTA Id de artículo: '+this.cantidades[id][1]);
     }
     aniadirPedido() {
         var _a;
         return (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
+            this.encontrarEmailContacto();
+            yield this.presentLoading();
             console.log('Pulsado el botón añadir pedido');
             console.log(this.cantidades);
             console.log(this.cantidades.toString());
@@ -79849,46 +79883,125 @@ let ModalPage = class ModalPage {
             console.log('Pedido añadido correctamente');
             yield this.pedidoAniadido();
             this.navCtrl.navigateForward('/usuarios/pedidos');
-            console.log(this.pedidoPdf);
             this.generarPdf();
-            this.enviarInformePedido();
         });
     }
     getDateFormat(aux) {
         return aux < 10 ? '0' + aux : aux;
     }
-    abrirArchivo() {
-        /*if(this.platform.is('cordova')){
-          this.pdfCreado.getBuffer((buffer) => {
-            var blob= new Blob([buffer],{type: 'application/pdf'});
-            this.file.writeFile(this.file.dataDirectory,'pedidoAlmagest.pdf',blob,{ replace: true }).then(fileEntry =>{
-            this.fileOpener.open(this.file.dataDirectory+'pedidoAlmagest.pdf','application/pdf');
-            });
-          });
+    /*
+      openLocalPdf() {
+        const filePath = this.file.applicationDirectory + 'www/assets';
     
-          return true;
-        }
-        this.pdfCreado.download();*/
-        this.pdfCreado = pdfmake_build_pdfmake__WEBPACK_IMPORTED_MODULE_4__.createPdf(this.docDefinition);
+        if (this.platform.is('android')) {
+      const fakeName = Date.now();
+      this.file.copyFile(filePath, '5-tools.pdf', this.file.dataDirectory, `${fakeName}.pdf`).then(result => {
+        this.fileOpener.open(result.nativeURL, 'application/pdf')
+          .then(() => console.log('File is opened'))
+          .catch(e => console.log('Error opening file', e));
+      });
+    } else {
+      // Use Document viewer for iOS for a better UI
+      const options: DocumentViewerOptions = {
+        title: 'My PDF'
+      };
+      this.document.viewDocument(`${filePath}/5-tools.pdf`, 'application/pdf', options);
+    }
+    }
+    
+    downloadAndOpenPdf() {
+    const downloadUrl = 'https://devdactic.com/html/5-simple-hacks-LBT.pdf';
+    const path = this.file.dataDirectory;
+    const transfer = this.ft.create();
+    
+    transfer.download(downloadUrl, path + 'myfile.pdf').then(entry => {
+      const url = entry.toURL();
+    
+      if (this.platform.is('ios')) {
+        this.document.viewDocument(url, 'application/pdf', {});
+      } else {
+        this.fileOpener.open(url, 'application/pdf')
+          .then(() => console.log('File is opened'))
+          .catch(e => console.log('Error opening file', e));
+      }
+    });
+      this.openLocalPdf();
+    }
+    */
+    abrirArchivo() {
         if (this.platform.is('cordova')) {
             pdfmake_build_pdfmake__WEBPACK_IMPORTED_MODULE_4__.createPdf(this.docDefinition).getBlob(buffer => {
-                this.file.resolveDirectoryUrl(this.file.cacheDirectory)
+                this.file.resolveDirectoryUrl(this.file.dataDirectory)
                     .then(dirEntry => {
-                    this.file.getFile(dirEntry, 'pedidoAlmagest.pdf', { create: true })
+                    this.file.getFile(dirEntry, 'test1.pdf', { create: true })
                         .then(fileEntry => {
                         fileEntry.createWriter(writer => {
                             writer.onwrite = () => {
-                                this.fileOpener.open(fileEntry.toURL(), 'application/pdf');
+                                this.fileOpener.open(fileEntry.toURL(), 'application/pdf')
+                                    .then(res => { })
+                                    .catch((err) => (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
+                                    const alert = this.alertCtrl.create({ message: err.message, buttons: ['Ok'] });
+                                    (yield alert).present();
+                                }));
                             };
                             writer.write(buffer);
                         });
-                    });
-                });
+                    })
+                        .catch((err) => (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
+                        const alert = this.alertCtrl.create({ message: err, buttons: ['Ok'] });
+                        (yield alert).present();
+                    }));
+                })
+                    .catch((err) => (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
+                    const alert = this.alertCtrl.create({ message: err, buttons: ['Ok'] });
+                    (yield alert).present();
+                }));
             });
         }
         else {
             this.pdfCreado.download();
         }
+        this.enviarInformePedido();
+        /*
+        this.pdfCreado.download();
+        if(this.platform.is('cordova')){
+          this.pdfCreado.getBuffer((buffer) => {
+            var blob= new Blob([buffer],{type: 'application/pdf'});
+            this.file.writeFile(this.file.cacheDirectory,'pedidoAlmagest.pdf',blob,{ replace: true }).then(fileEntry =>{
+            this.fileOpener.open(this.file.cacheDirectory+'pedidoAlmagest.pdf','application/pdf');
+            });
+          });
+    
+          return true;
+        }
+    
+    const fileTransfer: FileTransferObject = this.ft.create();
+      this.pdfCreado.download();
+        if(this.platform.is('cordova')){
+            fileTransfer.download(this.docDefinition, this.file.externalRootDirectory + 'file00.pdf').then((entry) => {
+              console.log('download complete: ' + entry.toURL());
+            }, (error) => {
+              // handle error
+            });
+         pdfMake.createPdf(this.docDefinition).getBlob(buffer => {
+            this.file.resolveDirectoryUrl(this.file.cacheDirectory)
+            .then(dirEntry => {
+              this.file.getFile(dirEntry, 'pedidoAlmagest.pdf', { create: true})
+                .then(fileEntry => {
+                  fileEntry.createWriter(writer => {
+                    writer.onwrite = () => {
+                      this.fileOpener.open(fileEntry.toURL(), 'application/pdf');
+                    }
+                    writer.write(buffer);
+                  })
+                })
+            });
+    
+          });
+      }else{
+        this.pdfCreado.download();
+      }
+      */
     }
     generarPdf() {
         this.docDefinition = {
@@ -79951,12 +80064,16 @@ let ModalPage = class ModalPage {
         };
         this.pdfCreado = pdfmake_build_pdfmake__WEBPACK_IMPORTED_MODULE_4__.createPdf(this.docDefinition);
         this.abrirArchivo();
-        this.enviarInformePedido();
+        //this.downloadAndOpenPdf();
+        //this.enviarInformePedido();
     }
     enviarInformePedido() {
+        console.log(this.email_confirmed);
         let gmailPedido = {
-            app: 'gmail',
-            to: 'diaz.heant21@cadiz.salesianos.edu',
+            to: 'diaz.heant21@cadiz.salesianos.com',
+            attachments: [
+                'file:///data/user/0/io.ionic.starter/files/test1.pdf'
+            ],
             subject: 'Pedido',
             body: '¡¡Ya puedes descargar el informe de tu pedido!!',
             isHtml: true

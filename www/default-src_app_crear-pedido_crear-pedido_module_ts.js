@@ -297,6 +297,19 @@ let PedidosService = class PedidosService {
             });
         });
     }
+    obtenerUsuarios() {
+        return new Promise(res => {
+            this.httpUser.get(this.url + '/users', {
+                headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__.HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'))
+            }).subscribe(data => {
+                this.usuarios = data;
+                this.usuarios = this.usuarios.data;
+                res(data);
+            }, error => {
+                console.log('Error al mostrar los usuarios ' + error);
+            });
+        });
+    }
 };
 PedidosService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__.HttpClient },

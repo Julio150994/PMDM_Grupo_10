@@ -14,6 +14,7 @@ export class PedidosService {
   name_comp: any;
   productos2: any;
   pedido: any;
+  usuarios: any;
 
   constructor(private httpUser: HttpClient,
     private loadingUserCtrl: LoadingController) { }
@@ -92,5 +93,17 @@ export class PedidosService {
     });
   }
 
-
+  obtenerUsuarios() {
+    return new Promise(res => {
+      this.httpUser.get(this.url+'/users',{
+        headers: new HttpHeaders().set('Authorization', 'Bearer '+localStorage.getItem('token'))
+      }).subscribe(data => {
+        this.usuarios = data;
+        this.usuarios=this.usuarios.data;
+        res(data);
+      }, error => {
+        console.log('Error al mostrar los usuarios '+error);
+      });
+    });
+  }
 }
