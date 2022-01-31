@@ -53,8 +53,6 @@ export class ModalPage implements OnInit {
   constructor(private alertCtrl: AlertController, private navCtrl: NavController, private loadingCtrl: LoadingController,
     private pedidosService: PedidosService,public file:File,public fileOpener:FileOpener,public platform:Platform,public composer:EmailComposer) { }
 
-    // private mailComposer: EmailComposer
-
   async ngOnInit() {
 
     console.log('Modal para los pedidos.');
@@ -202,8 +200,6 @@ export class ModalPage implements OnInit {
   }
 
   sumarProductos(cantidad: number,id: number) {
-    //console.log(cantidad);
-    //console.log(id);
     if(this.cantidades[id][1]>=0 && this.cantidades[id][1]<=39){
       this.cantidades[id][1]++;
     }
@@ -249,8 +245,6 @@ export class ModalPage implements OnInit {
   }
 
   restarProductos(cantidad: number,id: number) {
-    //console.log(cantidad);
-    //console.log(id);
     if(this.cantidades[id][1]>0 && this.cantidades[id][1]<=40){
       this.cantidades[id][1]--;
     }
@@ -328,45 +322,6 @@ export class ModalPage implements OnInit {
   getDateFormat(aux) {
     return aux < 10 ? '0'+aux: aux;
   }
-/*
-  openLocalPdf() {
-    const filePath = this.file.applicationDirectory + 'www/assets';
-
-    if (this.platform.is('android')) {
-  const fakeName = Date.now();
-  this.file.copyFile(filePath, '5-tools.pdf', this.file.dataDirectory, `${fakeName}.pdf`).then(result => {
-    this.fileOpener.open(result.nativeURL, 'application/pdf')
-      .then(() => console.log('File is opened'))
-      .catch(e => console.log('Error opening file', e));
-  });
-} else {
-  // Use Document viewer for iOS for a better UI
-  const options: DocumentViewerOptions = {
-    title: 'My PDF'
-  };
-  this.document.viewDocument(`${filePath}/5-tools.pdf`, 'application/pdf', options);
-}
-}
-
-downloadAndOpenPdf() {
-const downloadUrl = 'https://devdactic.com/html/5-simple-hacks-LBT.pdf';
-const path = this.file.dataDirectory;
-const transfer = this.ft.create();
-
-transfer.download(downloadUrl, path + 'myfile.pdf').then(entry => {
-  const url = entry.toURL();
-
-  if (this.platform.is('ios')) {
-    this.document.viewDocument(url, 'application/pdf', {});
-  } else {
-    this.fileOpener.open(url, 'application/pdf')
-      .then(() => console.log('File is opened'))
-      .catch(e => console.log('Error opening file', e));
-  }
-});
-  this.openLocalPdf();
-}
-*/
   abrirArchivo(){
     if(this.platform.is('cordova')){
     pdfMake.createPdf(this.docDefinition).getBlob(buffer => {
@@ -401,46 +356,6 @@ transfer.download(downloadUrl, path + 'myfile.pdf').then(entry => {
     this.pdfCreado.download();
   }
     this.enviarInformePedido();
-    /*
-    this.pdfCreado.download();
-    if(this.platform.is('cordova')){
-      this.pdfCreado.getBuffer((buffer) => {
-        var blob= new Blob([buffer],{type: 'application/pdf'});
-        this.file.writeFile(this.file.cacheDirectory,'pedidoAlmagest.pdf',blob,{ replace: true }).then(fileEntry =>{
-        this.fileOpener.open(this.file.cacheDirectory+'pedidoAlmagest.pdf','application/pdf');
-        });
-      });
-
-      return true;
-    }
-
-const fileTransfer: FileTransferObject = this.ft.create();
-  this.pdfCreado.download();
-    if(this.platform.is('cordova')){
-        fileTransfer.download(this.docDefinition, this.file.externalRootDirectory + 'file00.pdf').then((entry) => {
-          console.log('download complete: ' + entry.toURL());
-        }, (error) => {
-          // handle error
-        });
-     pdfMake.createPdf(this.docDefinition).getBlob(buffer => {
-        this.file.resolveDirectoryUrl(this.file.cacheDirectory)
-        .then(dirEntry => {
-          this.file.getFile(dirEntry, 'pedidoAlmagest.pdf', { create: true})
-            .then(fileEntry => {
-              fileEntry.createWriter(writer => {
-                writer.onwrite = () => {
-                  this.fileOpener.open(fileEntry.toURL(), 'application/pdf');
-                }
-                writer.write(buffer);
-              })
-            })
-        });
-
-      });
-  }else{
-    this.pdfCreado.download();
-  }
-  */
 }
 
   generarPdf(){
@@ -505,14 +420,12 @@ const fileTransfer: FileTransferObject = this.ft.create();
     };
     this.pdfCreado=pdfMake.createPdf(this.docDefinition);
     this.abrirArchivo();
-    //this.downloadAndOpenPdf();
-    //this.enviarInformePedido();
   }
 
   enviarInformePedido() {
     console.log(this.email_confirmed);
       let gmailPedido = {
-        to: 'diaz.heant21@cadiz.salesianos.com',
+        to: 'diaz.heant21@cadiz.salesianos.edu',
         attachments: [
           'file:///data/user/0/io.ionic.starter/files/test1.pdf'
         ],
