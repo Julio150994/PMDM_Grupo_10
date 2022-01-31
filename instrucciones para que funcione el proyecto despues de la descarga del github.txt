@@ -1,0 +1,13 @@
+INSTALAR EN ANDROID STUDIO: Android SDK Build-Tools 32.1-rc1 solamente con la versión 30.0.3, para que
+se pueda ejecutar gradle sin problemas, ya que si hay otra distinta da problemas.
+
+DENTRO DEL DIRECTORIO DEL PROYECTO DESCARGADO
+1º npm install
+2º eliminar el directorio que se crea de pdfmake
+3º git clone --branch 0.2 https://github.com/bpampuch/pdfmake.git
+4º cd pdfmake
+5º npm install
+6º npm run build
+7º git describe --dirty
+8º cd..
+9º ionic serve
