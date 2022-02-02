@@ -26,7 +26,7 @@
       </ion-item>
   </ion-list>
 
-  <ion-button expand="full" [disabled]="((!seleccionado||!can)||(!seleccionado))" color="success" id="btnCrearPedido" (click)="aniadirPedido()">
+  <ion-button expand="full" [disabled]="(!can || !seleccionado)" color="success" id="btnCrearPedido" (click)="aniadirPedido()">
     <ion-icon name="add-circle"></ion-icon>
     <span>Añadir pedido</span>
   </ion-button>

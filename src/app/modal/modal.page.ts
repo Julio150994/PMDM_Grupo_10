@@ -49,7 +49,7 @@ export class ModalPage implements OnInit {
   prueba: any;
   email_confirmed: any;
   usuarios: any;
-  can: boolean=false;
+  can=false;
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController, private loadingCtrl: LoadingController,
     private pedidosService: PedidosService,public file:File,public fileOpener:FileOpener,public platform:Platform,public composer:EmailComposer) { }
@@ -162,6 +162,7 @@ export class ModalPage implements OnInit {
   }
 
   selectProductos(articulo, idArticulo,productoSeleccion,indice) {
+    this.can=true;
     if (articulo.target.checked === true) {
       console.log(productoSeleccion);
       this.seleccionado=articulo.detail.checked;
@@ -177,8 +178,10 @@ export class ModalPage implements OnInit {
         if(this.cantidades[i][2]==true){
           this.seleccionado=true;
         }
-        if(this.cantidades[i][1]>0){
+        if(this.cantidades[i][2]==true&&this.cantidades[i][1]>0){
           this.can=true;
+        }else{
+          this.can=false;
         }
       }      
     }
@@ -197,10 +200,9 @@ export class ModalPage implements OnInit {
         if(this.cantidades[i][2]==true){
           this.seleccionado=true;
         }
-        if(this.cantidades[i][1]>0){
+        if(this.cantidades[i][2]==true&&this.cantidades[i][1]>0){
           this.can=true;
-        }
-        if(this.cantidades[i][1]==0){
+        }else{
           this.can=false;
         }
       } 
@@ -209,11 +211,12 @@ export class ModalPage implements OnInit {
   }
 
   sumarProductos(cantidad: number,id: number) {
+    this.can=false;
     if(this.cantidades[id][1]>=0 && this.cantidades[id][1]<=39){
       this.cantidades[id][1]++;
     }
     for(let i = 0; i < this.cantidades?.length; i++){
-      if(this.cantidades[i][1]>0){
+      if(this.cantidades[i][1]>0&&this.cantidades[i][2]){
         this.can=true;
       }
     }
@@ -259,17 +262,21 @@ export class ModalPage implements OnInit {
   }
 
   restarProductos(cantidad: number,id: number) {
+    
     if(this.cantidades[id][1]>0 && this.cantidades[id][1]<=40){
       this.cantidades[id][1]--;
     }
+    
     for(let i = 0; i < this.cantidades?.length; i++){
-      if(this.cantidades[i][1]>0){
+      if(this.cantidades[i][1]>0&&this.cantidades[i][2]){
         this.can=true;
       }
-      if(this.cantidades[i][1]==0){
+      if(this.cantidades[i][1]==0&&this.cantidades[i][2]){
         this.can=false;
       }
     }
+
+    
     
     
   }
