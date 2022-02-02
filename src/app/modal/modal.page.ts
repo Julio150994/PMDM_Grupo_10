@@ -444,7 +444,7 @@ export class ModalPage implements OnInit {
   }
 
   enviarInformePedido() {
-    /*console.log(this.email_confirmed);
+    console.log(this.email_confirmed);
       let gmailPedido = {
         to: 'diaz.heant21@cadiz.salesianos.edu',
         attachments: [
@@ -454,8 +454,8 @@ export class ModalPage implements OnInit {
         body: '¡¡Ya puedes descargar el informe de tu pedido!!',
         isHtml: true
       };
-      this.composer.open(gmailPedido);*/
-      const templateParams = {
+      this.composer.open(gmailPedido);
+    /*  const templateParams = {
         name: 'Almagest',
         notes: 'Has recibido un pedido'
     };
@@ -465,7 +465,7 @@ export class ModalPage implements OnInit {
          console.log('SUCCESS!', response.status, response.text);
       }, (err) => {
          console.log('FAILED...', err);
-      });
+      });*/
   
 }
 
