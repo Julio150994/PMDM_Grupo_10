@@ -201,6 +201,9 @@ export class ModalPage implements OnInit {
         if(this.cantidades[i][1]>0){
           this.can=true;
         }
+        if(this.cantidades[i][1]==0){
+          this.can=false;
+        }
       } 
       
     }

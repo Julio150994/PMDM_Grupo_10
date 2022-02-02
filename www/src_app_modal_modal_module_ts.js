@@ -14353,7 +14353,7 @@ module.exports = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 3116:
+/***/ 5815:
 /***/ (function(__unused_webpack_module, exports, __nested_webpack_require_416702__) {
 
 "use strict";
@@ -28535,7 +28535,7 @@ module.exports = __nested_webpack_require_928166__(6450).BrotliDecompressBuffer;
 
 /***/ }),
 
-/***/ 4505:
+/***/ 8010:
 /***/ (function(__unused_webpack_module, exports, __nested_webpack_require_928332__) {
 
 "use strict";
@@ -28962,7 +28962,7 @@ exports.Zlib = Zlib;
 
 var Buffer = (__nested_webpack_require_939591__(8823).Buffer);
 var Transform = (__nested_webpack_require_939591__(2830).Transform);
-var binding = __nested_webpack_require_939591__(4505);
+var binding = __nested_webpack_require_939591__(8010);
 var util = __nested_webpack_require_939591__(9539);
 var assert = (__nested_webpack_require_939591__(9282).ok);
 var kMaxLength = (__nested_webpack_require_939591__(8823).kMaxLength);
@@ -55502,7 +55502,7 @@ module.exports = __nested_webpack_require_1767594__(7187).EventEmitter;
 
 /***/ }),
 
-/***/ 9476:
+/***/ 4505:
 /***/ (function(module, exports, __nested_webpack_require_1767733__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(a,b){if(true)!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (b),
@@ -72647,7 +72647,7 @@ module.exports = URLBrowserResolver;
 var isFunction = (__nested_webpack_require_2348510__(6225).isFunction);
 var isUndefined = (__nested_webpack_require_2348510__(6225).isUndefined);
 var isNull = (__nested_webpack_require_2348510__(6225).isNull);
-var FileSaver = __nested_webpack_require_2348510__(9476);
+var FileSaver = __nested_webpack_require_2348510__(4505);
 var saveAs = FileSaver.saveAs;
 
 var defaultClientFonts = {
@@ -76249,7 +76249,7 @@ function _interopDefault(ex) {
 	return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex;
 }
 
-var PdfKit = _interopDefault(__nested_webpack_require_2445325__(3116));
+var PdfKit = _interopDefault(__nested_webpack_require_2445325__(5815));
 
 function getEngineInstance() {
 	return PdfKit;
@@ -79652,8 +79652,8 @@ let ModalPage = class ModalPage {
         this.datosEmpresaEmisora = [];
         this.datosEmpresaReceptora = [];
         this.pedidoPdf = [];
+        this.can = false;
     }
-    // private mailComposer: EmailComposer
     ngOnInit() {
         var _a, _b, _c, _d;
         return (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
@@ -79760,6 +79760,9 @@ let ModalPage = class ModalPage {
                 if (this.cantidades[i][2] == true) {
                     this.seleccionado = true;
                 }
+                if (this.cantidades[i][1] > 0) {
+                    this.can = true;
+                }
             }
         }
         else {
@@ -79777,14 +79780,21 @@ let ModalPage = class ModalPage {
                 if (this.cantidades[i][2] == true) {
                     this.seleccionado = true;
                 }
+                if (this.cantidades[i][1] > 0) {
+                    this.can = true;
+                }
             }
         }
     }
     sumarProductos(cantidad, id) {
-        //console.log(cantidad);
-        //console.log(id);
+        var _a;
         if (this.cantidades[id][1] >= 0 && this.cantidades[id][1] <= 39) {
             this.cantidades[id][1]++;
+        }
+        for (let i = 0; i < ((_a = this.cantidades) === null || _a === void 0 ? void 0 : _a.length); i++) {
+            if (this.cantidades[i][1] > 0) {
+                this.can = true;
+            }
         }
     }
     encontrarEmailContacto() {
@@ -79822,10 +79832,17 @@ let ModalPage = class ModalPage {
         });
     }
     restarProductos(cantidad, id) {
-        //console.log(cantidad);
-        //console.log(id);
+        var _a;
         if (this.cantidades[id][1] > 0 && this.cantidades[id][1] <= 40) {
             this.cantidades[id][1]--;
+        }
+        for (let i = 0; i < ((_a = this.cantidades) === null || _a === void 0 ? void 0 : _a.length); i++) {
+            if (this.cantidades[i][1] > 0) {
+                this.can = true;
+            }
+            if (this.cantidades[i][1] == 0) {
+                this.can = false;
+            }
         }
     }
     aniadirPedido() {
@@ -79889,45 +79906,6 @@ let ModalPage = class ModalPage {
     getDateFormat(aux) {
         return aux < 10 ? '0' + aux : aux;
     }
-    /*
-      openLocalPdf() {
-        const filePath = this.file.applicationDirectory + 'www/assets';
-    
-        if (this.platform.is('android')) {
-      const fakeName = Date.now();
-      this.file.copyFile(filePath, '5-tools.pdf', this.file.dataDirectory, `${fakeName}.pdf`).then(result => {
-        this.fileOpener.open(result.nativeURL, 'application/pdf')
-          .then(() => console.log('File is opened'))
-          .catch(e => console.log('Error opening file', e));
-      });
-    } else {
-      // Use Document viewer for iOS for a better UI
-      const options: DocumentViewerOptions = {
-        title: 'My PDF'
-      };
-      this.document.viewDocument(`${filePath}/5-tools.pdf`, 'application/pdf', options);
-    }
-    }
-    
-    downloadAndOpenPdf() {
-    const downloadUrl = 'https://devdactic.com/html/5-simple-hacks-LBT.pdf';
-    const path = this.file.dataDirectory;
-    const transfer = this.ft.create();
-    
-    transfer.download(downloadUrl, path + 'myfile.pdf').then(entry => {
-      const url = entry.toURL();
-    
-      if (this.platform.is('ios')) {
-        this.document.viewDocument(url, 'application/pdf', {});
-      } else {
-        this.fileOpener.open(url, 'application/pdf')
-          .then(() => console.log('File is opened'))
-          .catch(e => console.log('Error opening file', e));
-      }
-    });
-      this.openLocalPdf();
-    }
-    */
     abrirArchivo() {
         if (this.platform.is('cordova')) {
             pdfmake_build_pdfmake__WEBPACK_IMPORTED_MODULE_4__.createPdf(this.docDefinition).getBlob(buffer => {
@@ -79962,46 +79940,6 @@ let ModalPage = class ModalPage {
             this.pdfCreado.download();
         }
         this.enviarInformePedido();
-        /*
-        this.pdfCreado.download();
-        if(this.platform.is('cordova')){
-          this.pdfCreado.getBuffer((buffer) => {
-            var blob= new Blob([buffer],{type: 'application/pdf'});
-            this.file.writeFile(this.file.cacheDirectory,'pedidoAlmagest.pdf',blob,{ replace: true }).then(fileEntry =>{
-            this.fileOpener.open(this.file.cacheDirectory+'pedidoAlmagest.pdf','application/pdf');
-            });
-          });
-    
-          return true;
-        }
-    
-    const fileTransfer: FileTransferObject = this.ft.create();
-      this.pdfCreado.download();
-        if(this.platform.is('cordova')){
-            fileTransfer.download(this.docDefinition, this.file.externalRootDirectory + 'file00.pdf').then((entry) => {
-              console.log('download complete: ' + entry.toURL());
-            }, (error) => {
-              // handle error
-            });
-         pdfMake.createPdf(this.docDefinition).getBlob(buffer => {
-            this.file.resolveDirectoryUrl(this.file.cacheDirectory)
-            .then(dirEntry => {
-              this.file.getFile(dirEntry, 'pedidoAlmagest.pdf', { create: true})
-                .then(fileEntry => {
-                  fileEntry.createWriter(writer => {
-                    writer.onwrite = () => {
-                      this.fileOpener.open(fileEntry.toURL(), 'application/pdf');
-                    }
-                    writer.write(buffer);
-                  })
-                })
-            });
-    
-          });
-      }else{
-        this.pdfCreado.download();
-      }
-      */
     }
     generarPdf() {
         this.docDefinition = {
@@ -80064,13 +80002,11 @@ let ModalPage = class ModalPage {
         };
         this.pdfCreado = pdfmake_build_pdfmake__WEBPACK_IMPORTED_MODULE_4__.createPdf(this.docDefinition);
         this.abrirArchivo();
-        //this.downloadAndOpenPdf();
-        //this.enviarInformePedido();
     }
     enviarInformePedido() {
         console.log(this.email_confirmed);
         let gmailPedido = {
-            to: 'diaz.heant21@cadiz.salesianos.com',
+            to: 'diaz.heant21@cadiz.salesianos.edu',
             attachments: [
                 'file:///data/user/0/io.ionic.starter/files/test1.pdf'
             ],
@@ -80079,6 +80015,17 @@ let ModalPage = class ModalPage {
             isHtml: true
         };
         this.composer.open(gmailPedido);
+        /*  const templateParams = {
+            name: 'Almagest',
+            notes: 'Has recibido un pedido'
+        };
+        
+        emailjs.send('service_2i9fl06','template_dtyxaeh', templateParams, 'user_nJZOxp7BAkv643PGxxQLv')
+          .then((response) => {
+             console.log('SUCCESS!', response.status, response.text);
+          }, (err) => {
+             console.log('FAILED...', err);
+          });*/
     }
     pedidoAniadido() {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
@@ -80150,7 +80097,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-header [translucent]=\"true\">\r\n  <ion-toolbar color=\"primary\">\r\n    <ion-title>Crear pedido</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content class=\"ion-padding\">\r\n    <ion-button expand=\"full\" color=\"warning\" (click)=\"backToFormPedidos()\">\r\n      <ion-icon name=\"arrow-back-circle\"></ion-icon>\r\n      <span>Volver a Pedidos</span>\r\n    </ion-button>\r\n\r\n    <ion-list id=\"listaArticulos\">\r\n      <ion-label color=\"primary\" id=\"titulo\"><h1>Lista de Artículos</h1></ion-label>\r\n      <ion-item *ngFor=\"let producto of cantidades; let i = index\">\r\n        <ion-checkbox color=\"tertiary\" value=\"{{ producto[0].compamy_name }}\"\r\n          (ionChange)=\"selectProductos($event, producto[0].article_id,producto[2],i)\" name=\"{{ producto[0].compamy_name }}\"></ion-checkbox>\r\n          <ion-label>\r\n          <h3 id=\"compamy\">{{producto[0].compamy_name}}</h3>\r\n          </ion-label>\r\n          <ion-item lines=\"none\">\r\n            <ion-button shape=\"round\" color=\"primary\" [disabled]=\"(producto[2]==false)\" (click)=\"restarProductos(producto[1],i)\">-</ion-button>\r\n            <ion-label>&nbsp;{{producto[1]}}&nbsp;</ion-label>\r\n            <ion-button shape=\"round\" color=\"primary\" [disabled]=\"(producto[2]==false)\" (click)=\"sumarProductos(producto[1],i)\">+</ion-button>\r\n          </ion-item>\r\n      </ion-item>\r\n  </ion-list>\r\n\r\n  <ion-button expand=\"full\" [disabled]=\"(!seleccionado)\" color=\"success\" id=\"btnCrearPedido\" (click)=\"aniadirPedido()\">\r\n    <ion-icon name=\"add-circle\"></ion-icon>\r\n    <span>Añadir pedido</span>\r\n  </ion-button>\r\n</ion-content>");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-header [translucent]=\"true\">\r\n  <ion-toolbar color=\"primary\">\r\n    <ion-title>Crear pedido</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content class=\"ion-padding\">\r\n    <ion-button expand=\"full\" color=\"warning\" (click)=\"backToFormPedidos()\">\r\n      <ion-icon name=\"arrow-back-circle\"></ion-icon>\r\n      <span>Volver a Pedidos</span>\r\n    </ion-button>\r\n\r\n    <ion-list id=\"listaArticulos\">\r\n      <ion-label color=\"primary\" id=\"titulo\"><h1>Lista de Artículos</h1></ion-label>\r\n      <ion-item *ngFor=\"let producto of cantidades; let i = index\">\r\n        <ion-checkbox color=\"tertiary\" value=\"{{ producto[0].compamy_name }}\"\r\n          (ionChange)=\"selectProductos($event, producto[0].article_id,producto[2],i)\" name=\"{{ producto[0].compamy_name }}\"></ion-checkbox>\r\n          <ion-label>\r\n          <h3 id=\"compamy\">{{producto[0].compamy_name}}</h3>\r\n          </ion-label>\r\n          <ion-item lines=\"none\">\r\n            <ion-button shape=\"round\" color=\"primary\" [disabled]=\"(producto[2]==false)\" (click)=\"restarProductos(producto[1],i)\">-</ion-button>\r\n            <ion-label>&nbsp;{{producto[1]}}&nbsp;</ion-label>\r\n            <ion-button shape=\"round\" color=\"primary\" [disabled]=\"(producto[2]==false)\" (click)=\"sumarProductos(producto[1],i)\">+</ion-button>\r\n          </ion-item>\r\n      </ion-item>\r\n  </ion-list>\r\n\r\n  <ion-button expand=\"full\" [disabled]=\"(!seleccionado||!can)\" color=\"success\" id=\"btnCrearPedido\" (click)=\"aniadirPedido()\">\r\n    <ion-icon name=\"add-circle\"></ion-icon>\r\n    <span>Añadir pedido</span>\r\n  </ion-button>\r\n</ion-content>");
 
 /***/ })
 
