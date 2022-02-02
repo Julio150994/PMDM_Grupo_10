@@ -11,4 +11,3 @@ DENTRO DEL DIRECTORIO DEL PROYECTO DESCARGADO
 7º git describe --dirty
 8º cd..
 9º ejecutar con ionic serve (para el ordenador) ó ionic cordova run android (para el móvil)
-;
