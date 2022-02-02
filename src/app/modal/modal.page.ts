@@ -9,6 +9,7 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 import { File } from '@awesome-cordova-plugins/file/ngx';
 import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
+import emailjs from '@emailjs/browser';
 
 
 @Component({
@@ -49,6 +50,7 @@ export class ModalPage implements OnInit {
   prueba: any;
   email_confirmed: any;
   usuarios: any;
+  can: boolean=false;
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController, private loadingCtrl: LoadingController,
     private pedidosService: PedidosService,public file:File,public fileOpener:FileOpener,public platform:Platform,public composer:EmailComposer) { }
@@ -161,7 +163,6 @@ export class ModalPage implements OnInit {
   }
 
   selectProductos(articulo, idArticulo,productoSeleccion,indice) {
-
     if (articulo.target.checked === true) {
       console.log(productoSeleccion);
       this.seleccionado=articulo.detail.checked;
@@ -176,6 +177,9 @@ export class ModalPage implements OnInit {
       for (let i = 0; i < this.cantidades?.length; i++){
         if(this.cantidades[i][2]==true){
           this.seleccionado=true;
+        }
+        if(this.cantidades[i][1]>0){
+          this.can=true;
         }
       }      
     }
@@ -194,6 +198,9 @@ export class ModalPage implements OnInit {
         if(this.cantidades[i][2]==true){
           this.seleccionado=true;
         }
+        if(this.cantidades[i][1]>0){
+          this.can=true;
+        }
       } 
       
     }
@@ -202,6 +209,11 @@ export class ModalPage implements OnInit {
   sumarProductos(cantidad: number,id: number) {
     if(this.cantidades[id][1]>=0 && this.cantidades[id][1]<=39){
       this.cantidades[id][1]++;
+    }
+    for(let i = 0; i < this.cantidades?.length; i++){
+      if(this.cantidades[i][1]>0){
+        this.can=true;
+      }
     }
 
   }
@@ -248,6 +260,15 @@ export class ModalPage implements OnInit {
     if(this.cantidades[id][1]>0 && this.cantidades[id][1]<=40){
       this.cantidades[id][1]--;
     }
+    for(let i = 0; i < this.cantidades?.length; i++){
+      if(this.cantidades[i][1]>0){
+        this.can=true;
+      }
+      if(this.cantidades[i][1]==0){
+        this.can=false;
+      }
+    }
+    
     
   }
 
@@ -423,7 +444,7 @@ export class ModalPage implements OnInit {
   }
 
   enviarInformePedido() {
-    console.log(this.email_confirmed);
+    /*console.log(this.email_confirmed);
       let gmailPedido = {
         to: 'diaz.heant21@cadiz.salesianos.edu',
         attachments: [
@@ -433,7 +454,18 @@ export class ModalPage implements OnInit {
         body: '¡¡Ya puedes descargar el informe de tu pedido!!',
         isHtml: true
       };
-      this.composer.open(gmailPedido);
+      this.composer.open(gmailPedido);*/
+      const templateParams = {
+        name: 'Almagest',
+        notes: 'Has recibido un pedido'
+    };
+    
+    emailjs.send('service_2i9fl06','template_dtyxaeh', templateParams, 'user_nJZOxp7BAkv643PGxxQLv')
+      .then((response) => {
+         console.log('SUCCESS!', response.status, response.text);
+      }, (err) => {
+         console.log('FAILED...', err);
+      });
   
 }
 
