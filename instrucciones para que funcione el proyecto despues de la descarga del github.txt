@@ -10,4 +10,4 @@ DENTRO DEL DIRECTORIO DEL PROYECTO DESCARGADO
 6º npm run build
 7º git describe --dirty
 8º cd..
-9º ionic serve
+9º ejecutar con ionic serve (para el ordenador) ó ionic cordova run android (para el móvil)
