@@ -9,7 +9,6 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 import { File } from '@awesome-cordova-plugins/file/ngx';
 import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
-import emailjs from '@emailjs/browser';
 
 
 @Component({
