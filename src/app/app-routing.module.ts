@@ -46,6 +46,10 @@ const routes: Routes = [
       {
         path: 'pedidos',
         loadChildren: () => import('./pedidos/pedidos.module').then( m => m.PedidosPageModule)
+      },
+      {
+        path: 'graficas',
+        loadChildren: () => import('./graficas/graficas.module').then( m => m.GraficasPageModule)
       }
     ]
   },
@@ -66,6 +70,7 @@ const routes: Routes = [
     redirectTo: '/login-almagest',
     pathMatch: 'full'
   },
+
 ];
 @NgModule({
   imports: [
