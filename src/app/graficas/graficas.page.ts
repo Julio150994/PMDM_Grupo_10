@@ -15,7 +15,7 @@ export class GraficasPage implements OnInit {
 
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
-      {
+      /*{
         data: [ 65, 59, 80, 81, 56, 55, 40 ],
         label: 'Series A',
         backgroundColor: 'rgba(148,159,177,0.2)',
@@ -36,7 +36,7 @@ export class GraficasPage implements OnInit {
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: 'rgba(77,83,96,1)',
         fill: 'origin',
-      },
+      },*/
       {
         data: [ 180, 480, 770, 90, 1000, 270, 400 ],
         label: 'Series C',
@@ -114,15 +114,6 @@ export class GraficasPage implements OnInit {
     return Math.floor((Math.random() * (i < 2 ? 100 : 1000)) + 1);
   }
 
-  /*public randomize(): void {
-    for (let i = 0; i < this.lineChartData.datasets.length; i++) {
-      for (let j = 0; j < this.lineChartData.datasets[i].data.length; j++) {
-        this.lineChartData.datasets[i].data[j] = LineChartComponent.generateNumber(i);
-      }
-    }
-    this.chart?.update();
-  }*/
-
   // events
   public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
     console.log(event, active);
@@ -132,37 +123,7 @@ export class GraficasPage implements OnInit {
     console.log(event, active);
   }
 
-  /*public hideOne(): void {
-    const isHidden = this.chart?.isDatasetHidden(1);
-    this.chart?.hideDataset(1, !isHidden);
-  }*/
-
-  /*public pushOne(): void {
-    this.lineChartData.datasets.forEach((x, i) => {
-      const num = LineChartComponent.generateNumber(i);
-      x.data.push(num);
-    });
-    this.lineChartData?.labels?.push(`Label ${ this.lineChartData.labels.length }`);
-
-    this.chart?.update();
-  }*/
-
-  /*public changeColor(): void {
-    this.lineChartData.datasets[2].borderColor = 'green';
-    this.lineChartData.datasets[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;
-
-    this.chart?.update();
-  }
-
-  public changeLabel(): void {
-    if (this.lineChartData.labels) {
-      this.lineChartData.labels[2] = [ '1st Line', '2nd Line' ];
-    }
-
-    this.chart?.update();
-  }*/
-
-
+  
   constructor(private alertCtrl: AlertController, private navCtrl: NavController,
     private loadingCtrl: LoadingController,private pedidos:PedidosService) { }
 
@@ -211,70 +172,180 @@ export class GraficasPage implements OnInit {
 
   calcularCantidades(event){
     let date = new Date();
-    console.log(date.toLocaleDateString());
+
+    var formatoFecha = new Date(date).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric'
+    }).split('/').join('-');
+    
+    console.log(formatoFecha);
 
     let inicioMes6= new Date();
     inicioMes6.setDate(1);
     inicioMes6.setMonth(date.getMonth() - 7);
-    console.log(inicioMes6.toLocaleDateString());
+
+    var formatoFecha2 = new Date(inicioMes6).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    }).split('/').join('-');
+  
+    console.log(formatoFecha2);
+
+    //console.log(inicioMes6.toLocaleDateString());
     
     let finalMes6= new Date();
     finalMes6.setMonth(date.getMonth() - 7);
     finalMes6.setDate(31);
-    console.log(finalMes6.toLocaleDateString());
+
+    var formatoFecha3 = new Date(finalMes6).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    }).split('/').join('-');
+  
+    console.log(formatoFecha3);
+
+    //console.log(finalMes6.toLocaleDateString());
 
     let inicioMes5= new Date();
     inicioMes5.setDate(1);
     inicioMes5.setMonth(date.getMonth() - 6);
-    console.log(inicioMes5.toLocaleDateString());
+
+    var formatoFecha4 = new Date(inicioMes5).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    }).split('/').join('-');
+  
+    console.log(formatoFecha4);
+
+    //console.log(inicioMes5.toLocaleDateString());
     
     let finalMes5= new Date();
     finalMes5.setMonth(date.getMonth() - 6);
     finalMes5.setDate(31);
-    console.log(finalMes5.toLocaleDateString());
+
+    var formatoFecha5 = new Date(finalMes5).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    }).split('/').join('-');
+  
+    console.log(formatoFecha5);
 
     let inicioMes4= new Date();
     inicioMes4.setDate(1);
     inicioMes4.setMonth(date.getMonth() - 5);
-    console.log(inicioMes4.toLocaleDateString());
+
+    var formatoFecha6 = new Date(inicioMes4).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    }).split('/').join('-');
+  
+    console.log(formatoFecha6);
+
+    //console.log(inicioMes4.toLocaleDateString());
     
     let finalMes4= new Date();
     finalMes4.setMonth(date.getMonth() - 5);
     finalMes4.setDate(30);
-    console.log(finalMes4.toLocaleDateString());
+
+    var formatoFecha6 = new Date(finalMes4).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    }).split('/').join('-');
+
+    console.log(formatoFecha6);
+
+    //console.log(finalMes4.toLocaleDateString());
 
     let inicioMes3= new Date();
     inicioMes3.setDate(1);
     inicioMes3.setMonth(date.getMonth() - 4);
-    console.log(inicioMes3.toLocaleDateString());
+
+    var formatoFecha7 = new Date(inicioMes3).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    }).split('/').join('-');
+
+    console.log(formatoFecha7);
+
+    //console.log(inicioMes3.toLocaleDateString());
     
     let finalMes3= new Date();
     finalMes3.setMonth(date.getMonth() - 4);
     finalMes3.setDate(31);
-    console.log(finalMes3.toLocaleDateString());
+
+    var formatoFecha8 = new Date(finalMes3).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    }).split('/').join('-');
+
+    console.log(formatoFecha8);
+
+    //console.log(finalMes3.toLocaleDateString());
 
     let inicioMes2= new Date();
     inicioMes2.setDate(1);
     inicioMes2.setMonth(date.getMonth() - 3);
-    console.log(inicioMes2.toLocaleDateString());
+
+    var formatoFecha9 = new Date(inicioMes2).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    }).split('/').join('-');
+
+    console.log(formatoFecha9);
+
+    //console.log(inicioMes2.toLocaleDateString());
     
     let finalMes2= new Date();
     finalMes2.setMonth(date.getMonth() - 3);
     finalMes2.setDate(30);
-    console.log(finalMes2.toLocaleDateString());
+
+    var formatoFecha10 = new Date(finalMes2).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    }).split('/').join('-');
+
+    console.log(formatoFecha10);
+
+    //console.log(finalMes2.toLocaleDateString());
 
     let inicioMes1= new Date();
     inicioMes1.setDate(1);
     inicioMes1.setMonth(date.getMonth() - 2);
-    console.log(inicioMes1.toLocaleDateString());
+
+    var formatoFecha11 = new Date(inicioMes1).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    }).split('/').join('-');
+
+    console.log(formatoFecha11);
+
+    //console.log(inicioMes1.toLocaleDateString());
     
     let finalMes1= new Date();
     finalMes1.setMonth(date.getMonth() - 2);
     finalMes1.setDate(31);
-    console.log(finalMes1.toLocaleDateString());
+    //console.log(finalMes1.toLocaleDateString());
 
+    var formatoFecha12 = new Date(finalMes1).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    }).split('/').join('-');
 
-
+    console.log(formatoFecha12);
+    
     
     console.log('IdArticuloSinVariable');
     console.log(event.detail.value);
