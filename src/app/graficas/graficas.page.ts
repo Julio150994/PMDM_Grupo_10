@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController, LoadingController } from '@ionic/angular';
 import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { PedidosService } from '../services/pedidos.service';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-graficas',
@@ -177,17 +177,17 @@ export class GraficasPage implements OnInit {
   }
 
   calcularCantidades(event){
+
+    moment().format("YYYY-MM-DD");
     let date = new Date();
 
     var formatoFecha = new Date(date).toLocaleDateString('en-GB', {
-        day: 'numeric',
         month: 'numeric',
+        day: 'numeric',
         year: 'numeric'
     }).split('/').join('-');
     
     console.log(formatoFecha);
-
-    
 
     //console.log(finalMes6.toLocaleDateString());
 
@@ -196,13 +196,13 @@ export class GraficasPage implements OnInit {
     inicioMes5.setMonth(date.getMonth() - 6);
 
     var formatoFecha1 = new Date(inicioMes5).toLocaleDateString('en-GB', {
-      day: 'numeric',
       month: 'numeric',
+      day: 'numeric',
       year: 'numeric'
     }).split('/').join('-');
   
     console.log(formatoFecha1);
-
+    let fecha1: moment.Moment = moment(formatoFecha1);
     //console.log(inicioMes5.toLocaleDateString());
     
     let finalMes5= new Date();
@@ -210,25 +210,25 @@ export class GraficasPage implements OnInit {
     finalMes5.setDate(31);
 
     var formatoFecha2 = new Date(finalMes5).toLocaleDateString('en-GB', {
-      day: 'numeric',
       month: 'numeric',
+      day: 'numeric',
       year: 'numeric'
     }).split('/').join('-');
   
     console.log(formatoFecha2);
-
+    let fecha2: moment.Moment = moment(formatoFecha2);
     let inicioMes4= new Date();
     inicioMes4.setDate(1);
     inicioMes4.setMonth(date.getMonth() - 5);
 
     var formatoFecha3 = new Date(inicioMes4).toLocaleDateString('en-GB', {
-      day: 'numeric',
       month: 'numeric',
+      day: 'numeric',
       year: 'numeric'
     }).split('/').join('-');
   
     console.log(formatoFecha3);
-
+    let fecha3: moment.Moment = moment(formatoFecha3);
     //console.log(inicioMes4.toLocaleDateString());
     
     let finalMes4= new Date();
@@ -236,13 +236,13 @@ export class GraficasPage implements OnInit {
     finalMes4.setDate(30);
 
     var formatoFecha4 = new Date(finalMes4).toLocaleDateString('en-GB', {
-      day: 'numeric',
       month: 'numeric',
+      day: 'numeric',
       year: 'numeric'
     }).split('/').join('-');
 
     console.log(formatoFecha4);
-
+    let fecha4: moment.Moment = moment(formatoFecha4);
     //console.log(finalMes4.toLocaleDateString());
 
     let inicioMes3= new Date();
@@ -250,13 +250,13 @@ export class GraficasPage implements OnInit {
     inicioMes3.setMonth(date.getMonth() - 4);
 
     var formatoFecha5 = new Date(inicioMes3).toLocaleDateString('en-GB', {
-      day: 'numeric',
       month: 'numeric',
+      day: 'numeric',
       year: 'numeric'
     }).split('/').join('-');
 
     console.log(formatoFecha5);
-
+    let fecha5: moment.Moment = moment(formatoFecha5);
     //console.log(inicioMes3.toLocaleDateString());
     
     let finalMes3= new Date();
@@ -264,13 +264,13 @@ export class GraficasPage implements OnInit {
     finalMes3.setDate(31);
 
     var formatoFecha6 = new Date(finalMes3).toLocaleDateString('en-GB', {
-      day: 'numeric',
       month: 'numeric',
+      day: 'numeric',
       year: 'numeric'
     }).split('/').join('-');
 
     console.log(formatoFecha6);
-
+    let fecha6: moment.Moment = moment(formatoFecha6);
     //console.log(finalMes3.toLocaleDateString());
 
     let inicioMes2= new Date();
@@ -278,13 +278,13 @@ export class GraficasPage implements OnInit {
     inicioMes2.setMonth(date.getMonth() - 3);
 
     var formatoFecha7 = new Date(inicioMes2).toLocaleDateString('en-GB', {
-      day: 'numeric',
       month: 'numeric',
+      day: 'numeric',
       year: 'numeric'
     }).split('/').join('-');
 
     console.log(formatoFecha7);
-
+    let fecha7: moment.Moment = moment(formatoFecha7);
     //console.log(inicioMes2.toLocaleDateString());
     
     let finalMes2= new Date();
@@ -292,13 +292,13 @@ export class GraficasPage implements OnInit {
     finalMes2.setDate(30);
 
     var formatoFecha8 = new Date(finalMes2).toLocaleDateString('en-GB', {
-      day: 'numeric',
       month: 'numeric',
+      day: 'numeric',
       year: 'numeric'
     }).split('/').join('-');
 
     console.log(formatoFecha8);
-
+    let fecha8: moment.Moment = moment(formatoFecha8);
     //console.log(finalMes2.toLocaleDateString());
 
     let inicioMes1= new Date();
@@ -306,13 +306,13 @@ export class GraficasPage implements OnInit {
     inicioMes1.setMonth(date.getMonth() - 2);
 
     var formatoFecha9 = new Date(inicioMes1).toLocaleDateString('en-GB', {
-      day: 'numeric',
       month: 'numeric',
+      day: 'numeric',
       year: 'numeric'
     }).split('/').join('-');
 
     console.log(formatoFecha9);
-
+    let fecha9: moment.Moment = moment(formatoFecha9);
     //console.log(inicioMes1.toLocaleDateString());
     
     let finalMes1= new Date();
@@ -321,25 +321,25 @@ export class GraficasPage implements OnInit {
     //console.log(finalMes1.toLocaleDateString());
 
     var formatoFecha10 = new Date(finalMes1).toLocaleDateString('en-GB', {
-      day: 'numeric',
       month: 'numeric',
+      day: 'numeric',
       year: 'numeric'
     }).split('/').join('-');
 
     console.log(formatoFecha10);
-
+    let fecha10: moment.Moment = moment(formatoFecha10);
     let inicioMes6= new Date();
     inicioMes6.setDate(1);
     inicioMes6.setMonth(date.getMonth() - 1);
 
     var formatoFecha11 = new Date(inicioMes6).toLocaleDateString('en-GB', {
-      day: 'numeric',
       month: 'numeric',
+      day: 'numeric',
       year: 'numeric'
     }).split('/').join('-');
   
     console.log(formatoFecha11);
-
+    let fecha11: moment.Moment = moment(formatoFecha11);
     //console.log(inicioMes6.toLocaleDateString());
     
     let finalMes6= new Date();
@@ -347,13 +347,13 @@ export class GraficasPage implements OnInit {
     finalMes6.setDate(31);
 
     var formatoFecha12 = new Date(finalMes6).toLocaleDateString('en-GB', {
-      day: 'numeric',
       month: 'numeric',
+      day: 'numeric',
       year: 'numeric'
     }).split('/').join('-');
   
     console.log(formatoFecha12);
-    
+    let fecha12: moment.Moment = moment(formatoFecha12);
     this.mesSeis=0;
     this.mesCinco=0;
     this.mesCuatro=0;
@@ -383,37 +383,40 @@ export class GraficasPage implements OnInit {
       if (this.idArticulo==this.datosPedidos[i]?.order_lines[0]?.articles_line[0]?.article_id){
         this.cantidadesArticulo+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
         var fechaPedido = new Date(this.datosPedidos[i]?.order_lines[0]?.issue_date).toLocaleDateString('en-GB', {
-          day: 'numeric',
           month: 'numeric',
+          day: 'numeric',
           year: 'numeric'
         }).split('/').join('-');
          console.log(fechaPedido);
-        if(Date.parse(fechaPedido)>=Date.parse(formatoFecha1)&&Date.parse(fechaPedido)<=Date.parse(formatoFecha2)){
+         let fecha: moment.Moment = moment(fechaPedido);
+
+        if(moment(fechaPedido)>=moment(fecha1)&&(moment(fechaPedido)<=moment(fecha2))){
           console.log('mesSeis');
           console.log(this.mesSeis);
           this.mesSeis+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
         }
-        if(Date.parse(fechaPedido)>=Date.parse(formatoFecha3)&&Date.parse(fechaPedido)<=Date.parse(formatoFecha4)){
+        if(moment(fechaPedido)>=moment(fecha3)&&(moment(fechaPedido)<=moment(fecha4))){
           console.log('mesCinco');
           console.log(this.mesCinco);
           this.mesCinco+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
         }
-        if(Date.parse(fechaPedido)>=Date.parse(formatoFecha5)&&Date.parse(fechaPedido)<=Date.parse(formatoFecha6)){
+        if(moment(fechaPedido)>=moment(fecha5)&&(moment(fechaPedido)<=moment(fecha6))){
           console.log('mesCuatro');
           console.log(this.mesCuatro);
           this.mesCuatro+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
         }
-        if(Date.parse(fechaPedido)>=Date.parse(formatoFecha7)&&Date.parse(fechaPedido)<=Date.parse(formatoFecha8)){
+        if(moment(fechaPedido)>=moment(fecha7)&&(moment(fechaPedido)<=moment(fecha8))){
           console.log('mesTres');
           console.log(this.mesTres);
           this.mesTres+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
         }
-        if(Date.parse(fechaPedido)>=Date.parse(formatoFecha9)&&Date.parse(fechaPedido)<=Date.parse(formatoFecha10)){
+        if(moment(fechaPedido)>=moment(fecha9)&&(moment(fechaPedido)<=moment(fecha10))){
           console.log('mesDos');
           console.log(this.mesDos);
           this.mesDos+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
         }
-        if(Date.parse(fechaPedido)>=Date.parse(formatoFecha11)&&Date.parse(fechaPedido)<=Date.parse(formatoFecha12)){
+        console.log(moment(fecha));
+        if(moment(fechaPedido)>=moment(fecha11)&&(moment(fechaPedido)<=moment(fecha12))){
           console.log('mesUno');
           console.log(this.mesUno);
           this.mesUno+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
@@ -428,10 +431,6 @@ export class GraficasPage implements OnInit {
     console.log(this.mesTres);
     console.log(this.mesDos);
     console.log(this.mesUno);
-    
-    
-    
-    
     
   }
 

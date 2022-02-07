@@ -27,6 +27,7 @@
     "@types/chart.js": "^2.9.35",
     "chart.js": "^3.7.0",
     "html-to-pdfmake": "^2.3.8",
+    "moment": "^2.29.1",
     "ng2-charts": "^3.0.8",
     "pdfmake": "file:pdfmake",
     "rxjs": "~6.6.0",
