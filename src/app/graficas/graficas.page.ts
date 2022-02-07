@@ -104,6 +104,8 @@ export class GraficasPage implements OnInit {
 
   public lineChartType: ChartType = 'line';
   datosPedidos: any;
+  idArticulo: number;
+  cantidadesArticulo: number=0;
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   //@ViewChild(BaseChartDirective) chart?: BaseChartDirective;
@@ -199,7 +201,7 @@ export class GraficasPage implements OnInit {
     this.pedidos.obtenerDatosPedidos().then(data => {
       this.datosPedidos = data;
       this.datosPedidos = this.datosPedidos.data;
-      console.log(this.datosPedidos);
+      
     });
 
     await loading.present();
@@ -208,7 +210,95 @@ export class GraficasPage implements OnInit {
   }
 
   calcularCantidades(event){
+    let date = new Date();
+    console.log(date.toLocaleDateString());
+
+    let inicioMes6= new Date();
+    inicioMes6.setDate(1);
+    inicioMes6.setMonth(date.getMonth() - 7);
+    console.log(inicioMes6.toLocaleDateString());
+    
+    let finalMes6= new Date();
+    finalMes6.setMonth(date.getMonth() - 7);
+    finalMes6.setDate(31);
+    console.log(finalMes6.toLocaleDateString());
+
+    let inicioMes5= new Date();
+    inicioMes5.setDate(1);
+    inicioMes5.setMonth(date.getMonth() - 6);
+    console.log(inicioMes5.toLocaleDateString());
+    
+    let finalMes5= new Date();
+    finalMes5.setMonth(date.getMonth() - 6);
+    finalMes5.setDate(31);
+    console.log(finalMes5.toLocaleDateString());
+
+    let inicioMes4= new Date();
+    inicioMes4.setDate(1);
+    inicioMes4.setMonth(date.getMonth() - 5);
+    console.log(inicioMes4.toLocaleDateString());
+    
+    let finalMes4= new Date();
+    finalMes4.setMonth(date.getMonth() - 5);
+    finalMes4.setDate(30);
+    console.log(finalMes4.toLocaleDateString());
+
+    let inicioMes3= new Date();
+    inicioMes3.setDate(1);
+    inicioMes3.setMonth(date.getMonth() - 4);
+    console.log(inicioMes3.toLocaleDateString());
+    
+    let finalMes3= new Date();
+    finalMes3.setMonth(date.getMonth() - 4);
+    finalMes3.setDate(31);
+    console.log(finalMes3.toLocaleDateString());
+
+    let inicioMes2= new Date();
+    inicioMes2.setDate(1);
+    inicioMes2.setMonth(date.getMonth() - 3);
+    console.log(inicioMes2.toLocaleDateString());
+    
+    let finalMes2= new Date();
+    finalMes2.setMonth(date.getMonth() - 3);
+    finalMes2.setDate(30);
+    console.log(finalMes2.toLocaleDateString());
+
+    let inicioMes1= new Date();
+    inicioMes1.setDate(1);
+    inicioMes1.setMonth(date.getMonth() - 2);
+    console.log(inicioMes1.toLocaleDateString());
+    
+    let finalMes1= new Date();
+    finalMes1.setMonth(date.getMonth() - 2);
+    finalMes1.setDate(31);
+    console.log(finalMes1.toLocaleDateString());
+
+
+
+    
+    console.log('IdArticuloSinVariable');
     console.log(event.detail.value);
+    console.log('IdArticuloSinVariable');
+    this.idArticulo=event.detail.value;
+    console.log('Datos');
+    console.log(this.datosPedidos);
+    console.log('Datos');
+    console.log('IdArticuloEnVariable');
+    console.log(this.idArticulo);
+    console.log('IdArticuloEnVariable');
+    console.log('IdArticuloEnPedido');
+    console.log(this.datosPedidos[2].order_lines[0].articles_line[0].article_id);
+    console.log('IdArticuloEnPedido');
+    console.log('CantidadesDelArticulo');
+    console.log(this.cantidadesArticulo);
+    console.log('CantidadesDelArticulo');
+    this.cantidadesArticulo=0;
+    for(var i=0; i<this.datosPedidos?.length; i++){
+      if (this.idArticulo==this.datosPedidos[i]?.order_lines[0]?.articles_line[0]?.article_id){
+        this.cantidadesArticulo+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
+      }
+    }
+    console.log(this.cantidadesArticulo);
   }
 
   async loadLogoutAdmin(message: string) {
