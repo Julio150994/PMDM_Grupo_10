@@ -106,6 +106,12 @@ export class GraficasPage implements OnInit {
   datosPedidos: any;
   idArticulo: number;
   cantidadesArticulo: number=0;
+  mesSeis: number;
+  mesCinco: number;
+  mesTres: number;
+  mesCuatro: number;
+  mesUno: number;
+  mesDos: number;
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   //@ViewChild(BaseChartDirective) chart?: BaseChartDirective;
@@ -348,6 +354,12 @@ export class GraficasPage implements OnInit {
   
     console.log(formatoFecha12);
     
+    this.mesSeis=0;
+    this.mesCinco=0;
+    this.mesCuatro=0;
+    this.mesTres=0;
+    this.mesDos=0;
+    this.mesUno=0;
     
     console.log('IdArticuloSinVariable');
     console.log(event.detail.value);
@@ -366,12 +378,61 @@ export class GraficasPage implements OnInit {
     console.log(this.cantidadesArticulo);
     console.log('CantidadesDelArticulo');
     this.cantidadesArticulo=0;
+    console.log(this.datosPedidos[2].order_lines[0].issue_date);
     for(var i=0; i<this.datosPedidos?.length; i++){
       if (this.idArticulo==this.datosPedidos[i]?.order_lines[0]?.articles_line[0]?.article_id){
         this.cantidadesArticulo+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
+        var fechaPedido = new Date(this.datosPedidos[i]?.order_lines[0]?.issue_date).toLocaleDateString('en-GB', {
+          day: 'numeric',
+          month: 'numeric',
+          year: 'numeric'
+        }).split('/').join('-');
+         console.log(fechaPedido);
+        if(Date.parse(fechaPedido)>=Date.parse(formatoFecha1)&&Date.parse(fechaPedido)<=Date.parse(formatoFecha2)){
+          console.log('mesSeis');
+          console.log(this.mesSeis);
+          this.mesSeis+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
+        }
+        if(Date.parse(fechaPedido)>=Date.parse(formatoFecha3)&&Date.parse(fechaPedido)<=Date.parse(formatoFecha4)){
+          console.log('mesCinco');
+          console.log(this.mesCinco);
+          this.mesCinco+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
+        }
+        if(Date.parse(fechaPedido)>=Date.parse(formatoFecha5)&&Date.parse(fechaPedido)<=Date.parse(formatoFecha6)){
+          console.log('mesCuatro');
+          console.log(this.mesCuatro);
+          this.mesCuatro+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
+        }
+        if(Date.parse(fechaPedido)>=Date.parse(formatoFecha7)&&Date.parse(fechaPedido)<=Date.parse(formatoFecha8)){
+          console.log('mesTres');
+          console.log(this.mesTres);
+          this.mesTres+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
+        }
+        if(Date.parse(fechaPedido)>=Date.parse(formatoFecha9)&&Date.parse(fechaPedido)<=Date.parse(formatoFecha10)){
+          console.log('mesDos');
+          console.log(this.mesDos);
+          this.mesDos+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
+        }
+        if(Date.parse(fechaPedido)>=Date.parse(formatoFecha11)&&Date.parse(fechaPedido)<=Date.parse(formatoFecha12)){
+          console.log('mesUno');
+          console.log(this.mesUno);
+          this.mesUno+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
+        }
       }
+
     }
     console.log(this.cantidadesArticulo);
+    console.log(this.mesSeis);
+    console.log(this.mesCinco);
+    console.log(this.mesCuatro);
+    console.log(this.mesTres);
+    console.log(this.mesDos);
+    console.log(this.mesUno);
+    
+    
+    
+    
+    
   }
 
   async loadLogoutAdmin(message: string) {
