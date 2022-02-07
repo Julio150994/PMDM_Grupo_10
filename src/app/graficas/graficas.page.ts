@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController, LoadingController } from '@ionic/angular';
 import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
+import { PedidosService } from '../services/pedidos.service';
+
 
 @Component({
   selector: 'app-graficas',
@@ -9,6 +10,9 @@ import { BaseChartDirective } from 'ng2-charts';
   styleUrls: ['./graficas.page.scss'],
 })
 export class GraficasPage implements OnInit {
+
+  productos:any;
+
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
       {
@@ -99,6 +103,7 @@ export class GraficasPage implements OnInit {
   };
 
   public lineChartType: ChartType = 'line';
+  datosPedidos: any;
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   //@ViewChild(BaseChartDirective) chart?: BaseChartDirective;
@@ -157,16 +162,53 @@ export class GraficasPage implements OnInit {
 
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController,
-    private loadingCtrl: LoadingController) { }
+    private loadingCtrl: LoadingController,private pedidos:PedidosService) { }
+
 
   ngOnInit() {
     console.log('Pestaña de las gráficas');
-  }
 
+    this.loadProducts();
+    this.loadDatosPedidos();
+  }
   onLogout() {
     localStorage.removeItem('token');
 
     this.loadLogoutAdmin('Cerrando sesión...');
+    
+  }
+
+  async loadProducts() {
+    const loading = await this.loadingCtrl.create({
+      duration: 850,
+    });
+    this.pedidos.obtenerCatalogo().then(data => {
+      this.productos = data;
+      this.productos = this.productos.data;
+    });
+
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+  }
+
+  async loadDatosPedidos() {
+    const loading = await this.loadingCtrl.create({
+      duration: 850,
+    });
+    this.pedidos.obtenerDatosPedidos().then(data => {
+      this.datosPedidos = data;
+      this.datosPedidos = this.datosPedidos.data;
+      console.log(this.datosPedidos);
+    });
+
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+  }
+
+  calcularCantidades(event){
+    console.log(event.detail.value);
   }
 
   async loadLogoutAdmin(message: string) {

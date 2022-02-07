@@ -15,6 +15,7 @@ export class PedidosService {
   productos2: any;
   pedido: any;
   usuarios: any;
+  datosPedidos: any;
 
   constructor(private httpUser: HttpClient,
     private loadingUserCtrl: LoadingController) { }
@@ -38,6 +39,20 @@ export class PedidosService {
     }).subscribe(data => {
         this.productos = data;
         this.productos=this.productos.data;
+        res(data);
+      }, error => {
+        console.log('Error al mostrar los productos '+error);
+      });
+    });
+  }
+
+  async obtenerDatosPedidos() {
+    return new Promise(res => {
+      this.httpUser.post(this.url+'/orders/company?id='+localStorage.getItem('id_comp'),{
+    headers: new HttpHeaders().set('Authorization','Bearer '+localStorage.getItem('token'))
+    }).subscribe(data => {
+        this.datosPedidos = data;
+        this.datosPedidos=this.datosPedidos.data;
         res(data);
       }, error => {
         console.log('Error al mostrar los productos '+error);

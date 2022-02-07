@@ -11,6 +11,14 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-item>
+    <ion-label>Productos</ion-label>
+    <ion-select (ionChange)="calcularCantidades($event)">
+      <ion-select-option *ngFor="let producto of productos" value="{{producto.article_id}}">
+        {{producto.compamy_name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
   <div class="flex">
     <div class="flex-item">
       <div style="display: block;">
