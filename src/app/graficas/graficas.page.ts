@@ -12,6 +12,13 @@ import * as moment from 'moment';
 export class GraficasPage implements OnInit {
 
   productos:any;
+  mesSeis: number=0;
+  mesCinco: number=0;
+  mesTres: number=0;
+  mesCuatro: number=0;
+  mesUno: number=0;
+  mesDos: number=0;
+  datosGrafica: number[]=[];
 
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
@@ -38,7 +45,7 @@ export class GraficasPage implements OnInit {
         fill: 'origin',
       },*/
       {
-        data: [ 180, 480, 770, 90, 1000, 270],
+        data: this.datosGrafica,
         label: 'Series C',
         yAxisID: 'y-axis-1',
         backgroundColor: 'rgba(255,0,0,0.3)',
@@ -106,12 +113,6 @@ export class GraficasPage implements OnInit {
   datosPedidos: any;
   idArticulo: number;
   cantidadesArticulo: number=0;
-  mesSeis: number;
-  mesCinco: number;
-  mesTres: number;
-  mesCuatro: number;
-  mesUno: number;
-  mesDos: number;
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   //@ViewChild(BaseChartDirective) chart?: BaseChartDirective;
@@ -319,13 +320,13 @@ export class GraficasPage implements OnInit {
     console.log(this.idArticulo);
     console.log('IdArticuloEnVariable');
     console.log('IdArticuloEnPedido');
-    console.log(this.datosPedidos[2].order_lines[0].articles_line[0].article_id);
+   // console.log(this.datosPedidos[2].order_lines[0].articles_line[0].article_id);
     console.log('IdArticuloEnPedido');
     console.log('CantidadesDelArticulo');
     console.log(this.cantidadesArticulo);
     console.log('CantidadesDelArticulo');
     this.cantidadesArticulo=0;
-    console.log(this.datosPedidos[2].order_lines[0].issue_date);
+    //console.log(this.datosPedidos[2].order_lines[0].issue_date);
     for(var i=0; i<this.datosPedidos?.length; i++){
       if (this.idArticulo==this.datosPedidos[i]?.order_lines[0]?.articles_line[0]?.article_id){
         this.cantidadesArticulo+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
@@ -375,6 +376,8 @@ export class GraficasPage implements OnInit {
     console.log(this.mesDos);
     console.log(this.mesUno);
     
+    this.datosGrafica.push(this.mesSeis,this.mesCinco,this.mesCuatro,this.mesTres,this.mesDos,this.mesUno);
+
   }
 
   async loadLogoutAdmin(message: string) {
