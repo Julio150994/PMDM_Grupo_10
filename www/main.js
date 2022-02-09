@@ -174,7 +174,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/platform-browser */ 39075);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/router */ 39895);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic/angular */ 80476);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ 3679);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app-routing.module */ 90158);
@@ -185,8 +185,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _awesome_cordova_plugins_file_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @awesome-cordova-plugins/file/ngx */ 71484);
 /* harmony import */ var _awesome_cordova_plugins_file_opener_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @awesome-cordova-plugins/file-opener/ngx */ 91939);
 /* harmony import */ var _awesome_cordova_plugins_email_composer_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @awesome-cordova-plugins/email-composer/ngx */ 17265);
-/* harmony import */ var ng2_charts__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ng2-charts */ 54527);
-
 
 
 
@@ -214,11 +212,10 @@ AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([
             _angular_common_http__WEBPACK_IMPORTED_MODULE_11__.HttpClientModule,
             _pipes_pipes_module__WEBPACK_IMPORTED_MODULE_2__.PipesModule,
             _angular_forms__WEBPACK_IMPORTED_MODULE_12__.ReactiveFormsModule,
-            ng2_charts__WEBPACK_IMPORTED_MODULE_13__.NgChartsModule
         ],
         providers: [
             {
-                provide: _angular_router__WEBPACK_IMPORTED_MODULE_14__.RouteReuseStrategy,
+                provide: _angular_router__WEBPACK_IMPORTED_MODULE_13__.RouteReuseStrategy,
                 useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_10__.IonicRouteStrategy,
             },
             {

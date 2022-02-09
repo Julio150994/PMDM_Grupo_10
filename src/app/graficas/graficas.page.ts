@@ -39,7 +39,7 @@ export class GraficasPage implements OnInit {
   onLogout() {
     localStorage.removeItem('token');
 
-    this.loadLogoutAdmin('Cerrando sesión...');
+    this.loadLogoutUser('Cerrando sesión...');
     
   }
 
@@ -245,7 +245,7 @@ export class GraficasPage implements OnInit {
     
   }
 
-  async loadLogoutAdmin(message: string) {
+  async loadLogoutUser(message: string) {
     const loading = await this.loadingCtrl.create({
       message,
       duration: 850,
@@ -256,14 +256,14 @@ export class GraficasPage implements OnInit {
     const { role, data } = await loading.onDidDismiss();
 
     this.navCtrl.navigateForward('/login-almagest');
-    this.alertLogoutAdmin();
+    this.alertLogoutUser();
   }
 
-  async alertLogoutAdmin() {
+  async alertLogoutUser() {
     const logout = await this.alertCtrl.create({
       header: 'Logout',
       cssClass: 'logoutCss',
-      message: '<strong>El administrador ha cerrado sesión correctamente.</strong>',
+      message: '<strong>El usuario ha cerrado sesión correctamente.</strong>',
       buttons: [
         {
           text: 'Aceptar',
