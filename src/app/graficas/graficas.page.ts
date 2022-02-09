@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController, LoadingController } from '@ionic/angular';
-import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
+import {  ChartType, ChartDataset, } from 'chart.js';
 import { PedidosService } from '../services/pedidos.service';
 import * as moment from 'moment';
 
@@ -19,10 +19,15 @@ export class GraficasPage implements OnInit {
   mesUno: number=0;
   mesDos: number=0;
   datosGrafica: number[]=[];
+  public lineChartType: ChartType = 'bar';
+  datosPedidos: any;
+  idArticulo: number;
+  cantidadesArticulo: number=0;
 
-  public lineChartData: ChartConfiguration['data'] = {
-    datasets: [
-      /*{
+  public lineChartData: ChartDataset[] = [];
+  lineChartLabels: string[];
+    /*datasets: [
+      {
         data: [ 65, 59, 80, 81, 56, 55, 40 ],
         label: 'Series A',
         backgroundColor: 'rgba(148,159,177,0.2)',
@@ -43,7 +48,7 @@ export class GraficasPage implements OnInit {
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: 'rgba(77,83,96,1)',
         fill: 'origin',
-      },*/
+      },
       {
         data: this.datosGrafica,
         label: 'Series C',
@@ -63,7 +68,7 @@ export class GraficasPage implements OnInit {
   public lineChartOptions: ChartConfiguration['options'] = {
     elements: {
       line: {
-        tension: 0.5
+        tension: 0
       }
     },
     scales: {
@@ -86,36 +91,10 @@ export class GraficasPage implements OnInit {
 
     plugins: {
       legend: { display: true },
-      /*annotation: {
-        annotations: [
-          {
-            type: 'line',
-            scaleID: 'x',
-            value: 'March',
-            borderColor: 'orange',
-            borderWidth: 2,
-            label: {
-              position: 'center',
-              enabled: true,
-              color: 'orange',
-              content: 'LineAnno',
-              font: {
-                weight: 'bold'
-              }
-            }
-          },
-        ],
-      }*/
     }
   };
 
-  public lineChartType: ChartType = 'line';
-  datosPedidos: any;
-  idArticulo: number;
-  cantidadesArticulo: number=0;
-
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  //@ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+  
 
   private static generateNumber(i: number): number {
     return Math.floor((Math.random() * (i < 2 ? 100 : 1000)) + 1);
@@ -128,7 +107,7 @@ export class GraficasPage implements OnInit {
 
   public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
     console.log(event, active);
-  }
+  }*/
 
   
   constructor(private alertCtrl: AlertController, private navCtrl: NavController,
@@ -368,16 +347,16 @@ export class GraficasPage implements OnInit {
       }
 
     }
-    console.log(this.cantidadesArticulo);
-    console.log(this.mesSeis);
-    console.log(this.mesCinco);
-    console.log(this.mesCuatro);
-    console.log(this.mesTres);
-    console.log(this.mesDos);
-    console.log(this.mesUno);
     
-    this.datosGrafica.push(this.mesSeis,this.mesCinco,this.mesCuatro,this.mesTres,this.mesDos,this.mesUno);
-
+    this.lineChartData=[
+      {
+        data:[this.mesSeis,this.mesCinco,this.mesCuatro,this.mesTres,this.mesDos,this.mesUno],label:"Cantidad"
+      }
+    ];
+    this.lineChartLabels=[
+      'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre', 'Enero'
+    ];
+    
   }
 
   async loadLogoutAdmin(message: string) {

@@ -12,7 +12,7 @@ import { AuthInterceptorService } from './auth-interceptor.service';
 import { File } from '@awesome-cordova-plugins/file/ngx';
 import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
-import {Moment} from 'moment';
+import { NgChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -23,6 +23,7 @@ import {Moment} from 'moment';
     HttpClientModule,
     PipesModule,
     ReactiveFormsModule,
+    NgChartsModule
   ],
   providers: [
     {
