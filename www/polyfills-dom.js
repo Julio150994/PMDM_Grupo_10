@@ -1,6 +1,6 @@
 (self["webpackChunktrabajo_almagest_grupo10"] = self["webpackChunktrabajo_almagest_grupo10"] || []).push([["polyfills-dom"],{
 
-/***/ 5141:
+/***/ 15141:
 /*!************************************************************!*\
   !*** ./node_modules/@ionic/core/dist/esm/polyfills/dom.js ***!
   \************************************************************/

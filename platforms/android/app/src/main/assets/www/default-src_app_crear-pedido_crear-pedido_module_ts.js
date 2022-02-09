@@ -1,6 +1,6 @@
 (self["webpackChunktrabajo_almagest_grupo10"] = self["webpackChunktrabajo_almagest_grupo10"] || []).push([["default-src_app_crear-pedido_crear-pedido_module_ts"],{
 
-/***/ 4674:
+/***/ 44674:
 /*!*************************************************************!*\
   !*** ./src/app/crear-pedido/crear-pedido-routing.module.ts ***!
   \*************************************************************/
@@ -11,9 +11,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "CrearPedidoPageRoutingModule": () => (/* binding */ CrearPedidoPageRoutingModule)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 4762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 7716);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 9895);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 39895);
 /* harmony import */ var _crear_pedido_page__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./crear-pedido.page */ 6583);
 
 
@@ -38,7 +38,7 @@ CrearPedidoPageRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)
 
 /***/ }),
 
-/***/ 8067:
+/***/ 28067:
 /*!*****************************************************!*\
   !*** ./src/app/crear-pedido/crear-pedido.module.ts ***!
   \*****************************************************/
@@ -49,14 +49,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "CrearPedidoPageModule": () => (/* binding */ CrearPedidoPageModule)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ 4762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 7716);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ 8583);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ 476);
-/* harmony import */ var _crear_pedido_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./crear-pedido-routing.module */ 4674);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _crear_pedido_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./crear-pedido-routing.module */ 44674);
 /* harmony import */ var _crear_pedido_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./crear-pedido.page */ 6583);
-/* harmony import */ var _pipes_pipes_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pipes/pipes.module */ 5503);
+/* harmony import */ var _pipes_pipes_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pipes/pipes.module */ 35503);
 
 
 
@@ -96,14 +96,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "CrearPedidoPage": () => (/* binding */ CrearPedidoPage)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 4762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_crear_pedido_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./crear-pedido.page.html */ 9210);
-/* harmony import */ var _crear_pedido_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./crear-pedido.page.scss */ 4367);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 7716);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 476);
-/* harmony import */ var _environments_environment_prod__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment.prod */ 9019);
-/* harmony import */ var _services_pedidos_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/pedidos.service */ 4362);
-/* harmony import */ var _services_users_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/users.service */ 4961);
+/* harmony import */ var _crear_pedido_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./crear-pedido.page.scss */ 19181);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _environments_environment_prod__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment.prod */ 89019);
+/* harmony import */ var _services_pedidos_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/pedidos.service */ 14362);
+/* harmony import */ var _services_users_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/users.service */ 94961);
 
 
 
@@ -193,7 +193,7 @@ CrearPedidoPage = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
 
 /***/ }),
 
-/***/ 4362:
+/***/ 14362:
 /*!*********************************************!*\
   !*** ./src/app/services/pedidos.service.ts ***!
   \*********************************************/
@@ -204,11 +204,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "PedidosService": () => (/* binding */ PedidosService)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 4762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 7716);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ 1841);
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/environments/environment */ 2340);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ 476);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ 91841);
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/environments/environment */ 92340);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ 80476);
 
 
 
@@ -241,6 +241,21 @@ let PedidosService = class PedidosService {
                 }).subscribe(data => {
                     this.productos = data;
                     this.productos = this.productos.data;
+                    res(data);
+                }, error => {
+                    console.log('Error al mostrar los productos ' + error);
+                });
+            });
+        });
+    }
+    obtenerDatosPedidos() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__awaiter)(this, void 0, void 0, function* () {
+            return new Promise(res => {
+                this.httpUser.post(this.url + '/orders/company?id=' + localStorage.getItem('id_comp'), {
+                    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__.HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'))
+                }).subscribe(data => {
+                    this.datosPedidos = data;
+                    this.datosPedidos = this.datosPedidos.data;
                     res(data);
                 }, error => {
                     console.log('Error al mostrar los productos ' + error);
@@ -325,7 +340,7 @@ PedidosService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
 
 /***/ }),
 
-/***/ 9019:
+/***/ 89019:
 /*!**********************************************!*\
   !*** ./src/environments/environment.prod.ts ***!
   \**********************************************/
@@ -344,7 +359,7 @@ const environment = {
 
 /***/ }),
 
-/***/ 4367:
+/***/ 19181:
 /*!*****************************************************!*\
   !*** ./src/app/crear-pedido/crear-pedido.page.scss ***!
   \*****************************************************/

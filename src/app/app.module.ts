@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 import { IonicModule, IonicRouteStrategy  } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,7 +11,7 @@ import { AuthInterceptorService } from './auth-interceptor.service';
 import { File } from '@awesome-cordova-plugins/file/ngx';
 import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
-import { NgChartsModule } from 'ng2-charts';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -23,7 +22,6 @@ import { NgChartsModule } from 'ng2-charts';
     HttpClientModule,
     PipesModule,
     ReactiveFormsModule,
-    NgChartsModule
   ],
   providers: [
     {

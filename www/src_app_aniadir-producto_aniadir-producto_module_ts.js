@@ -1,6 +1,6 @@
 (self["webpackChunktrabajo_almagest_grupo10"] = self["webpackChunktrabajo_almagest_grupo10"] || []).push([["src_app_aniadir-producto_aniadir-producto_module_ts"],{
 
-/***/ 5446:
+/***/ 75446:
 /*!*********************************************************************!*\
   !*** ./src/app/aniadir-producto/aniadir-producto-routing.module.ts ***!
   \*********************************************************************/
@@ -11,10 +11,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AniadirProductoPageRoutingModule": () => (/* binding */ AniadirProductoPageRoutingModule)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 4762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 7716);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 9895);
-/* harmony import */ var _aniadir_producto_page__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./aniadir-producto.page */ 7063);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _aniadir_producto_page__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./aniadir-producto.page */ 17063);
 
 
 
@@ -38,7 +38,7 @@ AniadirProductoPageRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decor
 
 /***/ }),
 
-/***/ 76:
+/***/ 70076:
 /*!*************************************************************!*\
   !*** ./src/app/aniadir-producto/aniadir-producto.module.ts ***!
   \*************************************************************/
@@ -49,14 +49,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AniadirProductoPageModule": () => (/* binding */ AniadirProductoPageModule)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ 4762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 7716);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ 8583);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ 476);
-/* harmony import */ var _aniadir_producto_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./aniadir-producto-routing.module */ 5446);
-/* harmony import */ var _aniadir_producto_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./aniadir-producto.page */ 7063);
-/* harmony import */ var _pipes_pipes_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pipes/pipes.module */ 5503);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _aniadir_producto_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./aniadir-producto-routing.module */ 75446);
+/* harmony import */ var _aniadir_producto_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./aniadir-producto.page */ 17063);
+/* harmony import */ var _pipes_pipes_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pipes/pipes.module */ 35503);
 
 
 
@@ -85,7 +85,7 @@ AniadirProductoPageModule = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([
 
 /***/ }),
 
-/***/ 7063:
+/***/ 17063:
 /*!***********************************************************!*\
   !*** ./src/app/aniadir-producto/aniadir-producto.page.ts ***!
   \***********************************************************/
@@ -96,14 +96,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AniadirProductoPage": () => (/* binding */ AniadirProductoPage)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 4762);
-/* harmony import */ var _raw_loader_aniadir_producto_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./aniadir-producto.page.html */ 3835);
-/* harmony import */ var _aniadir_producto_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./aniadir-producto.page.scss */ 7608);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 7716);
-/* harmony import */ var _environments_environment_prod__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment.prod */ 9019);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _raw_loader_aniadir_producto_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./aniadir-producto.page.html */ 33835);
+/* harmony import */ var _aniadir_producto_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./aniadir-producto.page.scss */ 18939);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _environments_environment_prod__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment.prod */ 89019);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _services_users_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/users.service */ 4961);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 476);
+/* harmony import */ var _services_users_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/users.service */ 94961);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
 
 
 
@@ -331,7 +331,7 @@ AniadirProductoPage = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
 
 /***/ }),
 
-/***/ 9019:
+/***/ 89019:
 /*!**********************************************!*\
   !*** ./src/environments/environment.prod.ts ***!
   \**********************************************/
@@ -350,7 +350,7 @@ const environment = {
 
 /***/ }),
 
-/***/ 7608:
+/***/ 18939:
 /*!*************************************************************!*\
   !*** ./src/app/aniadir-producto/aniadir-producto.page.scss ***!
   \*************************************************************/
@@ -365,7 +365,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 3835:
+/***/ 33835:
 /*!***************************************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/aniadir-producto/aniadir-producto.page.html ***!
   \***************************************************************************************************/
