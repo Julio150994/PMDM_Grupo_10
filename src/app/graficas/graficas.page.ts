@@ -153,28 +153,22 @@ export class GraficasPage implements OnInit {
         var fechaPedido = new Date(this.datosPedidos[i]?.order_lines[j]?.issue_date);
 
         if(fechaPedido>=inicioMes5&&fechaPedido<=finalMes5){
-          console.log(this.datosPedidos[i]?.id);
           this.mesSeis+=this.datosPedidos[i].order_lines[j].articles_line[0].num_articles;
         }
         if(fechaPedido>=inicioMes4&&fechaPedido<=finalMes4){
           this.mesCinco+=this.datosPedidos[i].order_lines[j].articles_line[0].num_articles;
-          console.log(this.datosPedidos[i]?.id);
         }
         if(fechaPedido>=inicioMes3&&fechaPedido<=finalMes3){    
           this.mesCuatro+=this.datosPedidos[i].order_lines[j].articles_line[0].num_articles;
-          console.log(this.datosPedidos[i]?.id);
         }
         if(fechaPedido>=inicioMes2&&fechaPedido<=finalMes2){
           this.mesTres+=this.datosPedidos[i].order_lines[j].articles_line[0].num_articles;
-          console.log(this.datosPedidos[i]?.id);
         }
         if(fechaPedido>=inicioMes1&&fechaPedido<=finalMes1){
           this.mesDos+=this.datosPedidos[i].order_lines[j].articles_line[0].num_articles;
-          console.log(this.datosPedidos[i]?.id);
         }
         if(fechaPedido>=inicioMes&&fechaPedido<=finalMes){    
           this.mesUno+=this.datosPedidos[i].order_lines[j].articles_line[0].num_articles;
-          console.log(this.datosPedidos[i]?.id);
         }
       }
     }
