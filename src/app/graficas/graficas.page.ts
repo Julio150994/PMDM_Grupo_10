@@ -19,13 +19,14 @@ export class GraficasPage implements OnInit {
   mesUno: number=0;
   mesDos: number=0;
   datosGrafica: number[]=[];
-  public lineChartType: ChartType = 'bar';
   datosPedidos: any;
   idArticulo: number;
   cantidadesArticulo: number=0;
 
+  public lineChartType: ChartType = 'bar';
   public lineChartData: ChartDataset[] = [];
   lineChartLabels: string[];
+  
   constructor(private alertCtrl: AlertController, private navCtrl: NavController,
     private loadingCtrl: LoadingController,private pedidos:PedidosService) { }
 
@@ -64,7 +65,7 @@ export class GraficasPage implements OnInit {
     this.pedidos.obtenerDatosPedidos().then(data => {
       this.datosPedidos = data;
       this.datosPedidos = this.datosPedidos.data;
-      
+      console.log(this.datosPedidos);
     });
 
     await loading.present();
@@ -76,113 +77,81 @@ export class GraficasPage implements OnInit {
 
     let date = new Date();
 
-    var formatoFecha = new Date(date);
-    
-    console.log(formatoFecha);
-
     let inicioMes5= new Date();
     inicioMes5.setDate(1);
     inicioMes5.setMonth(date.getMonth() - 6);
+    inicioMes5.setUTCHours(-2,0,0,0);
 
-    var formatoFecha1 = new Date(inicioMes5);
-  
-    console.log(formatoFecha1);
-    let fecha1: moment.Moment = moment(formatoFecha1);
-    
     let finalMes5= new Date();
     finalMes5.setMonth(date.getMonth() - 6);
     finalMes5.setDate(31);
-
-    var formatoFecha2 = new Date(finalMes5);
+    finalMes5.setUTCHours(-2,0,0,0);
   
-    console.log(formatoFecha2);
-    let fecha2: moment.Moment = moment(formatoFecha2);
     let inicioMes4= new Date();
     inicioMes4.setDate(1);
     inicioMes4.setMonth(date.getMonth() - 5);
+    inicioMes4.setUTCHours(-2,0,0,0);
 
-    var formatoFecha3 = new Date(inicioMes4);
-  
-    console.log(formatoFecha3);
-    let fecha3: moment.Moment = moment(formatoFecha3);
-    
     let finalMes4= new Date();
     finalMes4.setMonth(date.getMonth() - 5);
     finalMes4.setDate(30);
-
-    var formatoFecha4 = new Date(finalMes4);
-
-    console.log(formatoFecha4);
-    let fecha4: moment.Moment = moment(formatoFecha4);
+    finalMes4.setUTCHours(-2,0,0,0);
 
     let inicioMes3= new Date();
     inicioMes3.setDate(1);
     inicioMes3.setMonth(date.getMonth() - 4);
+    inicioMes3.setUTCHours(-2,0,0,0);
 
-    var formatoFecha5 = new Date(inicioMes3);
-
-    console.log(formatoFecha5);
-    let fecha5: moment.Moment = moment(formatoFecha5);
-    
     let finalMes3= new Date();
     finalMes3.setMonth(date.getMonth() - 4);
     finalMes3.setDate(31);
-
-    var formatoFecha6 = new Date(finalMes3);
-
-    console.log(formatoFecha6);
-    let fecha6: moment.Moment = moment(formatoFecha6);
+    finalMes3.setUTCHours(-2,0,0,0);
 
     let inicioMes2= new Date();
     inicioMes2.setDate(1);
     inicioMes2.setMonth(date.getMonth() - 3);
+    inicioMes2.setUTCHours(0,0,0,0);
 
-    var formatoFecha7 = new Date(inicioMes2);
-
-    console.log(formatoFecha7);
-    let fecha7: moment.Moment = moment(formatoFecha7);
-    
     let finalMes2= new Date();
     finalMes2.setMonth(date.getMonth() - 3);
     finalMes2.setDate(30);
-
-    var formatoFecha8 = new Date(finalMes2);
-
-    console.log(formatoFecha8);
-    let fecha8: moment.Moment = moment(formatoFecha8);
+    finalMes2.setUTCHours(0,0,0,0);
 
     let inicioMes1= new Date();
     inicioMes1.setDate(1);
     inicioMes1.setMonth(date.getMonth() - 2);
+    inicioMes1.setUTCHours(-1,0,0,0);
 
-    var formatoFecha9 = new Date(inicioMes1);
-
-    console.log(formatoFecha9);
-    let fecha9: moment.Moment = moment(formatoFecha9);
-    
     let finalMes1= new Date();
     finalMes1.setMonth(date.getMonth() - 2);
     finalMes1.setDate(31);
+    finalMes1.setUTCHours(-1,0,0,0);
 
-    var formatoFecha10 = new Date(finalMes1);
-
-    console.log(formatoFecha10);
-    let fecha10: moment.Moment = moment(formatoFecha10);
     let inicioMes6= new Date();
     inicioMes6.setDate(1);
     inicioMes6.setMonth(date.getMonth() - 1);
+    inicioMes6.setUTCHours(-1,0,0,0);
 
-    var formatoFecha11 = new Date(inicioMes6);
-  
-    console.log(formatoFecha11);
-    let fecha11: moment.Moment = moment(formatoFecha11);
-    
     let finalMes6= new Date();
     finalMes6.setMonth(date.getMonth() - 1);
     finalMes6.setDate(31);
+    finalMes6.setUTCHours(-1,0,0,0);
 
-    var formatoFecha12 = new Date(finalMes6);
-    let fecha12: moment.Moment = moment(formatoFecha12);
+
+    console.log(inicioMes5);
+    console.log(finalMes5);
+    console.log(inicioMes4);
+    console.log(finalMes4);
+    console.log(inicioMes3);
+    console.log(finalMes3);
+    console.log(inicioMes2);
+    console.log(finalMes2);
+    console.log(inicioMes1);
+    console.log(finalMes1);
+    console.log(inicioMes6);
+    console.log(finalMes6);
+
+
     this.mesSeis=0;
     this.mesCinco=0;
     this.mesCuatro=0;
@@ -194,44 +163,37 @@ export class GraficasPage implements OnInit {
 
     this.cantidadesArticulo=0;
     for(var i=0; i<this.datosPedidos?.length; i++){
-      if (this.idArticulo==this.datosPedidos[i]?.order_lines[0]?.articles_line[0]?.article_id){
-        this.cantidadesArticulo+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
-        var fechaPedido = new Date(this.datosPedidos[i]?.order_lines[0]?.issue_date);
-         let fecha: moment.Moment = moment(fechaPedido);
+     for(var j=0; j<this.datosPedidos[i]?.order_lines?.length; j++){
+      
+      if (this.idArticulo==this.datosPedidos[i]?.order_lines[j]?.articles_line[0]?.article_id){
+        var fechaPedido = new Date(this.datosPedidos[i]?.order_lines[j]?.issue_date);
 
-        if(moment(fecha)>=moment(fecha1)&&(moment(fecha)<=moment(fecha2))){
-          console.log('mesSeis');
-          console.log(this.mesSeis);
-          this.mesSeis+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
+        if(fechaPedido>=inicioMes5&&fechaPedido<=finalMes5){
+          console.log(this.datosPedidos[i]?.id);
+          this.mesSeis+=this.datosPedidos[i].order_lines[j].articles_line[0].num_articles;
         }
-        if(moment(fecha)>=moment(fecha3)&&(moment(fecha)<=moment(fecha4))){
-          console.log('mesCinco');
-          console.log(this.mesCinco);
-          this.mesCinco+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
+        if(fechaPedido>=inicioMes4&&fechaPedido<=finalMes4){
+          this.mesCinco+=this.datosPedidos[i].order_lines[j].articles_line[0].num_articles;
+          console.log(this.datosPedidos[i]?.id);
         }
-        if(moment(fecha)>=moment(fecha5)&&(moment(fecha)<=moment(fecha6))){
-          console.log('mesCuatro');
-          console.log(this.mesCuatro);
-          this.mesCuatro+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
+        if(fechaPedido>=inicioMes3&&fechaPedido<=finalMes3){    
+          this.mesCuatro+=this.datosPedidos[i].order_lines[j].articles_line[0].num_articles;
+          console.log(this.datosPedidos[i]?.id);
         }
-        if(moment(fecha)>=moment(fecha7)&&(moment(fecha)<=moment(fecha8))){
-          console.log('mesTres');
-          console.log(this.mesTres);
-          this.mesTres+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
+        if(fechaPedido>=inicioMes2&&fechaPedido<=finalMes2){
+          this.mesTres+=this.datosPedidos[i].order_lines[j].articles_line[0].num_articles;
+          console.log(this.datosPedidos[i]?.id);
         }
-        if(moment(fecha)>=moment(fecha9)&&(moment(fecha)<=moment(fecha10))){
-          console.log('mesDos');
-          console.log(this.mesDos);
-          this.mesDos+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
+        if(fechaPedido>=inicioMes1&&fechaPedido<=finalMes1){
+          this.mesDos+=this.datosPedidos[i].order_lines[j].articles_line[0].num_articles;
+          console.log(this.datosPedidos[i]?.id);
         }
-        console.log(moment(fecha));
-        if(moment(fecha)>=moment(fecha11)&&(moment(fecha)<=moment(fecha12))){
-          console.log('mesUno');
-          console.log(this.mesUno);
-          this.mesUno+=this.datosPedidos[i].order_lines[0].articles_line[0].num_articles;
+        if(fechaPedido>=inicioMes6&&fechaPedido<=finalMes6){    
+          this.mesUno+=this.datosPedidos[i].order_lines[j].articles_line[0].num_articles;
+          console.log(this.datosPedidos[i]?.id);
         }
       }
-
+    }
     }
     
     this.lineChartData=[
