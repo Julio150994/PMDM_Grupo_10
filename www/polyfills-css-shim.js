@@ -1,6 +1,6 @@
 (self["webpackChunktrabajo_almagest_grupo10"] = self["webpackChunktrabajo_almagest_grupo10"] || []).push([["polyfills-css-shim"],{
 
-/***/ 95902:
+/***/ 1800:
 /*!****************************************************************!*\
   !*** ./node_modules/@ionic/core/dist/esm/css-shim-2ccf4dec.js ***!
   \****************************************************************/

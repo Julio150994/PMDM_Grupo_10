@@ -127,30 +127,15 @@ export class GraficasPage implements OnInit {
     finalMes1.setDate(31);
     finalMes1.setUTCHours(-1,0,0,0);
 
-    let inicioMes6= new Date();
-    inicioMes6.setDate(1);
-    inicioMes6.setMonth(date.getMonth() - 1);
-    inicioMes6.setUTCHours(-1,0,0,0);
+    let inicioMes= new Date();
+    inicioMes.setDate(1);
+    inicioMes.setMonth(date.getMonth() - 1);
+    inicioMes.setUTCHours(-1,0,0,0);
 
-    let finalMes6= new Date();
-    finalMes6.setMonth(date.getMonth() - 1);
-    finalMes6.setDate(31);
-    finalMes6.setUTCHours(-1,0,0,0);
-
-
-    console.log(inicioMes5);
-    console.log(finalMes5);
-    console.log(inicioMes4);
-    console.log(finalMes4);
-    console.log(inicioMes3);
-    console.log(finalMes3);
-    console.log(inicioMes2);
-    console.log(finalMes2);
-    console.log(inicioMes1);
-    console.log(finalMes1);
-    console.log(inicioMes6);
-    console.log(finalMes6);
-
+    let finalMes= new Date();
+    finalMes.setMonth(date.getMonth() - 1);
+    finalMes.setDate(31);
+    finalMes.setUTCHours(-1,0,0,0);
 
     this.mesSeis=0;
     this.mesCinco=0;
@@ -188,7 +173,7 @@ export class GraficasPage implements OnInit {
           this.mesDos+=this.datosPedidos[i].order_lines[j].articles_line[0].num_articles;
           console.log(this.datosPedidos[i]?.id);
         }
-        if(fechaPedido>=inicioMes6&&fechaPedido<=finalMes6){    
+        if(fechaPedido>=inicioMes&&fechaPedido<=finalMes){    
           this.mesUno+=this.datosPedidos[i].order_lines[j].articles_line[0].num_articles;
           console.log(this.datosPedidos[i]?.id);
         }
