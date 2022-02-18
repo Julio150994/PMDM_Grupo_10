@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController, LoadingController } from '@ionic/angular';
 import {  ChartType, ChartDataset, } from 'chart.js';
 import { PedidosService } from '../services/pedidos.service';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-graficas',
